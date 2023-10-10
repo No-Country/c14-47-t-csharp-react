@@ -3,7 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path:'', loadChildren: ()=> import('./modules/index/index.module').then(m => m.IndexModule)
+    path:'index', loadChildren: ()=> import('./modules/index/index.module').then(m => m.IndexModule)
+  },
+  {
+    path:'**',redirectTo:'index'
   }
 ];
 
