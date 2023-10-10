@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Ecommerce.DataService.Data;
+
+namespace OrganicFresh.API.DataService.Data;
 
 public class MyDbContext : DbContext
 {
