@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace Ecommerce.Entities.DbSet;
+namespace OrganicFresh.API.Entities.DbSet;
 
 public class User : IdentityUser
 {
