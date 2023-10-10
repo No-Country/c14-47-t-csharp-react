@@ -10,15 +10,15 @@
 *.userosscache
 *.sln.docstates
 .vscode
-Ecommerce.DataService/obj
+OrganicFreshAPI.DataService/obj
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-Ecommerce.Dataservice/obj/
-Ecommerce.Entites/obj
-Ecommerce.Api/obj
-Ecommerce.Dataservice/bin
-Ecommerce.Entites/bin
-Ecommerce.Api/bin
+OrganicFreshAPI.Dataservice/obj/
+OrganicFreshAPI.Entites/obj
+OrganicFreshAPI.Api/obj
+OrganicFreshAPI.Dataservice/bin
+OrganicFreshAPI.Entites/bin
+OrganicFreshAPI.Api/bin
 
 # Mono auto generated files
 mono_crash.*
