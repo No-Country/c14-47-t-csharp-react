@@ -1,10 +1,10 @@
 using System.Text;
-using Ecommerce.Entities.DbSet;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OrganicFresh.API.DataService.Data;
+using OrganicFresh.API.Entities.DbSet;
 
 var builder = WebApplication.CreateBuilder(args);
 
