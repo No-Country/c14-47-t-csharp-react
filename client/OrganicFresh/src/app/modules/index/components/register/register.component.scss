@@ -79,8 +79,35 @@ button{
         border: solid 1px #083c0480;
     }
 }
-.contenedor-imagen-verduras{
+.contenedor-imagen-tablet{
     display: none;
+    width: 100%;
+    overflow: hidden;
+
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 0%;
+    }
+}
+
+.contenedor-imagen-desktop{
+    display: none;
+    width: 30%;
+    overflow: hidden;
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+.imagen-derecha{
+    object-position: 0% 50%;
+}
+
+.imagen-izquierda{
+    object-position: 100% 50%;
 }
 
 @media (min-width:600px) {
@@ -91,18 +118,22 @@ button{
         margin-bottom: 30px;
         border-radius: 10px;
     }
-    .contenedor-imagen-verduras{
-        width: 100%;
+    .contenedor-imagen-tablet{
         display: flex;
-        overflow: hidden;
-
-        img{
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: 50% 0%;
-        }
         
+    }
+
+}
+
+@media (min-width:1200px) {
+    .contenedor{
+        flex-direction: row;
+    }
+    .contenedor-imagen-tablet{
+        display: none;
+    }
+    .contenedor-imagen-desktop{
+        display: flex;
     }
 
 }
