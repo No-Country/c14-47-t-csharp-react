@@ -1,14 +1,12 @@
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OrganicFreshAPI.Entities.DbSet;
 
 namespace OrganicFreshAPI.DataService.Data;
-
-public class MyDbContext : DbContext
+public class MyDbContext : IdentityDbContext<User>
 {
-    public DbSet<User> Users { get; set; }
     public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
     {
-    }
 
+    }
 }
