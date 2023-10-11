@@ -8,12 +8,12 @@ const routes: Routes = [{
   path:'', component:IndexComponent, 
       children:[
         {
-          path:'index', component:IndexPageComponent
+          path:'', component:IndexPageComponent
         },
         {
           path:'register', component:RegisterComponent
         }
-      ]
+      ],
 }];
 
 @NgModule({
