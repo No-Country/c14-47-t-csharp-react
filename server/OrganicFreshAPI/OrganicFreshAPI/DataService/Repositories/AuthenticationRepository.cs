@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.DbSet;
+using OrganicFreshAPI.Entities.Dtos;
 using OrganicFreshAPI.Entities.Dtos.Requests;
 
 namespace OrganicFreshAPI.DataService.Repositories;
@@ -19,24 +20,24 @@ public class AuthenticationRepository : IAuthenticationRepository
         _configuration = configuration;
     }
 
-    public async Task<string> Register(RegisterRequest request)
+    public async Task<ResultDto<string>> Register(RegisterRequest request)
     {
         var userByEmail = await _userManager.FindByEmailAsync(request.Email);
 
         if (userByEmail is not null)
         {
-            return "User already exists";
+            return new ResultDto<string> { IsSuccess = false, Message = "User already exists" };
         }
 
         User user = new()
         {
             Email = request.Email,
-            FirstName = request.FirstName,
-            LastName = request.LastName,
-            CreatedAt = DateTime.Now,
-            ModifiedAt = DateTime.Now,
-            DeletedAt = DateTime.Now,
-            SecurityStamp = Guid.NewGuid().ToString()
+            Name = request.FirstName,
+            UserName = request.Email,
+            // CreatedAt = DateTime.Now,
+            // ModifiedAt = DateTime.Now,
+            // DeletedAt = DateTime.Now,
+            SecurityStamp = Guid.NewGuid().ToString(),
         };
 
         var result = await _userManager.CreateAsync(user, request.Password);
@@ -45,25 +46,30 @@ public class AuthenticationRepository : IAuthenticationRepository
 
         if (!result.Succeeded)
         {
-            return $"Something went wrong {GetErrorsText(result.Errors)}";
+            return new ResultDto<string>
+            {
+                IsSuccess = false,
+                Message =
+            $"Something went wrong {GetErrorsText(result.Errors)}"
+            };
         }
+
 
         return await Login(new LoginRequest { Email = request.Email, Password = request.Password });
     }
 
-    public async Task<string> Login(LoginRequest request)
+    public async Task<ResultDto<string>> Login(LoginRequest request)
     {
         var user = await _userManager.FindByEmailAsync(request.Email);
 
         if (user is null)
         {
-            return "Unable to authenticate";
+            return new ResultDto<string> { IsSuccess = false, Message = "Something went wrong" };
         }
 
         var authClaims = new List<Claim>
         {
-            new("FirstName", user.FirstName),
-            new("LastName", user.LastName),
+            new("Name", user.Name),
             new("Email", user.Email),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new("Id", user.Id)
@@ -75,7 +81,7 @@ public class AuthenticationRepository : IAuthenticationRepository
 
         var token = GetToken(authClaims);
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        return new ResultDto<string> { IsSuccess = true, Message = "Login successful", Response = new JwtSecurityTokenHandler().WriteToken(token) };
     }
 
     public bool VerifyJwt(string userId)
