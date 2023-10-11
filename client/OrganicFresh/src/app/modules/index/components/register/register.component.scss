@@ -1,10 +1,19 @@
 .contenedor{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.contenedor-form{
     width: 360px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 40px auto;
+    margin: 0 auto;
+    padding: 40px 24px;
 }
 
 input{
@@ -69,4 +78,31 @@ button{
         width: 40%;
         border: solid 1px #083c0480;
     }
+}
+.contenedor-imagen-verduras{
+    display: none;
+}
+
+@media (min-width:600px) {
+    
+    .contenedor-form{
+        box-shadow: 2px 4px 22px #1e9f2333;
+        margin-top: 90px;
+        margin-bottom: 30px;
+        border-radius: 10px;
+    }
+    .contenedor-imagen-verduras{
+        width: 100%;
+        display: flex;
+        overflow: hidden;
+
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 50% 0%;
+        }
+        
+    }
+
 }
