@@ -32,7 +32,7 @@ public class AuthenticationRepository : IAuthenticationRepository
         User user = new()
         {
             Email = request.Email,
-            Name = request.FirstName,
+            Name = request.Name,
             UserName = request.Email,
             // CreatedAt = DateTime.Now,
             // ModifiedAt = DateTime.Now,
