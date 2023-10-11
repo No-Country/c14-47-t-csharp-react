@@ -1,20 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.color-primary{
+*,*::after,*::before{
+    box-sizing: border-box;
+}
+body,* { margin: 0; font-family: 'Open Sans', sans-serif; }
+.button-primary{
     
     background-color: #148E0A !important;
     color: #fff !important;
+    font-size: 1rem;
+    
 }
 
-.color-primary:hover{
+.button-primary:hover{
 
     background-color: #FF6B00 !important;
     color: #fff !important;
 }
 
-.color-primary:disabled{
+.button-primary:disabled{
     background-color: #B3B3B3 !important;
     color: #fff !important;
 }
+
+.input-primary{
+    border: solid 1.2px #1e9f234d;
+    border-radius: .5rem;
+    outline:none;
+    padding-left: 12px;
+}
+
+.input-primary:focus, .input-primary:hover{
+    border: solid 1.2px #1e9f23;
+}
+
+.text-primary{
+    color: #148E0A ;
+}
+.text-primary-link{
+    color: #148E0A;
+    cursor: pointer;
+}
+
+.text-primary-link:hover{
+    color: #FF6B00;
+}
+
+.text-primary-dark{
+    color: #083C04 ;
+}
+
+.text-700{
+    font-weight: 700;
+}
+
+
