@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
+<<<<<<< HEAD
 export interface DataModalAlert{
   exito:boolean,
   title:string,
