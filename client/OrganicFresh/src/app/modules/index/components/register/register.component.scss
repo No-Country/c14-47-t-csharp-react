@@ -180,9 +180,10 @@ button{
 
 }
 
-@media (min-width:1200px) {
+@media (min-width:1000px) {
     .contenedor{
         flex-direction: row;
+        height: auto;
     }
     .contenedor-imagen-tablet{
         display: none;
