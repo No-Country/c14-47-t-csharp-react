@@ -110,6 +110,24 @@ button{
     object-position: 100% 50%;
 }
 
+.contenedor-input-password{
+    
+    width: 100%;
+    position: relative;
+}
+
+.icon-password{
+    position: absolute;
+    top:50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #148E0A !important;
+    cursor: pointer;
+}
+
+.icon-password:hover{
+    color:#158e0ac9  !important ;
+}
 
 @media (min-width:600px) {
     
@@ -136,5 +154,5 @@ button{
     .contenedor-imagen-desktop{
         display: flex;
     }
-
+    
 }

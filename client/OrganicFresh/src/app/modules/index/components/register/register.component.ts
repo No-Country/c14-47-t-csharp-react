@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { RegisterRequest } from 'src/app/interfaces/registerRequest';
+import { AlertRegisterComponent } from 'src/app/modules/shared/components/alert-register/alert-register.component';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,8 +11,12 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+  
+  form:FormGroup;
+  mostrarPassword:boolean = false;
+  mostrarConfirmPassword:boolean = false;
 
-  constructor(fb:FormBuilder, private authService:AuthService){
+  constructor(fb:FormBuilder, private authService:AuthService, private dialog:MatDialog){
 
     this.form = fb.group({
       name:['',[Validators.required]],
@@ -22,7 +28,6 @@ export class RegisterComponent {
   }
 
 
-  form:FormGroup;
 
   register():void{
     const userRegister:RegisterRequest={
@@ -32,20 +37,17 @@ export class RegisterComponent {
 
     }
 
-    this.authService.registerApi(userRegister).subscribe({
-      next:(res)=>{
-        //Agregar redirección a login o dashboard
-        console.log(res.token);
-        console.log("Registro exitoso");
+    this.authService.register(userRegister).subscribe({
+      next:()=>{
+        this.dialog.open(AlertRegisterComponent, {data:true});
       },
-      error:(err)=>{
-        //Mostrar Alerta
-        console.log("Error");
-        console.log(err);
+      error:()=>{
+        this.dialog.open(AlertRegisterComponent, {data:false});
       }
     });
 
   }
+
 
   customPasswordValidator(control: AbstractControl): { [key: string]: any } | null {
     const value = control.value;
