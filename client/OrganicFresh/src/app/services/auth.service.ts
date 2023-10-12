@@ -14,7 +14,7 @@ export class AuthService {
 
   private apiUrl:string = environment.API_URL+'/Auth';
 
-  registerApi(user:RegisterRequest):Observable<Credential>{
+  register(user:RegisterRequest):Observable<Credential>{
     
     return  this.http.post<Credential>(this.apiUrl+'/register', user);
 
