@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserRegister } from 'src/app/interfaces/userRegister';
+import { RegisterRequest } from 'src/app/interfaces/registerRequest';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -24,7 +24,28 @@ export class RegisterComponent {
 
   form:FormGroup;
 
- 
+  register():void{
+    const userRegister:RegisterRequest={
+      name: this.form.value.name,
+      email: this.form.value.email,
+      password: this.form.value.password
+
+    }
+
+    this.authService.registerApi(userRegister).subscribe({
+      next:(res)=>{
+        //Agregar redirección a login o dashboard
+        console.log(res.token);
+        console.log("Registro exitoso");
+      },
+      error:(err)=>{
+        //Mostrar Alerta
+        console.log("Error");
+        console.log(err);
+      }
+    });
+
+  }
 
   customPasswordValidator(control: AbstractControl): { [key: string]: any } | null {
     const value = control.value;
