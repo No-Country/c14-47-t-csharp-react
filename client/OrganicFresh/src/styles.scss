@@ -35,6 +35,14 @@ body,* { margin: 0; font-family: 'Open Sans', sans-serif; }
     border: solid 1.2px #1e9f23;
 }
 
+.input-error{
+    border: solid 1.2px #EB2323;
+}
+
+.input-error:focus, .input-error:hover{
+    border: solid 1.2px #EB2323;
+}
+
 .text-primary{
     color: #148E0A ;
 }
@@ -54,5 +62,13 @@ body,* { margin: 0; font-family: 'Open Sans', sans-serif; }
 .text-700{
     font-weight: 700;
 }
+.text-error{
+    color: #EB2323;
+}
+mat-error{
+    font-size: 14px;
+    color: #EB2323 !important;
+}
+
 
 
