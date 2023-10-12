@@ -58,7 +58,7 @@ public class AuthenticationRepository : IAuthenticationRepository
     {
         var user = await _userManager.FindByEmailAsync(request.Email);
 
-        if (user is null)
+        if (user is null || !await _userManager.CheckPasswordAsync(user, request.Password))
         {
             return new ResultDto<string> { IsSuccess = false, Message = "Password or Email is incorrect" };
         }
