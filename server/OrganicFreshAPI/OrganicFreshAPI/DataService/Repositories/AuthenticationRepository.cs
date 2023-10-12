@@ -23,21 +23,17 @@ public class AuthenticationRepository : IAuthenticationRepository
     public async Task<ResultDto<string>> Register(RegisterRequest request)
     {
         var userByEmail = await _userManager.FindByEmailAsync(request.Email);
-
         if (userByEmail is not null)
         {
             return new ResultDto<string> { IsSuccess = false, Message = "User already exists" };
         }
+
 
         User user = new()
         {
             Email = request.Email,
             Name = request.Name,
             UserName = request.Email,
-            // CreatedAt = DateTime.Now,
-            // ModifiedAt = DateTime.Now,
-            // DeletedAt = DateTime.Now,
-            SecurityStamp = Guid.NewGuid().ToString(),
         };
 
         var result = await _userManager.CreateAsync(user, request.Password);
@@ -64,14 +60,13 @@ public class AuthenticationRepository : IAuthenticationRepository
 
         if (user is null)
         {
-            return new ResultDto<string> { IsSuccess = false, Message = "Something went wrong" };
+            return new ResultDto<string> { IsSuccess = false, Message = "Password or Email is incorrect" };
         }
 
         var authClaims = new List<Claim>
         {
             new("Name", user.Name),
             new("Email", user.Email),
-            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new("Id", user.Id)
         };
 
@@ -79,9 +74,11 @@ public class AuthenticationRepository : IAuthenticationRepository
 
         authClaims.AddRange(userRoles.Select(userRole => new Claim("Role", userRole)));
 
+        bool isAdmin = userRoles.Contains(Role.Admin);
+
         var token = GetToken(authClaims);
 
-        return new ResultDto<string> { IsSuccess = true, Message = "Login successful", Response = new JwtSecurityTokenHandler().WriteToken(token) };
+        return new ResultDto<string> { IsSuccess = true, Message = "Login successful", Response = new JwtSecurityTokenHandler().WriteToken(token), isAdmin = isAdmin };
     }
 
     public bool VerifyJwt(string userId)
