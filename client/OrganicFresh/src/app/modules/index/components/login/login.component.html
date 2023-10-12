@@ -43,9 +43,11 @@
                 <p class="text-primary-dark">
                     Password
                 </p>
-                
-                <input type="text" formControlName="password" class="input-primary" placeholder="Enter your password"  [ngClass]="{'input-error': form.get('password')?.errors && form.get('password')?.touched}">
-                
+                <div class="contenedor-input-password">
+                    <input [type]="mostrarPassword?'text':'password'" formControlName="password" class="input-primary" placeholder="Enter your password" 
+                     [ngClass]="{'input-error': form.get('password')?.errors && form.get('password')?.touched}">
+                    <mat-icon class="icon-password" (click)="mostrarPassword= !mostrarPassword">{{mostrarPassword?'visibility_off':'visibility'}}</mat-icon>
+                </div>
                 <mat-error *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched">
                     The field is required.
                   </mat-error>

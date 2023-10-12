@@ -126,7 +126,24 @@ button{
         object-position: 50% 0%;
     }
 }
+.contenedor-input-password{
+    
+    width: 100%;
+    position: relative;
+}
 
+.icon-password{
+    position: absolute;
+    top:50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #148E0A !important;
+    cursor: pointer;
+}
+
+.icon-password:hover{
+    color:#158e0ac9  !important ;
+}
 .contenedor-imagen-desktop{
     display: none;
     width: 30%;

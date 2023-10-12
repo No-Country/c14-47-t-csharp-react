@@ -20,7 +20,7 @@ export class LoginComponent {
 
 
   form:FormGroup;
-
+  mostrarPassword:boolean = false;
   login():void{
     
     const loginRequest:LoginRequest = {
@@ -29,12 +29,10 @@ export class LoginComponent {
     }
     
     this.authService.login(loginRequest).subscribe({
-      next:(res)=>{
-        console.log(res.token);
+      next:()=>{
         console.log("Inicio de sesion exitoso");
       },
-      error:(err)=>{
-        console.log(err);
+      error:()=>{
         console.log("Error al iniciar sesion");
       }
     });
