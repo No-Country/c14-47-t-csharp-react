@@ -60,19 +60,17 @@ public class AuthenticationRepository : IAuthenticationRepository
 
         if (user is null)
         {
-            return new ResultDto<string> { IsSuccess = false, Message = "Something went wrong" };
+            return new ResultDto<string> { IsSuccess = false, Message = "Password or Email is incorrect" };
         }
 
         var authClaims = new List<Claim>
         {
             new("Name", user.Name),
             new("Email", user.Email),
-            // new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new("Id", user.Id)
         };
 
         var userRoles = await _userManager.GetRolesAsync(user);
-        Console.WriteLine($"******** ROLES ***** {userRoles.ToString}");
 
         authClaims.AddRange(userRoles.Select(userRole => new Claim("Role", userRole)));
 
