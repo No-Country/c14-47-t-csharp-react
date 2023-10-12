@@ -1,0 +1,78 @@
+<div class="contenedor">
+    <div class="contenedor-imagen-desktop">
+        <img src="../../../../../assets/verduras_izquierda.png" class="imagen-izquierda">
+    </div>
+    <div class="contenedor-form">
+        <div>
+            <img src="../../../../../assets/logo.png">
+        </div>
+        <p class="text-primary-link texto-login text-700" routerLink="/index/register">
+           Register
+        </p>
+        <form [formGroup]="form">
+    
+            
+           
+            <div class="contenedor-input">
+    
+                <p class="text-primary-dark">
+                    Email
+                </p>
+                
+                <input type="text" formControlName="email" class="input-primary" placeholder="Enter your email address" [ngClass]="{'input-error': form.get('email')?.errors && form.get('email')?.touched}">
+                <mat-error *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+                    The field is required.
+                  </mat-error>
+                  <mat-error *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
+                    Enter a valid email. Please verify.
+                  </mat-error>
+            </div>
+
+            <div class="contenedor-input">
+    
+                <p class="text-primary-dark">
+                    Password
+                </p>
+                
+                <input type="text" formControlName="password" class="input-primary" placeholder="Enter your password"  [ngClass]="{'input-error': form.get('password')?.errors && form.get('password')?.touched}">
+                
+                <mat-error *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched">
+                    The field is required.
+                  </mat-error>
+                  
+            </div>
+
+
+           
+
+            <div class="contenedor-botones">
+    
+                <button mat-raised-button class="button-primary"  [disabled]="form.invalid" (click)="login()">
+                    Log in
+                </button>
+                <div class="contenedor-linea">
+        
+                    <hr><p class="text-primary-dark">Or</p><hr> 
+                </div>
+    
+                <button mat-raised-button class="button-primary">
+                    Continue with Google
+                </button>
+    
+            </div>
+                <p class="text-primary-link text-700">
+                Forgout your password?
+                </p>
+    
+        </form>
+    
+        
+    
+    </div>
+    <div class="contenedor-imagen-tablet">
+        <img src="../../../../../assets/conjunto-verduras.png" >
+    </div>
+    <div class="contenedor-imagen-desktop">
+        <img src="../../../../../assets/verduras_derecha.png" class="imagen-derecha" >
+    </div>
+</div>
