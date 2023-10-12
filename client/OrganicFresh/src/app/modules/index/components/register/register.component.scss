@@ -128,6 +128,42 @@ button{
 .icon-password:hover{
     color:#158e0ac9  !important ;
 }
+.contenedor-imagen{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.contenedor-volver{
+    position: absolute;
+    width: 36px;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    z-index:9;
+    
+}
+
+
+
+.contenedor-volver:hover{
+   .icon-house{
+        path{
+            fill: #FF6B00;
+        }
+   }
+   .icon-back{
+    path{
+        stroke: #FF6B00;
+
+    }
+   }
+    
+}
 
 @media (min-width:600px) {
     
