@@ -1,3 +1,4 @@
 export interface Credential{
-    token:string
+    jwt:string,
+    isAdmin:boolean
 }
