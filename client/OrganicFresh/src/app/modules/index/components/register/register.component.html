@@ -86,7 +86,8 @@
                     Confirm your password
                 </p>
                 
-                <input type="text" formControlName="confirmPassword" class="input-primary" placeholder="Enter your password again" (keyup)="passwordValidator()" [ngClass]="{'input-error': form.get('confirmPassword')?.errors && form.get('confirmPassword')?.touched}">
+                <input type="text" formControlName="confirmPassword" class="input-primary" placeholder="Enter your password again" 
+                (keyup)="passwordValidator()" [ngClass]="{'input-error': form.get('confirmPassword')?.errors && form.get('confirmPassword')?.touched}" >
 
                 <mat-error *ngIf="form.get('confirmPassword')?.hasError('required') && form.get('confirmPassword')?.touched">
                     The field is required.
@@ -126,7 +127,7 @@
 
             <div class="contenedor-botones">
     
-                <button mat-raised-button class="button-primary"  [disabled]="form.invalid">
+                <button mat-raised-button class="button-primary"  [disabled]="form.invalid" (click)="register()">
                     Register
                 </button>
                 <div class="contenedor-linea">
