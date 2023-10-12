@@ -21,6 +21,7 @@ builder.Services.AddDbContext<MyDbContext>(options => options.UseNpgsql(connecti
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.User.RequireUniqueEmail = true;
+    options.Password.RequireNonAlphanumeric = false;
 })
 // Adding suport for roles
     .AddRoles<IdentityRole>()
@@ -62,7 +63,25 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// CORS policy
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAnyone",
+        b =>
+        {
+            b
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
+
+
 var app = builder.Build();
+
+app.UseCors("AllowAnyone");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

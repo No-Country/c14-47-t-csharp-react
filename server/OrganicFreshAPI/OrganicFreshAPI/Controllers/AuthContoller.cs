@@ -25,7 +25,12 @@ public class AuthController : ControllerBase
         if (!result.IsSuccess)
             return BadRequest(result.Message);
 
-        return Ok(result.Response);
+        var response = new
+        {
+            jwt = result.Response,
+            result.isAdmin
+        };
+        return Ok(response);
     }
 
     [AllowAnonymous]
@@ -37,6 +42,12 @@ public class AuthController : ControllerBase
         if (!result.IsSuccess)
             return BadRequest(result.Message);
 
-        return Ok(result.Response);
+        var response = new
+        {
+            jwt = result.Response,
+            result.isAdmin
+        };
+
+        return Ok(response);
     }
 }
