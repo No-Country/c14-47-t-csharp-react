@@ -2,6 +2,12 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
+export interface DataModalAlert{
+  exito:boolean,
+  title:string,
+  text:string,
+  login:boolean
+}
 @Component({
   selector: 'app-alert-register',
   templateUrl: './alert-register.component.html',
@@ -9,7 +15,7 @@ import { Router } from '@angular/router';
 })
 export class AlertRegisterComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA)public exito:boolean,private matDialogRef:MatDialogRef<AlertRegisterComponent>, private router:Router){
+  constructor(@Inject(MAT_DIALOG_DATA)public dataModal:DataModalAlert,private matDialogRef:MatDialogRef<AlertRegisterComponent>, private router:Router){
 
   }
 
@@ -17,6 +23,7 @@ export class AlertRegisterComponent {
     this.router.navigate(['index/login']);
     this.matDialogRef.close();
   }
+  
   cerrarDialog():void{
     this.matDialogRef.close();
   }

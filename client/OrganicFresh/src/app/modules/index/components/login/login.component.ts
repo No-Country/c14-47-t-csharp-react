@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { LoginRequest } from 'src/app/interfaces/loginRequest';
+import { AlertRegisterComponent } from 'src/app/modules/shared/components/alert-register/alert-register.component';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  constructor(fb:FormBuilder, private authService:AuthService){
+  constructor(fb:FormBuilder, private authService:AuthService, private dialog:MatDialog){
 
     this.form = fb.group({
       email: ['',[Validators.required, Validators.email]],
@@ -29,11 +31,12 @@ export class LoginComponent {
     }
     
     this.authService.login(loginRequest).subscribe({
-      next:()=>{
-        console.log("Inicio de sesion exitoso");
+      next:(res)=>{
+        console.log(res);
+        this.dialog.open(AlertRegisterComponent, {data:{login:true, title:'Login Successful!', text:'', exito:true}});
       },
       error:()=>{
-        console.log("Error al iniciar sesion");
+        this.dialog.open(AlertRegisterComponent, {data:{login:true, title:'Invalid credentials', text:'', exito:false}});
       }
     });
 
