@@ -39,10 +39,10 @@ export class RegisterComponent {
 
     this.authService.register(userRegister).subscribe({
       next:()=>{
-        this.dialog.open(AlertRegisterComponent, {data:true});
+        this.dialog.open(AlertRegisterComponent, {data:{login:false, title:'Registration Successful!', text:'You can now log in with your account.', exito:true}});
       },
       error:()=>{
-        this.dialog.open(AlertRegisterComponent, {data:false});
+        this.dialog.open(AlertRegisterComponent, {data:{login:false, title:'Error', text:'An error occurred during registration.', exito:false}});
       }
     });
 
