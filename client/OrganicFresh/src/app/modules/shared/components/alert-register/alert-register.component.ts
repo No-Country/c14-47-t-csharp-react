@@ -14,7 +14,7 @@ export class AlertRegisterComponent {
   }
 
   goToLogin():void{
-    //this.router.navigate(['index/login']);
+    this.router.navigate(['index/login']);
     this.matDialogRef.close();
   }
   cerrarDialog():void{
