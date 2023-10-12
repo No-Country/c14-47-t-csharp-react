@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-<<<<<<< HEAD
 import { MatDialog } from '@angular/material/dialog';
 import { LoginRequest } from 'src/app/interfaces/loginRequest';
 import { AlertRegisterComponent } from 'src/app/modules/shared/components/alert-register/alert-register.component';
-=======
-import { LoginRequest } from 'src/app/interfaces/loginRequest';
->>>>>>> ba56e357900fdac19234349bf83e86ae2b01dab7
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
