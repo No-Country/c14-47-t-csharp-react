@@ -3,7 +3,7 @@
     <svg class="icon-result" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
         <path d="M24 34L30 40L40 26M56 32C56 35.1517 55.3792 38.2726 54.1731 41.1844C52.967 44.0962 51.1992 46.742 48.9706 48.9706C46.742 51.1992 44.0962 52.967 41.1844 54.1731C38.2726 55.3792 35.1517 56 32 56C28.8483 56 25.7274 55.3792 22.8156 54.1731C19.9038 52.967 17.258 51.1992 15.0294 48.9706C12.8008 46.742 11.033 44.0962 9.82689 41.1844C8.62078 38.2726 8 35.1517 8 32C8 25.6348 10.5286 19.5303 15.0294 15.0294C19.5303 10.5286 25.6348 8 32 8C38.3652 8 44.4697 10.5286 48.9706 15.0294C53.4714 19.5303 56 25.6348 56 32Z" stroke="#148E0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-    <p class="text-primary text-700">{{dataModal.title}}</p>
+    <p class="text-primary text-700 text-title">{{dataModal.title}}</p>
     <p class="text-primary-dark text-alert">{{dataModal.text}}</p>
     <button *ngIf="!dataModal.login"  mat-raised-button class="button-primary text-700" (click)="goToLogin()">Go to Log in</button>
     <button *ngIf="dataModal.login"  mat-raised-button class="button-primary text-700" (click)="cerrarDialog()">Close</button>
@@ -16,7 +16,7 @@
         <svg  class="icon-result" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
                 <path d="M25 11.5V31.5M25 38.5V38M49 25C49 28.1517 48.3792 31.2726 47.1731 34.1844C45.967 37.0962 44.1992 39.742 41.9706 41.9706C39.742 44.1992 37.0962 45.967 34.1844 47.1731C31.2726 48.3792 28.1517 49 25 49C21.8483 49 18.7274 48.3792 15.8156 47.1731C12.9038 45.967 10.258 44.1992 8.02944 41.9706C5.80083 39.742 4.033 37.0962 2.82689 34.1844C1.62078 31.2726 1 28.1517 1 25C1 18.6348 3.52856 12.5303 8.02944 8.02944C12.5303 3.52856 18.6348 1 25 1C31.3652 1 37.4697 3.52856 41.9706 8.02944C46.4714 12.5303 49 18.6348 49 25Z" stroke="#EB2323" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <p class="text-error text-700">{{dataModal.title}}</p>
+        <p class="text-error text-700 text-title">{{dataModal.title}}</p>
         <p class="text-primary-dark text-alert">{{dataModal.text}}</p>
         <button  mat-raised-button class="button-primary text-700" (click)="cerrarDialog()">Close</button>
     </div>
