@@ -1,0 +1,30 @@
+.container{
+    width: 360px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 24px;
+    background-color: #fff;
+}
+
+.contenedor-logo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.icon-result{
+    margin-top: 26px;
+}
+
+.text-alert{
+ margin: 4px 0 10px;
+}
+
+button{
+    width: 100%;
+    margin: 20px 0 5px;
+    height: 50px !important;
+}

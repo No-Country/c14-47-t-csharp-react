@@ -1,0 +1,158 @@
+.contenedor{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.contenedor-form{
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+input{
+    width: 100%;
+    height: 50px;
+}
+
+form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+button{
+    width: 100%;
+    height: 50px !important;
+    font-weight: 700;
+}
+
+.texto-login{
+    align-self: end;
+
+}
+
+
+
+.contenedor-input{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 8px;
+    p{
+        margin-bottom: 6px;
+        font-weight: 400;
+    }
+}
+
+.input-central{
+    margin: 8px 0;
+}
+
+.contenedor-botones{
+    width: 100%;
+    height: 178px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0 16px;
+}
+
+
+.contenedor-linea{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    hr{
+        width: 40%;
+        border: solid 1px #083c0480;
+    }
+}
+.contenedor-imagen-tablet{
+    display: none;
+    width: 100%;
+    overflow: hidden;
+
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 0%;
+    }
+}
+
+.contenedor-imagen-desktop{
+    display: none;
+    width: 30%;
+    overflow: hidden;
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+.imagen-derecha{
+    object-position: 0% 50%;
+}
+
+.imagen-izquierda{
+    object-position: 100% 50%;
+}
+
+.contenedor-input-password{
+    
+    width: 100%;
+    position: relative;
+}
+
+.icon-password{
+    position: absolute;
+    top:50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #148E0A !important;
+    cursor: pointer;
+}
+
+.icon-password:hover{
+    color:#158e0ac9  !important ;
+}
+
+@media (min-width:600px) {
+    
+    .contenedor-form{
+        box-shadow: 2px 4px 22px #1e9f2333;
+        margin-top: 90px;
+        margin-bottom: 30px;
+        border-radius: 10px;
+    }
+    .contenedor-imagen-tablet{
+        display: flex;
+        
+    }
+
+}
+
+@media (min-width:1200px) {
+    .contenedor{
+        flex-direction: row;
+    }
+    .contenedor-imagen-tablet{
+        display: none;
+    }
+    .contenedor-imagen-desktop{
+        display: flex;
+    }
+    
+}
