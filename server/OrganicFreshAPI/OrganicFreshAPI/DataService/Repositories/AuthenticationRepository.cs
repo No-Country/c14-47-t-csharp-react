@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.DbSet;
@@ -81,6 +82,16 @@ public class AuthenticationRepository : IAuthenticationRepository
         return new ResultDto<string> { IsSuccess = true, Message = "Login successful", Response = new JwtSecurityTokenHandler().WriteToken(token), isAdmin = isAdmin };
     }
 
+    public async Task<ResultDto<UserDetailsResponse>> UserDetails(IHttpContextAccessor contextAccessor)
+    {
+        var user = contextAccessor.HttpContext.User;
+        var userId = user.FindFirst("Id")?.Value;
+        User userInfo = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        var response = new UserDetailsResponse(userInfo.Name, userInfo.CreatedAt, userInfo.ModifiedAt, userInfo.DeletedAt, userInfo.Id, userInfo.Email);
+        return new ResultDto<UserDetailsResponse> { IsSuccess = true, Response = response };
+    }
+
+
     public bool VerifyJwt(string userId)
     {
         throw new NotImplementedException();
@@ -93,7 +104,7 @@ public class AuthenticationRepository : IAuthenticationRepository
         var token = new JwtSecurityToken(
             issuer: _configuration["JWT:Issuer"],
             audience: _configuration["JWT:Audience"],
-            expires: DateTime.Now.AddMinutes(15),
+            expires: DateTime.Now.AddHours(15),
             claims: authClaims,
             signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256));
 
