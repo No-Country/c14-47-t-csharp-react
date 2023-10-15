@@ -50,4 +50,12 @@ public class AuthController : ControllerBase
 
         return Ok(response);
     }
+
+    [Authorize(Policy = "StandardRights")]
+    [HttpGet("me")]
+    public async Task<IActionResult> Me(IHttpContextAccessor contextAccessor)
+    {
+        var result = await _authRepository.UserDetails(contextAccessor);
+        return Ok(result);
+    }
 }
