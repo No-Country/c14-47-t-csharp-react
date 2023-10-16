@@ -8,6 +8,7 @@ using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.DbSet;
 using OrganicFreshAPI.Entities.Dtos;
 using OrganicFreshAPI.Entities.Dtos.Requests;
+using OrganicFreshAPI.Entities.Dtos.Responses;
 
 namespace OrganicFreshAPI.DataService.Repositories;
 
@@ -52,7 +53,7 @@ public class AuthenticationRepository : IAuthenticationRepository
         }
 
 
-        return await Login(new LoginRequest { Email = request.Email, Password = request.Password });
+        return await Login(new LoginRequest(request.Email, request.Password));
     }
 
     public async Task<ResultDto<string>> Login(LoginRequest request)
