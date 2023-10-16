@@ -16,6 +16,7 @@ var connectionString = configuration.GetConnectionString("PostgreSQLConnection")
 
 // Add services to the container.
 builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddDbContext<MyDbContext>(options => options.UseNpgsql(connectionString));
 
 // Identity
