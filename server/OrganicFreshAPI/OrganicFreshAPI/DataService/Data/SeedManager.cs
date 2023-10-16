@@ -30,8 +30,8 @@ public static class SeedManager
 
         if (adminUser == null)
         {
-            adminUser = new User { Name = "AuthenticationAdmin", Email = "admin@mail.com" };
-            await userManager.CreateAsync(adminUser, "Admin-123");
+            adminUser = new User { Name = "AuthenticationAdmin", Email = "admin@mail.com", UserName = "admin" };
+            await userManager.CreateAsync(adminUser, "Admin123");
             await userManager.AddToRoleAsync(adminUser, Role.Admin);
         }
     }

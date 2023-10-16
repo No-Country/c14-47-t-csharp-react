@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using OrganicFreshAPI.DataService.Data;
 using OrganicFreshAPI.DataService.Repositories;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
@@ -33,11 +34,24 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 // Jwt Config
 builder.Services
     .AddHttpContextAccessor()
-    .AddAuthorization()
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddAuthorization(options =>
+{
+    options.AddPolicy("ElevatedRights", policy =>
+        policy.RequireRole(Role.Admin));
+    options.AddPolicy("StandardRights", policy =>
+        policy.RequireRole(Role.Admin, Role.User));
+})
+    .AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
     .AddJwtBearer(options =>
     {
-        options.TokenValidationParameters = new TokenValidationParameters
+        options.SaveToken = true;
+        options.RequireHttpsMetadata = true;
+        options.TokenValidationParameters = new TokenValidationParameters()
         {
             ValidateIssuer = true,
             ValidateAudience = true,
@@ -45,23 +59,18 @@ builder.Services
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["JWT:Issuer"],
             ValidAudience = builder.Configuration["JWT:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
+            RoleClaimType = "Role"
         };
     });
 
-// Authorization
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("ElevatedRights", policy =>
-        policy.RequireRole(Role.Admin));
-    options.AddPolicy("StandardRights", policy =>
-        policy.RequireRole(Role.Admin, Role.User));
-});
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 // CORS policy
 
