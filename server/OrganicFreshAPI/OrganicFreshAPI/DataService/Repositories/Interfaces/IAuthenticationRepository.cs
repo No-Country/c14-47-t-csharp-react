@@ -1,7 +1,6 @@
-using System.Security.Claims;
-using OrganicFreshAPI.Entities.DbSet;
 using OrganicFreshAPI.Entities.Dtos;
 using OrganicFreshAPI.Entities.Dtos.Requests;
+using OrganicFreshAPI.Entities.Dtos.Responses;
 
 namespace OrganicFreshAPI.DataService.Repositories.Interfaces;
 
