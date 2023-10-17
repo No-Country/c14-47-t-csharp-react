@@ -12,7 +12,7 @@ using OrganicFreshAPI.DataService.Data;
 namespace OrganicFreshAPI.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20231017151515_Initial")]
+    [Migration("20231017161159_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
