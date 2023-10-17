@@ -1,14 +1,11 @@
 namespace OrganicFreshAPI.Entities.Dtos.Requests;
 
 public record CreateCategoryRequest(
-    string name
+    string name,
+    string? imageUrl
 );
 
 public record UpdateCategoryRequest(
-    string Id,
-    string name
-);
-
-public record DeleteCategoryRequest(
-    string Id
+    string? name,
+    string? imageUrl
 );

@@ -11,13 +11,13 @@ using OrganicFreshAPI.Entities.DbSet;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
-var connectionString = configuration.GetConnectionString("PostgreSQLConnection");
+var connectionString = configuration.GetConnectionString("SQLServerConnection");
 
 
 // Add services to the container.
 builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddDbContext<MyDbContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(connectionString));
 
 // Identity
 builder.Services.AddIdentity<User, IdentityRole>(options =>
