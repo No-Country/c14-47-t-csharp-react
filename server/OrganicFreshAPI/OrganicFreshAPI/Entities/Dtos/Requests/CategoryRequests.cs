@@ -5,10 +5,5 @@ public record CreateCategoryRequest(
 );
 
 public record UpdateCategoryRequest(
-    string Id,
     string name
-);
-
-public record DeleteCategoryRequest(
-    string Id
 );
