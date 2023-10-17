@@ -26,7 +26,11 @@ public class CategoryRepository : ICategoryRepository
                 Message = "The category name is required"
             };
 
-        var newCategory = new Category { Name = request.name };
+        var newCategory = new Category
+        {
+            Name = request.name,
+            ImageUrl = request.imageUrl == null ? "" : request.imageUrl
+        };
         await _context.Categories.AddAsync(newCategory);
         var saved = await _context.SaveChangesAsync();
         return new ResultDto<CreateCategoryResponse>
@@ -56,7 +60,9 @@ public class CategoryRepository : ICategoryRepository
                 IsSuccess = false,
                 Message = "The category does not exists",
             };
-        categoryToUpdate.Name = request.name;
+        categoryToUpdate.Name = request.name == null ? categoryToUpdate.Name : request.name;
+        categoryToUpdate.ImageUrl = request.imageUrl == null ? categoryToUpdate.ImageUrl : request.imageUrl;
+
         var saved = await _context.SaveChangesAsync();
         return new ResultDto<UpdateCategoryResponse>
         {
