@@ -2,7 +2,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OrganicFreshAPI.Entities.Dtos.Requests;
 
-public class RegisterRequest
+
+public record LoginRequest(
+    string Email,
+    string Password
+);
+
+public record RegisterRequest
 {
     [Required]
     public string Name { get; set; } = string.Empty;
@@ -14,3 +20,4 @@ public class RegisterRequest
     [RegularExpression(Consts.PasswordRegex, ErrorMessage = Consts.PasswordValidationError)]
     public string Password { get; set; } = string.Empty;
 }
+

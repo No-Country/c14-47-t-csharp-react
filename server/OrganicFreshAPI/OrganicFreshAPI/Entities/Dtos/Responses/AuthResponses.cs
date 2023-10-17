@@ -1,4 +1,12 @@
-namespace OrganicFreshAPI.Entities.Dtos.Requests;
+namespace OrganicFreshAPI.Entities.Dtos.Responses;
+
+public record RegisterResponse(
+    string jwt
+);
+
+public record LoginResponse(
+    string jwt
+);
 
 public record UserDetailsResponse(
     string name,
