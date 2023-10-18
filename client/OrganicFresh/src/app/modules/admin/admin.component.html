@@ -7,14 +7,14 @@
                 <li class="text-primary-link text-700">Products</li>
                 <li class="text-primary-link text-700">Categories</li>
                 <li class="text-primary-link text-700">Profile</li>
-                <li class="text-primary-link text-700">Sign out</li>
+                <li class="text-primary-link text-700" (click)="logout()">Sign out</li>
             </ul>
         </nav>
         <ul *ngIf="openMenu" class="menu-desplegable">
             <li class="text-primary-link text-700">Products</li>
             <li class="text-primary-link text-700">Categories</li>
             <li class="text-primary-link text-700">Profile</li>
-            <li class="text-primary-link text-700">Sign out</li>
+            <li class="text-primary-link text-700" (click)="logout()">Sign out</li>
         </ul>
     
     </div>
