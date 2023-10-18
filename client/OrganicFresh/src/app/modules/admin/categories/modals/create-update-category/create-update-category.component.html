@@ -1,6 +1,6 @@
 <div mat-dialog-content class="container">
    <div class="container-title">
-      <p class="text-primary">New Category</p>
+      <p class="text-primary">{{this.dataCategory?'Edit':'New'}} Category</p>
       
       <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none" (click)="close()">
          <path d="M11.6967 1.69686L1.0901 12.3035M11.6967 12.3035L1.0901 1.69686" stroke="#083C04" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -29,5 +29,10 @@
    </div>
    <p class="format-image">Accepted formats: JPG or PNG.</p>
    <p class="size-image">Maximum image size: 1000x1000 pixels.</p>
-   <button mat-raised-button class="button-primary" [disabled]="name.invalid" (click)="create()">Add new category</button>
+
+   <button *ngIf="!this.dataCategory;else edit" mat-raised-button class="button-primary" [disabled]="name.invalid" (click)="create()">Add new category</button>
+   <ng-template #edit>
+      <button mat-raised-button class="button-primary" (click)="update()">Save Changes</button>
+
+   </ng-template>
 </div>
