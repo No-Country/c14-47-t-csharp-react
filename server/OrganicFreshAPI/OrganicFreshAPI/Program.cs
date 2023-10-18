@@ -15,9 +15,11 @@ var connectionString = configuration.GetConnectionString("SQLServerConnection");
 
 
 // Add services to the container.
-builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services
+    .AddScoped<IAuthenticationRepository, AuthenticationRepository>()
+    .AddScoped<ICategoryRepository, CategoryRepository>()
+    .AddScoped<IProductRepository, ProductRepository>()
+    .AddDbContext<MyDbContext>(options => options.UseSqlServer(connectionString));
 
 // Identity
 builder.Services.AddIdentity<User, IdentityRole>(options =>
