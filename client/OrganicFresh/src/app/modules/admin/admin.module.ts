@@ -5,12 +5,14 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { SharedModule } from '../shared/shared.module';
 import { CategoriesComponent } from './categories/categories.component';
+import { CreateUpdateCategoryComponent } from './categories/modals/create-update-category/create-update-category.component';
 
 
 @NgModule({
   declarations: [
     AdminComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    CreateUpdateCategoryComponent
   ],
   imports: [
     CommonModule,
