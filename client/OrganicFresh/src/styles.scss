@@ -1,13 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-
+:root {
+    --color-primary: #148E0A; // Define una variable a nivel root
+    --color-secondary: #FF6B00;
+  }
 html, body { height: 100%; }
 *,*::after,*::before{
     box-sizing: border-box;
 }
 body,* { margin: 0; font-family: 'Open Sans', sans-serif; }
+li{
+    list-style: none;
+}
 .button-primary{
     
-    background-color: #148E0A !important;
+    background-color: var(--color-primary) !important;
     color: #fff !important;
     font-size: 1rem;
     
