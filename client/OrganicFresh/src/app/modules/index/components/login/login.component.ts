@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { LoginRequest } from 'src/app/interfaces/loginRequest';
 import { AlertRegisterComponent } from 'src/app/modules/shared/components/alert-register/alert-register.component';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  constructor(fb:FormBuilder, private authService:AuthService, private dialog:MatDialog){
+  constructor(fb:FormBuilder, private authService:AuthService, private dialog:MatDialog, private router:Router){
 
     this.form = fb.group({
       email: ['',[Validators.required, Validators.email]],
@@ -32,7 +33,13 @@ export class LoginComponent {
     
     this.authService.login(loginRequest).subscribe({
       next:(res)=>{
-        this.dialog.open(AlertRegisterComponent, {data:{login:true, title:'Login Successful!', text:'', exito:true}});
+        if(res.isAdmin){
+          this.router.navigate(['admin']);
+        }
+        else{
+
+          this.dialog.open(AlertRegisterComponent, {data:{login:true, title:'Login Successful!', text:'Client', exito:true}});
+        }
       },
       error:()=>{
         this.dialog.open(AlertRegisterComponent, {data:{login:true, title:'Invalid credentials', text:'', exito:false}});

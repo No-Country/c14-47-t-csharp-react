@@ -7,12 +7,14 @@ import {MatInputModule} from '@angular/material/input';
 import { AlertRegisterComponent } from './components/alert-register/alert-register.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 
 @NgModule({
   declarations: [
-    AlertRegisterComponent
+    AlertRegisterComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    FooterComponent
   ]
 })
 export class SharedModule { }
