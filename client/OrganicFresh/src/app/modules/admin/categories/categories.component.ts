@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Category } from 'src/app/interfaces/category';
 import { CategoryService } from 'src/app/services/category.service';
+import { CreateUpdateCategoryComponent } from './modals/create-update-category/create-update-category.component';
 
 @Component({
   selector: 'app-categories',
@@ -12,9 +14,13 @@ export class CategoriesComponent implements OnInit{
 
   listCategories:Category[]=[];
 
-  constructor(private categoryService:CategoryService){}
+  constructor(private categoryService:CategoryService, private dialog:MatDialog){}
   ngOnInit(): void {
 
+   this.getCategories();
+  }
+
+  getCategories():void{
     this.categoryService.getAll().subscribe({
       next:(res)=>{
         this.listCategories = res;
@@ -22,6 +28,13 @@ export class CategoriesComponent implements OnInit{
     });
   }
 
+  createCategory():void{
+    this.dialog.open(CreateUpdateCategoryComponent).afterClosed().subscribe({
+      next:(res)=>{
+        if(res === true) this.getCategories();
+      }
+    });
+  }
 
 
 }
