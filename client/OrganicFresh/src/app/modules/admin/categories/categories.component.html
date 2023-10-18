@@ -1,1 +1,20 @@
-<p>categories works!</p>
+<p class="text-secondary text-700">Categories</p>
+<div class="container-categories">
+    
+    <div *ngFor="let category of listCategories" class="card">
+        <div class="card-content">
+            <p>{{category.name | titlecase}}</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                <path d="M17.1953 4.48725L18.8823 2.79925C19.2339 2.44757 19.7109 2.25 20.2083 2.25C20.7056 2.25 21.1826 2.44757 21.5343 2.79925C21.8859 3.15092 22.0835 3.6279 22.0835 4.12525C22.0835 4.62259 21.8859 5.09957 21.5343 5.45125L10.9153 16.0702C10.3866 16.5986 9.73462 16.987 9.01825 17.2002L6.33325 18.0002L7.13325 15.3152C7.34653 14.5989 7.73489 13.9469 8.26325 13.4182L17.1953 4.48725ZM17.1953 4.48725L19.8333 7.12525M18.3333 14.0002V18.7502C18.3333 19.347 18.0962 19.9193 17.6742 20.3412C17.2523 20.7632 16.68 21.0002 16.0833 21.0002H5.58325C4.98651 21.0002 4.41422 20.7632 3.99226 20.3412C3.5703 19.9193 3.33325 19.347 3.33325 18.7502V8.25025C3.33325 7.65351 3.5703 7.08121 3.99226 6.65926C4.41422 6.2373 4.98651 6.00025 5.58325 6.00025H10.3333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        
+    </div>
+    <div class="card">
+        <div class="card-content">
+            <p>New Category</p>
+            <mat-icon>add</mat-icon>
+        </div>
+        
+    </div>
+</div>
