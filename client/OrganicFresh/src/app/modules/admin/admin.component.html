@@ -1,1 +1,23 @@
-<p>admin works!</p>
+<div class="body">
+    <div class="container">
+        <nav>
+            <img src="../../../assets/logo_navbar.svg">
+            <mat-icon class="icon-menu" (click)="openMenu = !openMenu">menu</mat-icon>
+            <ul class="items-menu">
+                <li class="text-primary-link text-700">Products</li>
+                <li class="text-primary-link text-700">Categories</li>
+                <li class="text-primary-link text-700">Profile</li>
+                <li class="text-primary-link text-700">Sign out</li>
+            </ul>
+        </nav>
+        <ul *ngIf="openMenu" class="menu-desplegable">
+            <li class="text-primary-link text-700">Products</li>
+            <li class="text-primary-link text-700">Categories</li>
+            <li class="text-primary-link text-700">Profile</li>
+            <li class="text-primary-link text-700">Sign out</li>
+        </ul>
+    
+    </div>
+    <app-footer></app-footer>
+
+</div>
