@@ -67,8 +67,13 @@ app-footer{
     .container{
         padding: 0 32px;
     }
-    .menu-desplegable{
-        right: 32px;
+    .icon-menu, .menu-desplegable{
+        display: none;
+    }
+    .items-menu{
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
 
@@ -79,12 +84,5 @@ app-footer{
     nav{
         padding: 12px 0;
     }
-    .icon-menu, .menu-desplegable{
-        display: none;
-    }
-    .items-menu{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+  
 }

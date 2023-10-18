@@ -1,5 +1,5 @@
 .container{
-    width: 360px !important;
+    width: 80vw !important;
     padding: 24px;
     display: flex;
     flex-direction: column;
@@ -78,4 +78,10 @@
 
 button{
     margin-top: 16px;
+}
+
+@media (min-width:500px) {
+    .container{
+        width: 360px!important;
+    }
 }
