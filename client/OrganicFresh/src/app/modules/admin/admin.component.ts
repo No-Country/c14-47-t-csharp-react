@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent {
-  constructor(private authService:AuthService){
+  constructor(private authService:AuthService, private router:Router){
 
 }
 
@@ -16,5 +17,10 @@ logout():void{
 }
 
 openMenu:boolean = false;
+
+redirectTo(route:string):void{
+  this.router.navigate([route]);
+  this.openMenu = false;
+}
 
 }

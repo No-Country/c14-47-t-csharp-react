@@ -9,6 +9,7 @@
 .container{
     width: 100%;
     margin: 0 auto;
+    padding: 0 24px;
 }
 
 nav{
@@ -16,7 +17,7 @@ nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 24px;
+    padding: 8px 0;
    img{
     cursor: pointer;
    }
@@ -37,10 +38,10 @@ nav{
     justify-content: center;
     align-items: flex-end;
     width: 100%;
-    padding: 0 24px 13px;
+    padding: 0 0 13px;
     position: absolute;
+    right: 24px;
     background-color: #fff;
-
     li{
         margin: 8px 0 3px;
     }
@@ -63,11 +64,11 @@ app-footer{
 }
 
 @media (min-width:768px) {
-    nav{
-        padding: 8px 32px;
+    .container{
+        padding: 0 32px;
     }
     .menu-desplegable{
-        padding: 0 32px;
+        right: 32px;
     }
 }
 
@@ -76,7 +77,7 @@ app-footer{
         width: 1080px;
     }
     nav{
-        padding: 12px 32px;
+        padding: 12px 0;
     }
     .icon-menu, .menu-desplegable{
         display: none;
