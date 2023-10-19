@@ -96,6 +96,7 @@ button{
     display: none;
     width: 30%;
     overflow: hidden;
+    padding-top: 130px;
     img{
         width: 100%;
         height: 100%;
@@ -184,6 +185,7 @@ button{
     .contenedor{
         flex-direction: row;
         height: auto;
+        align-items: flex-start;
     }
     .contenedor-imagen-tablet{
         display: none;
