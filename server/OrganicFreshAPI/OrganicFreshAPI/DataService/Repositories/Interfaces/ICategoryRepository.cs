@@ -9,6 +9,7 @@ namespace OrganicFreshAPI.DataService.Repositories.Interfaces;
 public interface ICategoryRepository
 {
     Task<ResultDto<List<Category>>> GetCategories();
+    Task<ResultDto<GetProductsFromCategoryResponse>> GetProductsFromCategory(int categoryId);
     Task<ResultDto<CreateCategoryResponse>> CreateCategory(CreateCategoryRequest request);
     Task<ResultDto<UpdateCategoryResponse>> UpdateCategory(int categoryId, UpdateCategoryRequest request);
     Task<ResultDto<object>> DeleteCategory(int categoryId);

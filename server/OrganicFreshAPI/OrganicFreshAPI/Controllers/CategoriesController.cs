@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.Dtos.Requests;
+using OrganicFreshAPI.Helpers;
 
 namespace OrganicFreshAPI.Controllers;
 
@@ -29,7 +30,7 @@ public class CategoriesController : ControllerBase
 
     [Authorize(Policy = "ElevatedRights")]
     [HttpPost]
-    public async Task<IActionResult> CreateCategory(CreateCategoryRequest request)
+    public async Task<IActionResult> CreateCategory([FromForm] CreateCategoryRequest request)
     {
         var result = await _categoryRepository.CreateCategory(request);
 
@@ -38,9 +39,21 @@ public class CategoriesController : ControllerBase
 
         return Ok(result.Response);
     }
+
+    [HttpGet("{categoryId}")]
+    public async Task<IActionResult> GetProductsFromCategory([FromRoute] int categoryId)
+    {
+        var result = await _categoryRepository.GetProductsFromCategory(categoryId);
+
+        if (!result.IsSuccess)
+            return BadRequest(result.Message);
+
+        return Ok(result.Response);
+    }
+
     [Authorize(Policy = "ElevatedRights")]
     [HttpPut("{categoryId}")]
-    public async Task<IActionResult> UpdateCategory([FromRoute] int categoryId, [FromBody] UpdateCategoryRequest request)
+    public async Task<IActionResult> UpdateCategory([FromRoute] int categoryId, [FromForm] UpdateCategoryRequest request)
     {
         var result = await _categoryRepository.UpdateCategory(categoryId, request);
         if (!result.IsSuccess && result.Message == "Category does not exists")
@@ -48,7 +61,14 @@ public class CategoriesController : ControllerBase
         if (!result.IsSuccess)
             return BadRequest(result.Message);
 
-        return Ok(result.Response);
+        var response = new
+        {
+            result.Response,
+            result.Message,
+            result.IsSuccess
+        };
+
+        return Ok(response);
     }
 
 
