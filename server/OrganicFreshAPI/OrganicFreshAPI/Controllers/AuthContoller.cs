@@ -58,4 +58,12 @@ public class AuthController : ControllerBase
         var result = await _authRepository.UserDetails(contextAccessor);
         return Ok(result);
     }
+
+    [Authorize(Policy = "ElevatedRights")]
+    [HttpGet("me/admin")]
+    public async Task<IActionResult> MeAdmin(IHttpContextAccessor contextAccessor)
+    {
+        var result = await _authRepository.UserDetails(contextAccessor);
+        return Ok(result);
+    }
 }
