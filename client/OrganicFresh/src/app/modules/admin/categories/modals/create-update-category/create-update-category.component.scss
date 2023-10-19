@@ -1,9 +1,10 @@
 .container{
     width: 80vw !important;
+    height: auto;
     padding: 24px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
