@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { Category } from 'src/app/interfaces/category';
 import { AlertRegisterComponent } from 'src/app/modules/shared/components/alert-register/alert-register.component';
 import { CategoryService } from 'src/app/services/category.service';
+import { ConfirmDeleteCategoryComponent } from '../confirm-delete-category/confirm-delete-category.component';
 
 @Component({
   selector: 'app-create-update-category',
@@ -64,4 +65,11 @@ export class CreateUpdateCategoryComponent implements OnInit{
     });
   }
 
+  delete():void{
+    this.dialog.open(ConfirmDeleteCategoryComponent,{data:this.dataCategory.id}).afterClosed().subscribe({
+      next:(res)=>{
+        if(res===true)this.dialogRef.close(true);
+      }
+    });
+  }
 }
