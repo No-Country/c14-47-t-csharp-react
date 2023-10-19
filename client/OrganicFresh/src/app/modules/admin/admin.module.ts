@@ -6,13 +6,15 @@ import { AdminComponent } from './admin.component';
 import { SharedModule } from '../shared/shared.module';
 import { CategoriesComponent } from './categories/categories.component';
 import { CreateUpdateCategoryComponent } from './categories/modals/create-update-category/create-update-category.component';
+import { ConfirmDeleteCategoryComponent } from './categories/modals/confirm-delete-category/confirm-delete-category.component';
 
 
 @NgModule({
   declarations: [
     AdminComponent,
     CategoriesComponent,
-    CreateUpdateCategoryComponent
+    CreateUpdateCategoryComponent,
+    ConfirmDeleteCategoryComponent
   ],
   imports: [
     CommonModule,
