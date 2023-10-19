@@ -1,0 +1,16 @@
+<div mat-dialog-content class="container">
+    <div class="container-title">
+        <p class="text-error">Are you sure you want to delete this category?</p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none" (click)="close()">
+            <path d="M11.9097 1.3033L1.30314 11.9099M11.9097 11.9099L1.30314 1.3033" stroke="#083C04" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="46" height="54" viewBox="0 0 46 54" fill="none">
+        <path d="M30.0783 19.4388L29.1845 42.6889M16.8155 42.6889L15.9217 19.4388M41.6723 11.1463C42.5558 11.2807 43.4342 11.4228 44.3125 11.5752M41.6723 11.1463L38.9133 47.0108C38.8007 48.4709 38.1411 49.8348 37.0663 50.8296C35.9915 51.8244 34.5808 52.3768 33.1163 52.3763H12.8837C11.4192 52.3768 10.0085 51.8244 8.9337 50.8296C7.85892 49.8348 7.19927 48.4709 7.08667 47.0108L4.32767 11.1463M41.6723 11.1463C38.6908 10.6956 35.6939 10.3535 32.6875 10.1208M4.32767 11.1463C3.44417 11.2781 2.56583 11.4202 1.6875 11.5726M4.32767 11.1463C7.30918 10.6956 10.3061 10.3535 13.3125 10.1208M32.6875 10.1208V7.75443C32.6875 4.7061 30.3367 2.1641 27.2883 2.06851C24.4302 1.97716 21.5698 1.97716 18.7117 2.06851C15.6633 2.1641 13.3125 4.70868 13.3125 7.75443V10.1208M32.6875 10.1208C26.2388 9.62238 19.7612 9.62238 13.3125 10.1208" stroke="#EB2323" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <p class="text-error text-alert">This action can’t be undone</p>
+
+    <button mat-raised-button class="button-grey button-back" (click)="close()">Back to edit category</button>
+    <button mat-raised-button class="button-warn" >Confirm Delete</button>
+</div>
