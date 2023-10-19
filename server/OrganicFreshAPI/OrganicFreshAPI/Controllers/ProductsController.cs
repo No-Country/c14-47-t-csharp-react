@@ -28,7 +28,7 @@ public class ProductsController : ControllerBase
 
     [Authorize(Policy = "ElevatedRights")]
     [HttpPost]
-    public async Task<IActionResult> CreateProduct(CreateProductRequest request)
+    public async Task<IActionResult> CreateProduct([FromForm] CreateProductRequest request)
     {
         var result = await _productRepository.CreateProduct(request);
         if (!result.IsSuccess)
@@ -39,7 +39,7 @@ public class ProductsController : ControllerBase
 
     [Authorize(Policy = "ElevatedRights")]
     [HttpPut("{productId}")]
-    public async Task<IActionResult> UpdateProduct([FromRoute] int productId, UpdateProductRequest request)
+    public async Task<IActionResult> UpdateProduct([FromRoute] int productId, [FromForm] UpdateProductRequest request)
     {
         var result = await _productRepository.UpdateProduct(productId, request);
 
