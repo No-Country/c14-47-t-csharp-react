@@ -28,4 +28,9 @@ export class CategoryService {
     return this.http.put<Category>(this.apiUrl+'/'+category.id, category);
   }
 
+  delete(id:number):Observable<void>{
+    
+    return this.http.delete<void>(this.apiUrl+'/'+id);
+  }
+
 }
