@@ -58,6 +58,8 @@ public class ProductRepository : IProductRepository
             Price = request.Price,
             CategoryId = request.CategoryId,
             Active = request.Active ?? true,
+            WeightUnit = request.WeightUnit ?? "Oz",
+            Stock = request.Stock ?? 0,
             ImageUrl = resultImage != null ? resultImage.Url.ToString() : "",
             PublicId = resultImage != null ? resultImage.PublicId : "",
         };
@@ -137,6 +139,9 @@ public class ProductRepository : IProductRepository
         productToUpdate.Active = request.active ?? true;
         productToUpdate.Price = request.price ?? productToUpdate.Price;
         productToUpdate.CategoryId = request.categoryId ?? productToUpdate.CategoryId;
+        productToUpdate.WeightUnit = request.weightUnit ?? productToUpdate.WeightUnit;
+        productToUpdate.Stock = request.stock ?? productToUpdate.Stock;
+
 
         if (request.image != null)
         {
