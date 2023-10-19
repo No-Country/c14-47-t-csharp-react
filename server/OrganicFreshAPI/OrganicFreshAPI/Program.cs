@@ -8,6 +8,7 @@ using OrganicFreshAPI.DataService.Data;
 using OrganicFreshAPI.DataService.Repositories;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.DbSet;
+using OrganicFreshAPI.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -19,6 +20,8 @@ builder.Services
     .AddScoped<IAuthenticationRepository, AuthenticationRepository>()
     .AddScoped<ICategoryRepository, CategoryRepository>()
     .AddScoped<IProductRepository, ProductRepository>()
+    .AddScoped<IImageService, ImageService>()
+    .Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"))
     .AddDbContext<MyDbContext>(options => options.UseSqlServer(connectionString));
 
 // Identity
