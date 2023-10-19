@@ -1,7 +1,7 @@
 <p class="text-secondary text-700">Categories</p>
 <div class="container-categories">
     
-    <div *ngFor="let category of listCategories" class="card">
+    <div *ngFor="let category of listCategories" class="card" (click)="updateCategory(category)">
         <div class="card-content">
             <p>{{category.name | titlecase}}</p>
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">

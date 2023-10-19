@@ -36,5 +36,13 @@ export class CategoriesComponent implements OnInit{
     });
   }
 
+  updateCategory(category:Category):void{
+    this.dialog.open(CreateUpdateCategoryComponent,{data:category}).afterClosed().subscribe({
+      next:(res)=>{
+        if(res===true) this.getCategories();
+      }
+    });
+  }
+
 
 }
