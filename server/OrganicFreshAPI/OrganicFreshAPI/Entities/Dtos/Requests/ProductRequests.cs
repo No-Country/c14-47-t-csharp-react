@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using OrganicFreshAPI.Entities.DbSet;
 
 namespace OrganicFreshAPI.Entities.Dtos.Requests;
 
@@ -13,6 +14,8 @@ public class CreateProductRequest
     public int CategoryId { get; set; }
     public bool? Active = true;
     public IFormFile? Image { get; set; }
+    public string? WeightUnit { get; set; }
+    public int? Stock { get; set; }
 }
 
 
@@ -22,6 +25,8 @@ public record UpdateProductRequest(
     decimal? price,
     bool? active,
     IFormFile? image,
-    int? categoryId
+    int? categoryId,
+    string? weightUnit,
+    int? stock
 );
 
