@@ -30,10 +30,10 @@
    <p class="format-image">Accepted formats: JPG or PNG.</p>
    <p class="size-image">Maximum image size: 1000x1000 pixels.</p>
 
-   <button *ngIf="!this.dataCategory;else edit" mat-raised-button class="button-primary" [disabled]="name.invalid" (click)="create()">Add new category</button>
+   <button *ngIf="!this.dataCategory;else edit"  class="button-primary" [disabled]="name.invalid" (click)="create()">Add new category</button>
    <ng-template #edit>
-      <button mat-raised-button (click)="delete()" class="button-grey" >Delete</button>
-      <button mat-raised-button class="button-primary" (click)="update()">Save Changes</button>
+      <button  (click)="delete()" class="button-grey" >Delete</button>
+      <button  class="button-primary" (click)="update()">Save Changes</button>
 
    </ng-template>
 </div>
