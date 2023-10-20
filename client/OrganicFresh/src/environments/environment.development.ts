@@ -1,3 +1,3 @@
 export const environment = {
-    API_URL:'https://localhost:7179'
+    API_URL:'https://www.organicfresh.somee.com'
 };
