@@ -1,0 +1,28 @@
+<p class="text-secondary text-700">Products</p>
+<div class="container-categories">
+
+  <table>
+    <thead>
+    <th>Name</th>
+    <th>Category</th>
+    <th>Price</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of listProducts">
+      <td >{{ product.name }}</td>
+    <td>{{product.categoryId}}</td>
+    <td>{{product.price}}</td>
+    </tr>
+
+
+
+  </tbody>
+
+
+
+
+  </table>
+
+
+</div>
+
