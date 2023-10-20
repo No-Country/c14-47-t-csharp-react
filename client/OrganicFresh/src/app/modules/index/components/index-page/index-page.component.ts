@@ -13,8 +13,12 @@ export class IndexPageComponent {
 
   credential$:Observable<Credential|null>;
 
-  constructor(authService:AuthService){
+  constructor(private authService:AuthService){
     this.credential$ = authService.getCredential;
+  }
+
+  logout():void{
+    this.authService.logout();
   }
 
 }

@@ -5,8 +5,8 @@
         </svg>
     <p class="text-primary text-700 text-title">{{dataModal.title}}</p>
     <p class="text-primary-dark text-alert">{{dataModal.text}}</p>
-    <button *ngIf="!dataModal.login"  mat-raised-button class="button-primary text-700" (click)="goToLogin()">Go to Log in</button>
-    <button *ngIf="dataModal.login"  mat-raised-button class="button-primary text-700" (click)="cerrarDialog()">Close</button>
+    <button *ngIf="!dataModal.login"   class="button-primary text-700" (click)="goToLogin()">Go to Log in</button>
+    <button *ngIf="dataModal.login"   class="button-primary text-700" (click)="cerrarDialog()">Close</button>
     
 </div>
 <ng-template #error>
@@ -18,7 +18,7 @@
         </svg>
         <p class="text-error text-700 text-title">{{dataModal.title}}</p>
         <p class="text-primary-dark text-alert">{{dataModal.text}}</p>
-        <button  mat-raised-button class="button-primary text-700" (click)="cerrarDialog()">Close</button>
+        <button   class="button-primary text-700" (click)="cerrarDialog()">Close</button>
     </div>
 </ng-template>
 

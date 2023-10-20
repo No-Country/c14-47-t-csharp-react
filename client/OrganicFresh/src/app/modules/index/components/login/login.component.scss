@@ -14,6 +14,7 @@
     align-items: center;
     margin: 0 auto;
     padding: 40px 24px;
+    align-self: flex-start;
 }
 
 input{
@@ -154,6 +155,7 @@ button{
         height: 100%;
         object-fit: cover;
     }
+    padding-top: 130px;
 }
 .imagen-derecha{
     object-position: 0% 50%;
@@ -182,6 +184,7 @@ button{
 @media (min-width:1200px) {
     .contenedor{
         flex-direction: row;
+        align-items: flex-start;
     }
     .contenedor-imagen-tablet{
         display: none;

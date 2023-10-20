@@ -1,5 +1,6 @@
 <div class="contenedor">
-    <button mat-raised-button class="button-primary" routerLink="/index/login">Log in</button>
-    <button mat-raised-button class="button-primary" routerLink="/index/register">Register</button>
-    <button mat-raised-button class="button-primary" *ngIf="(credential$|async)" routerLink="/admin">Modulo Admin</button>
+    <button  class="button-primary" routerLink="/index/login">Log in</button>
+    <button  class="button-primary" routerLink="/index/register">Register</button>
+    <button  class="button-primary" *ngIf="(credential$|async)?.isAdmin" routerLink="/admin">Module Admin</button>
+    <button  class="button-primary" *ngIf="(credential$|async)" (click)="logout()" >Sign out</button>
 </div>

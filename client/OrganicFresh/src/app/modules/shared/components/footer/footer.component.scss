@@ -13,3 +13,16 @@ p{
     color: #fff;
     margin-top: 6px;
 }
+
+@media (min-width:768px) {
+    p{
+        font-size: 14px;
+    }
+    svg{
+        width: 142.5px;
+        height: 30px;
+    }
+    .contenedor{
+        padding: 32px 0;
+    }
+}
