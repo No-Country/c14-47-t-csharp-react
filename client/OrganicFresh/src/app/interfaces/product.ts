@@ -5,5 +5,6 @@ export interface Product{
   categoryId: number,
   price: number,
   stock:number,
-  weightUnit:string
+  weightUnit:string,
+  imageUrl:string
 }
