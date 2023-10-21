@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Product } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
+import { CreateUpdateProductComponent } from './create-update-product/create-update-product.component';
 
 @Component({
   selector: 'app-products',
@@ -9,7 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductsComponent {
 
-  constructor( private productService:ProductService){
+  constructor( private productService:ProductService, private matDialog:MatDialog){
 
     this.getAll();
   }
@@ -19,5 +21,15 @@ export class ProductsComponent {
   }
 
   listProducts:Product[] = [];
+
+  newProduct():void{
+    this.matDialog.open(CreateUpdateProductComponent).afterClosed().subscribe({
+      next:(res)=>{
+        if(res === true){
+          this.getAll();
+        }
+      }
+    });
+  }
 
 }
