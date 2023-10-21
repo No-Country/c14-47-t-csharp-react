@@ -53,22 +53,39 @@
             </div>
       
          </div>
-    
+         
+         <input type="file" id="seleccionarImagen" style="display: none" (change)="cargarImagen($event)" accept="image/*" />
         <div class="container-input">
            <p class="text-primary-dark">Product Image</p>
+           <ng-template #sinImagen>
+           <label for="seleccionarImagen" class="label-image">
            <div class="upload-image">
-              <svg xmlns="http://www.w3.org/2000/svg" width="80" height="79" viewBox="0 0 80 79" fill="none">
-                 <path d="M7.90625 51.8438L24.888 34.862C25.5757 34.1743 26.3922 33.6288 27.2907 33.2565C28.1893 32.8843 29.1524 32.6928 30.125 32.6928C31.0976 32.6928 32.0607 32.8843 32.9593 33.2565C33.8578 33.6288 34.6743 34.1743 35.362 34.862L52.3438 51.8438M47.4062 46.9062L52.0442 42.2683C52.7319 41.5805 53.5484 41.035 54.447 40.6628C55.3456 40.2906 56.3086 40.099 57.2812 40.099C58.2539 40.099 59.2169 40.2906 60.1155 40.6628C61.0141 41.035 61.8306 41.5805 62.5183 42.2683L72.0938 51.8438M12.8438 64.1875H67.1562C68.4658 64.1875 69.7216 63.6673 70.6476 62.7413C71.5736 61.8154 72.0938 60.5595 72.0938 59.25V19.75C72.0938 18.4405 71.5736 17.1846 70.6476 16.2587C69.7216 15.3327 68.4658 14.8125 67.1562 14.8125H12.8438C11.5342 14.8125 10.2784 15.3327 9.35241 16.2587C8.42645 17.1846 7.90625 18.4405 7.90625 19.75V59.25C7.90625 60.5595 8.42645 61.8154 9.35241 62.7413C10.2784 63.6673 11.5342 64.1875 12.8438 64.1875Z" stroke="#083C04" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                 <circle cx="48" cy="28.5" r="6.5" stroke="#083C04" stroke-width="2"/>
-               </svg>
-               <p>Click to upload</p>
-               <svg class="icon-upload" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                 <path d="M9 8.25H7.5C6.90326 8.25 6.33097 8.48705 5.90901 8.90901C5.48705 9.33097 5.25 9.90326 5.25 10.5V19.5C5.25 20.0967 5.48705 20.669 5.90901 21.091C6.33097 21.5129 6.90326 21.75 7.5 21.75H16.5C17.0967 21.75 17.669 21.5129 18.091 21.091C18.5129 20.669 18.75 20.0967 18.75 19.5V10.5C18.75 9.90326 18.5129 9.33097 18.091 8.90901C17.669 8.48705 17.0967 8.25 16.5 8.25H15M15 5.25L12 2.25M12 2.25L9 5.25M12 2.25V15" stroke="#083C04" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-               </svg>
-           </div>
+                
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="79" viewBox="0 0 80 79" fill="none">
+                   <path d="M7.90625 51.8438L24.888 34.862C25.5757 34.1743 26.3922 33.6288 27.2907 33.2565C28.1893 32.8843 29.1524 32.6928 30.125 32.6928C31.0976 32.6928 32.0607 32.8843 32.9593 33.2565C33.8578 33.6288 34.6743 34.1743 35.362 34.862L52.3438 51.8438M47.4062 46.9062L52.0442 42.2683C52.7319 41.5805 53.5484 41.035 54.447 40.6628C55.3456 40.2906 56.3086 40.099 57.2812 40.099C58.2539 40.099 59.2169 40.2906 60.1155 40.6628C61.0141 41.035 61.8306 41.5805 62.5183 42.2683L72.0938 51.8438M12.8438 64.1875H67.1562C68.4658 64.1875 69.7216 63.6673 70.6476 62.7413C71.5736 61.8154 72.0938 60.5595 72.0938 59.25V19.75C72.0938 18.4405 71.5736 17.1846 70.6476 16.2587C69.7216 15.3327 68.4658 14.8125 67.1562 14.8125H12.8438C11.5342 14.8125 10.2784 15.3327 9.35241 16.2587C8.42645 17.1846 7.90625 18.4405 7.90625 19.75V59.25C7.90625 60.5595 8.42645 61.8154 9.35241 62.7413C10.2784 63.6673 11.5342 64.1875 12.8438 64.1875Z" stroke="#083C04" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                   <circle cx="48" cy="28.5" r="6.5" stroke="#083C04" stroke-width="2"/>
+                 </svg>
+                 <p>Click to upload</p>
+                 <svg class="icon-upload" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                   <path d="M9 8.25H7.5C6.90326 8.25 6.33097 8.48705 5.90901 8.90901C5.48705 9.33097 5.25 9.90326 5.25 10.5V19.5C5.25 20.0967 5.48705 20.669 5.90901 21.091C6.33097 21.5129 6.90326 21.75 7.5 21.75H16.5C17.0967 21.75 17.669 21.5129 18.091 21.091C18.5129 20.669 18.75 20.0967 18.75 19.5V10.5C18.75 9.90326 18.5129 9.33097 18.091 8.90901C17.669 8.48705 17.0967 8.25 16.5 8.25H15M15 5.25L12 2.25M12 2.25L9 5.25M12 2.25V15" stroke="#083C04" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                 </svg>
+                </div>
+            </label>
+        </ng-template>
+
+        <div class="upload-image con-imagen" *ngIf="imagenSeleccionada;else sinImagen">
+            <img [src]="imagenSeleccionada" alt="Imagen seleccionada"  />
+               <div class="delete-image" *ngIf="imagenSeleccionada" (click)="deleteImage()">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M17.2738 6.66756L6.66716 17.2742M17.2738 17.2742L6.66716 6.66756" stroke="#083C04" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+
+               </div>
+        </div>
         </div>
         <p class="format-image">Accepted formats: JPG or PNG.</p>
         <p class="size-image">Maximum image size: 1000x1000 pixels.</p>
+
     </form>
  
     <button class="button-primary" [disabled]="form.invalid" (click)="create()" >Add new product</button>
