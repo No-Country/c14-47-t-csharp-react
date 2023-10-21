@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CategoriesComponent } from './categories/categories.component';
 import { CreateUpdateCategoryComponent } from './categories/modals/create-update-category/create-update-category.component';
 import { ConfirmDeleteCategoryComponent } from './categories/modals/confirm-delete-category/confirm-delete-category.component';
+import { ProductsComponent } from './products/products.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ConfirmDeleteCategoryComponent } from './categories/modals/confirm-dele
     AdminComponent,
     CategoriesComponent,
     CreateUpdateCategoryComponent,
-    ConfirmDeleteCategoryComponent
+    ConfirmDeleteCategoryComponent,
+    ProductsComponent
   ],
   imports: [
     CommonModule,
