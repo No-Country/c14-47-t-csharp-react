@@ -9,6 +9,7 @@ import { CreateUpdateCategoryComponent } from './categories/modals/create-update
 import { ConfirmDeleteCategoryComponent } from './categories/modals/confirm-delete-category/confirm-delete-category.component';
 import { ProductsComponent } from './products/products.component';
 import { CreateUpdateProductComponent } from './products/create-update-product/create-update-product.component';
+import { ConfirmDeleteProductComponent } from './products/confirm-delete-product/confirm-delete-product.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { CreateUpdateProductComponent } from './products/create-update-product/c
     CreateUpdateCategoryComponent,
     ConfirmDeleteCategoryComponent,
     ProductsComponent,
-    CreateUpdateProductComponent
+    CreateUpdateProductComponent,
+    ConfirmDeleteProductComponent
   ],
   imports: [
     CommonModule,
