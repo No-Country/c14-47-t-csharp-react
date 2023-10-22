@@ -1,4 +1,7 @@
+using AutoMapper;
+using ErrorOr;
 using Microsoft.EntityFrameworkCore;
+using OrganicFreshAPI.Common.Errors;
 using OrganicFreshAPI.DataService.Data;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.DbSet;
@@ -12,73 +15,52 @@ namespace OrganicFreshAPI.DataService.Repositories;
 public class CategoryRepository : ICategoryRepository
 {
     private readonly MyDbContext _context;
+    private readonly IMapper _mapper;
     private readonly IImageService _imageService;
 
-    public CategoryRepository(MyDbContext context, IImageService imageService)
+    public CategoryRepository(MyDbContext context, IImageService imageService, IMapper mapper)
     {
         _context = context;
         _imageService = imageService;
+        _mapper = mapper;
     }
 
-    public async Task<ResultDto<CreateCategoryResponse>> CreateCategory(CreateCategoryRequest request)
+    public async Task<ErrorOr<CreateCategoryResponse>> CreateCategory(CreateCategoryRequest request)
     {
-        if (request.name is null)
-            return new ResultDto<CreateCategoryResponse>()
-            {
-                IsSuccess = false,
-                Message = "The category name is required"
-            };
-        if (request.image == null)
-        {
-            return new ResultDto<CreateCategoryResponse>()
-            {
-                IsSuccess = false,
-                Message = "The image is required"
-            };
-        }
-        var resultImage = await _imageService.AddImageAsync(request.image);
+        CloudinaryDotNet.Actions.ImageUploadResult resultImage = null;
 
-        if (resultImage.Error != null)
-            return new ResultDto<CreateCategoryResponse>()
-            {
-                IsSuccess = false,
-                Message = $"Something went wrong while uploading the image {resultImage.Error.Message}",
-            };
+        if (request.image != null)
+        {
+
+            resultImage = await _imageService.AddImageAsync(request.image);
+
+            if (resultImage.Error != null)
+                return CommonErrors.ImageUploadError;
+        }
 
         var newCategory = new Category
         {
             Name = request.name,
-            ImageUrl = resultImage.Url.ToString(),
-            PublicId = resultImage.PublicId
+            ImageUrl = resultImage != null ? resultImage.Url.ToString() : "",
+            PublicId = resultImage != null ? resultImage.PublicId : ""
         };
+
         await _context.Categories.AddAsync(newCategory);
         var saved = await _context.SaveChangesAsync();
-        return new ResultDto<CreateCategoryResponse>
-        {
-            IsSuccess = saved > 0,
-            Message = saved > 0 ? "Category created successfully" : "Something went wrong while creating the category",
-            Response = new CreateCategoryResponse(newCategory),
-        };
+
+        if (saved <= 0)
+            return CommonErrors.DbSaveError;
+
+
+        return new CreateCategoryResponse(newCategory);
     }
 
-    public async Task<ResultDto<UpdateCategoryResponse>> UpdateCategory(int categoryId, UpdateCategoryRequest request)
+    public async Task<ErrorOr<UpdateCategoryResponse>> UpdateCategory(int categoryId, UpdateCategoryRequest request)
     {
         var categoryToUpdate = await _context.Categories.FirstOrDefaultAsync(c => c.Id == categoryId);
 
         if (categoryToUpdate is null)
-            return new ResultDto<UpdateCategoryResponse>
-            {
-                IsSuccess = false,
-                Message = "The category does not exists",
-            };
-
-        if (request.name == null && request.image == null)
-            return new ResultDto<UpdateCategoryResponse>()
-            {
-                IsSuccess = true,
-                Message = "There is nothing to update",
-                Response = new UpdateCategoryResponse(categoryToUpdate)
-            };
+            return ApiErrors.Category.InvalidCategory;
 
         categoryToUpdate.Name = request.name == null ? categoryToUpdate.Name : request.name;
 
@@ -88,11 +70,7 @@ public class CategoryRepository : ICategoryRepository
             var imageToDelete = await _imageService.DeleteImageAsync(categoryToUpdate.PublicId);
             if (resultImage.Error != null || imageToDelete.Error != null)
             {
-                return new ResultDto<UpdateCategoryResponse>
-                {
-                    IsSuccess = false,
-                    Message = $"Something went wrong while updating the image {resultImage.Error.Message ?? imageToDelete.Error.Message}",
-                };
+                return resultImage.Error != null ? CommonErrors.ImageUploadError : CommonErrors.ImageDeleteError;
             }
 
             categoryToUpdate.ImageUrl = resultImage.Url.ToString();
@@ -100,60 +78,43 @@ public class CategoryRepository : ICategoryRepository
         }
 
         var saved = await _context.SaveChangesAsync();
-        return new ResultDto<UpdateCategoryResponse>
-        {
-            IsSuccess = saved > 0,
-            Message = saved > 0 ? "Updated successfully" : "Something went wrong while updating, there are nothing to update",
-            Response = new UpdateCategoryResponse(categoryToUpdate)
-        };
+
+        if (saved <= 0)
+            return CommonErrors.DbSaveError;
+
+        return new UpdateCategoryResponse(categoryToUpdate);
     }
 
-    public async Task<ResultDto<List<Category>>> GetCategories()
+    public async Task<ErrorOr<List<Category>>> GetCategories()
     {
-        return new ResultDto<List<Category>>
-        {
-            IsSuccess = true,
-            Response = await _context.Categories.ToListAsync()
-        };
+        return await _context.Categories.ToListAsync();
     }
-    public async Task<ResultDto<object>> DeleteCategory(int categoryId)
+
+    public async Task<ErrorOr<bool>> DeleteCategory(int categoryId)
     {
         var categoryToDelete = await _context.Categories.FirstOrDefaultAsync(c => c.Id == categoryId);
         if (categoryToDelete is null)
-            return new ResultDto<object>
-            {
-                IsSuccess = false,
-                Message = "The category does not exists"
-            };
+            return ApiErrors.Category.InvalidCategory;
+
         _context.Categories.Remove(categoryToDelete);
+        // Change this to update active field in products
         var saved = await _context.SaveChangesAsync();
-        return new ResultDto<object>
-        {
-            IsSuccess = saved > 0,
-            Message = saved > 0 ? "Deleted Successfully" : "Something went wrong while deleting",
-        };
+
+        if (saved <= 0)
+            return CommonErrors.DbSaveError;
+
+        return true;
     }
 
-    public async Task<ResultDto<GetProductsFromCategoryResponse>> GetProductsFromCategory(int categoryId)
+    public async Task<ErrorOr<GetProductsFromCategoryResponse>> GetProductsFromCategory(int categoryId)
     {
         var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == categoryId);
 
         if (category is null)
-        {
-            return new ResultDto<GetProductsFromCategoryResponse>
-            {
-                IsSuccess = false,
-                Message = "The category does not exists"
-            };
-        }
+            return ApiErrors.Category.InvalidCategory;
 
-        var products = await _context.Products.Where(p => p.CategoryId == categoryId).ToListAsync();
+        var products = await _context.Products.Where(p => p.CategoryId == categoryId).Select(p => _mapper.Map<GetProductResponse>(p)).ToListAsync();
 
-        return new ResultDto<GetProductsFromCategoryResponse>
-        {
-            IsSuccess = true,
-            Message = "Query Successful",
-            Response = new GetProductsFromCategoryResponse(category, products)
-        };
+        return new GetProductsFromCategoryResponse(products);
     }
 }

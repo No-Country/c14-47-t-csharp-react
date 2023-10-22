@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using ErrorOr;
 using OrganicFreshAPI.Entities.DbSet;
 using OrganicFreshAPI.Entities.Dtos;
 using OrganicFreshAPI.Entities.Dtos.Requests;
@@ -8,9 +9,9 @@ namespace OrganicFreshAPI.DataService.Repositories.Interfaces;
 
 public interface ICategoryRepository
 {
-    Task<ResultDto<List<Category>>> GetCategories();
-    Task<ResultDto<GetProductsFromCategoryResponse>> GetProductsFromCategory(int categoryId);
-    Task<ResultDto<CreateCategoryResponse>> CreateCategory(CreateCategoryRequest request);
-    Task<ResultDto<UpdateCategoryResponse>> UpdateCategory(int categoryId, UpdateCategoryRequest request);
-    Task<ResultDto<object>> DeleteCategory(int categoryId);
+    Task<ErrorOr<List<Category>>> GetCategories();
+    Task<ErrorOr<GetProductsFromCategoryResponse>> GetProductsFromCategory(int categoryId);
+    Task<ErrorOr<CreateCategoryResponse>> CreateCategory(CreateCategoryRequest request);
+    Task<ErrorOr<UpdateCategoryResponse>> UpdateCategory(int categoryId, UpdateCategoryRequest request);
+    Task<ErrorOr<bool>> DeleteCategory(int categoryId);
 }
