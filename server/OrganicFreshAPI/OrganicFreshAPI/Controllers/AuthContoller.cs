@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OrganicFreshAPI.Common.Errors;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.Dtos.Requests;
 
 namespace OrganicFreshAPI.Controllers;
 
-[ApiController]
 [Route("[controller]")]
-public class AuthController : ControllerBase
+public class AuthController : ApiController
 {
     private readonly IAuthenticationRepository _authRepository;
 
@@ -22,13 +22,16 @@ public class AuthController : ControllerBase
     {
         var result = await _authRepository.Register(request);
 
-        if (!result.IsSuccess)
-            return BadRequest(result.Message);
+        if (result.IsError && result.FirstError == ApiErrors.Authentication.UserAlreadyExists)
+            return Problem(
+                statusCode: StatusCodes.Status409Conflict,
+                title: result.FirstError.Description
+            );
 
         var response = new
         {
-            jwt = result.Response,
-            result.isAdmin
+            jwt = result.Value.jwt,
+            isAdmin = result.Value.isAdmin
         };
         return Ok(response);
     }
@@ -39,13 +42,16 @@ public class AuthController : ControllerBase
     {
         var result = await _authRepository.Login(request);
 
-        if (!result.IsSuccess)
-            return BadRequest(result.Message);
+        if (result.IsError && result.FirstError == ApiErrors.Authentication.InvalidCredentials)
+            return Problem(
+                statusCode: StatusCodes.Status401Unauthorized,
+                title: result.FirstError.Description
+            );
 
         var response = new
         {
-            jwt = result.Response,
-            result.isAdmin
+            result.Value.jwt,
+            result.Value.isAdmin
         };
 
         return Ok(response);
@@ -56,7 +62,14 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Me(IHttpContextAccessor contextAccessor)
     {
         var result = await _authRepository.UserDetails(contextAccessor);
-        return Ok(result);
+        if (result.IsError && result.FirstError == ApiErrors.Authentication.UserNotFoundInRequest)
+        {
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                title: result.FirstError.Description
+            );
+        }
+        return Ok(result.Value);
     }
 
     [Authorize(Policy = "ElevatedRights")]
@@ -64,6 +77,13 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> MeAdmin(IHttpContextAccessor contextAccessor)
     {
         var result = await _authRepository.UserDetails(contextAccessor);
-        return Ok(result);
+        if (result.IsError && result.FirstError == ApiErrors.Authentication.UserNotFoundInRequest)
+        {
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                title: result.FirstError.Description
+            );
+        }
+        return Ok(result.Value);
     }
 }

@@ -1,13 +1,15 @@
+using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OrganicFreshAPI.Common.Errors;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.Dtos.Requests;
+using OrganicFreshAPI.Entities.Dtos.Responses;
 
 namespace OrganicFreshAPI.Controllers;
 
-[ApiController]
 [Route("[controller]")]
-public class ProductsController : ControllerBase
+public class ProductsController : ApiController
 {
     private readonly IProductRepository _productRepository;
     public ProductsController(IProductRepository productRepository)
@@ -20,45 +22,78 @@ public class ProductsController : ControllerBase
     {
         var result = await _productRepository.GetProducts();
 
-        if (!result.IsSuccess)
-            return BadRequest();
-
-        return Ok(result.Response);
+        return Ok(result.Value);
     }
 
-    [Authorize(Policy = "ElevatedRights")]
+    // [Authorize(Policy = "ElevatedRights")]
     [HttpPost]
     public async Task<IActionResult> CreateProduct([FromForm] CreateProductRequest request)
     {
-        var result = await _productRepository.CreateProduct(request);
-        if (!result.IsSuccess)
-            return BadRequest(result.Message);
 
-        return Ok(result.Response);
+
+        ErrorOr<GetProductResponse> result = await _productRepository.CreateProduct(request);
+
+        if (result.IsError && result.FirstError == ApiErrors.Product.InvalidCategory)
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                title: result.FirstError.Description
+            );
+
+        if (result.IsError && result.FirstError == CommonErrors.DbSaveError)
+            return Problem(
+                statusCode: StatusCodes.Status500InternalServerError,
+                title: result.FirstError.Description
+            );
+
+        return Ok(result.Value);
     }
 
-    [Authorize(Policy = "ElevatedRights")]
+    // [Authorize(Policy = "ElevatedRights")]
     [HttpPut("{productId}")]
     public async Task<IActionResult> UpdateProduct([FromRoute] int productId, [FromForm] UpdateProductRequest request)
     {
         var result = await _productRepository.UpdateProduct(productId, request);
 
-        if (!result.IsSuccess)
-            return BadRequest(result.Message);
+        if (result.IsError && result.FirstError == ApiErrors.Product.InvalidCategory)
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                title: result.FirstError.Description
+            );
 
-        return Ok(result.Response);
+        if (result.IsError && result.FirstError == ApiErrors.Product.InvalidProduct)
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                title: result.FirstError.Description
+            );
+
+        if (result.IsError && result.FirstError == CommonErrors.DbSaveError)
+            return Problem(
+                statusCode: StatusCodes.Status500InternalServerError,
+                title: result.FirstError.Description
+            );
+
+        if (result.IsError && result.FirstError == CommonErrors.ImageUploadError)
+            return Problem(
+                statusCode: StatusCodes.Status500InternalServerError,
+                title: result.FirstError.Description
+            );
+
+        return Ok(result.Value);
     }
 
-    [Authorize(Policy = "ElevatedRights")]
+
+    // [Authorize(Policy = "ElevatedRights")]
     [HttpDelete("{productId}")]
     public async Task<IActionResult> DeleteProduct([FromRoute] int productId)
     {
         var result = await _productRepository.DeleteProduct(productId);
 
-        if (!result.IsSuccess)
-            return BadRequest(result.Message);
+        if (result.IsError && result.FirstError == ApiErrors.Product.InvalidProduct)
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                title: result.FirstError.Description
+            );
 
-        return Ok(result.Message);
+        return Ok(result.Value);
     }
-
 }
