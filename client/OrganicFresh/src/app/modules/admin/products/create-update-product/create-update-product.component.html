@@ -1,6 +1,6 @@
 <div mat-dialog-content class="container">
     <div class="container-title">
-       <p class="text-primary">New Product</p>
+       <p class="text-primary">{{editProduct?'Edit':'New'}} Product</p>
        
        <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none" (click)="close()">
           <path d="M11.6967 1.69686L1.0901 12.3035M11.6967 12.3035L1.0901 1.69686" stroke="#083C04" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -57,7 +57,8 @@
          <input type="file" id="seleccionarImagen" style="display: none" (change)="cargarImagen($event)" accept="image/*" />
         <div class="container-input">
            <p class="text-primary-dark">Product Image</p>
-           <ng-template #sinImagen>
+           
+         <ng-template #sinImagen>
            <label for="seleccionarImagen" class="label-image">
            <div class="upload-image">
                 
@@ -88,11 +89,11 @@
 
     </form>
  
-    <button class="button-primary" [disabled]="form.invalid" (click)="create()" >Add new product</button>
-    <!-- <ng-template #edit>
-       <button  (click)="delete()" class="button-grey" >Delete</button>
-       <button  class="button-primary" (click)="update()">Save Changes</button>
+    <button class="button-primary" *ngIf="!editProduct; else edit" [disabled]="form.invalid" (click)="create()" >Add new product</button>
+    <ng-template #edit>
+       <!-- <button  (click)="delete()" class="button-grey" >Delete</button> -->
+       <button  class="button-primary" [disabled]="form.invalid" (click)="update()" >Save Changes</button>
  
-    </ng-template> -->
+    </ng-template>
  </div>
  
