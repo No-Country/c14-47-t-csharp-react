@@ -20,5 +20,11 @@ public class MyDbContext : IdentityDbContext<User>
             entity.Property(e => e.Price)
                 .HasColumnType("decimal(18,2)");
         });
+
+        modelBuilder.Entity<Product>(entity =>
+        {
+            entity.Property(e => e.Stock)
+                .HasColumnType("decimal(18,2)");
+        });
     }
 }
