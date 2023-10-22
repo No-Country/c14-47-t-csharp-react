@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Category } from 'src/app/interfaces/category';
+import { Product } from 'src/app/interfaces/product';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -16,8 +17,11 @@ export class CreateUpdateProductComponent implements OnInit {
   listCategories:Category[]= [];
   weightUnit:string = 'Oz';
   imagenSeleccionada: string | ArrayBuffer | null = null;
+  editProduct:boolean = false;
+  imagenModificada = false;
 
-  constructor(fb:FormBuilder, private productService:ProductService, private categoryService:CategoryService, private matDialogRef:MatDialogRef<CreateUpdateProductComponent>){
+  constructor(fb:FormBuilder, private productService:ProductService, private categoryService:CategoryService, private matDialogRef:MatDialogRef<CreateUpdateProductComponent>,
+    @Inject(MAT_DIALOG_DATA)public dataProduct:Product){
 
     this.form = fb.group({
       name:['',[Validators.required]],
@@ -26,10 +30,26 @@ export class CreateUpdateProductComponent implements OnInit {
       stock:['', [Validators.required, Validators.min(0)]],
       image:[null,Validators.required]
     });
+
+    if(this.dataProduct!==null){
+      this.editProduct = true;
+    }
+
     this.getCategories();
 
   }
   ngOnInit(): void {
+    if(this.editProduct){
+      this.form.patchValue({
+        name:this.dataProduct.name,
+        categoryId: this.dataProduct.categoryId,
+        price:this.dataProduct.price,
+        stock: this.dataProduct.stock,
+        image: this.dataProduct.imageUrl
+      });
+      this.weightUnit = this.dataProduct.weightUnit;
+      this.imagenSeleccionada = this.dataProduct.imageUrl;
+    }
   }
 
 
@@ -52,6 +72,30 @@ export class CreateUpdateProductComponent implements OnInit {
 
   }
 
+  update():void{
+
+    const formData = new FormData();
+
+    formData.append('name', this.form.value.name);
+    formData.append('categoryId', this.form.value.categoryId);
+    formData.append('price', this.form.value.price);
+    formData.append('stock', this.form.value.stock);
+    formData.append('weightUnit', this.weightUnit);
+    if(this.imagenModificada){
+      formData.append('image',this.form.value.image);
+    }
+
+
+   this.productService.update(this.dataProduct.id!, formData).subscribe({
+    next:()=>{
+      this.matDialogRef.close(true);
+    },
+    error:()=>{
+      
+    }
+   });
+  }
+
   getCategories():void{
     this.categoryService.getAll().subscribe({
       next:(res)=>{
@@ -72,6 +116,10 @@ export class CreateUpdateProductComponent implements OnInit {
       this.form.patchValue({
         image:archivo
       });
+
+      if(this.editProduct){
+        this.imagenModificada = true;
+      }
       // Lee el archivo y muestra la imagen
       const lector = new FileReader();
       lector.onload = (e: any) => {

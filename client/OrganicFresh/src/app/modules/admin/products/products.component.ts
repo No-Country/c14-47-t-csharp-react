@@ -32,4 +32,14 @@ export class ProductsComponent {
     });
   }
 
+  update(product:Product):void{
+    this.matDialog.open(CreateUpdateProductComponent,{data:product}).afterClosed().subscribe({
+      next:(res)=>{
+        if(res === true){
+          this.getAll();
+        }
+      }
+    });
+  }
+
 }

@@ -23,4 +23,9 @@ export class ProductService {
     return this.http.post<Product>(this.apiUrl,formData);
   }
 
+  update(id:number, formData:FormData):Observable<Product>{
+
+    return this.http.put<Product>(this.apiUrl+'/'+id, formData);
+  }
+
 }
