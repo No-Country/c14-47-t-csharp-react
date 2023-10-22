@@ -91,7 +91,7 @@
  
     <button class="button-primary" *ngIf="!editProduct; else edit" [disabled]="form.invalid" (click)="create()" >Add new product</button>
     <ng-template #edit>
-       <!-- <button  (click)="delete()" class="button-grey" >Delete</button> -->
+       <button  (click)="delete()" class="button-grey" >Delete</button>
        <button  class="button-primary" [disabled]="form.invalid" (click)="update()" >Save Changes</button>
  
     </ng-template>

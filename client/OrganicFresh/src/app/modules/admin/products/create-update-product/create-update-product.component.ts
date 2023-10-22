@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Category } from 'src/app/interfaces/category';
 import { Product } from 'src/app/interfaces/product';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
+import { ConfirmDeleteProductComponent } from '../confirm-delete-product/confirm-delete-product.component';
 
 @Component({
   selector: 'app-create-update-product',
@@ -21,7 +22,7 @@ export class CreateUpdateProductComponent implements OnInit {
   imagenModificada = false;
 
   constructor(fb:FormBuilder, private productService:ProductService, private categoryService:CategoryService, private matDialogRef:MatDialogRef<CreateUpdateProductComponent>,
-    @Inject(MAT_DIALOG_DATA)public dataProduct:Product){
+    @Inject(MAT_DIALOG_DATA)public dataProduct:Product, private matDialog:MatDialog){
 
     this.form = fb.group({
       name:['',[Validators.required]],
@@ -96,6 +97,15 @@ export class CreateUpdateProductComponent implements OnInit {
    });
   }
 
+  delete():void{
+    this.matDialog.open(ConfirmDeleteProductComponent,{data:this.dataProduct.id}).afterClosed().subscribe({
+      next:(res)=>{
+        if(res === true){
+          this.matDialogRef.close(true);
+        }
+      }
+    });
+  }
   getCategories():void{
     this.categoryService.getAll().subscribe({
       next:(res)=>{
