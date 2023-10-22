@@ -8,6 +8,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { CreateUpdateCategoryComponent } from './categories/modals/create-update-category/create-update-category.component';
 import { ConfirmDeleteCategoryComponent } from './categories/modals/confirm-delete-category/confirm-delete-category.component';
 import { ProductsComponent } from './products/products.component';
+import { CreateUpdateProductComponent } from './products/create-update-product/create-update-product.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ProductsComponent } from './products/products.component';
     CategoriesComponent,
     CreateUpdateCategoryComponent,
     ConfirmDeleteCategoryComponent,
-    ProductsComponent
+    ProductsComponent,
+    CreateUpdateProductComponent
   ],
   imports: [
     CommonModule,

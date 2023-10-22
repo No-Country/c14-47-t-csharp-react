@@ -18,4 +18,9 @@ export class ProductService {
     return this.http.get<ResProduct>(`${this.apiUrl}`);
   }
 
+  create(formData:FormData):Observable<Product>{
+    
+    return this.http.post<Product>(this.apiUrl,formData);
+  }
+
 }

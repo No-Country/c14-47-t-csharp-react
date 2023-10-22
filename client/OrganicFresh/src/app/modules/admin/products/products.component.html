@@ -11,7 +11,7 @@
     <tr *ngFor="let product of listProducts">
       <td >{{ product.name }}</td>
     <td>{{product.categoryId}}</td>
-    <td>{{product.price}}</td>
+    <td>{{product.price | currency}}/{{product.weightUnit}}</td>
     </tr>
 
 
@@ -23,6 +23,7 @@
 
   </table>
 
+  <button class="button-primary text-700" (click)="newProduct()">New Product</button>
 
 </div>
 
