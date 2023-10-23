@@ -295,3 +295,41 @@ Response
 ```
 204 No Content
 ```
+
+### Errors
+In case of validation error, the response will be
+```
+400 Bad Request
+{
+  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+  "title": "One or more validation errors occurred.",
+  "status": 400,
+  "traceId": "00-a60b1f8fc584a464a56b10a3082debfa-cc23209ddc54150a-00",
+  "errors": {
+    "prop1": [
+      "error1",
+      .
+      .
+      .,
+      "error n"
+    ]
+  }
+}
+```
+In case of api error, the response will be
+```
+40x
+{
+  "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+  "title": "Description of the error",
+  "status": 40x,
+  "traceId": "00-72f70847aaf67bf9062ed62f87aecc54-f2340cc1dab4de2b-00"
+}
+```
+In case of an unexpected error, the response will be
+```
+500 Internal Server Error
+```
+### Contact
+If you have any questions, suggestions, or feedback regarding the API
+, please contact the developer at sebasperichon@gmail.com
