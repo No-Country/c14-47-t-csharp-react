@@ -15,5 +15,10 @@ public static partial class ApiErrors
             code: "Product.InvalidProductID",
             description: "The product does not exists"
         );
+
+        public static Error HasActiveProducts = Error.Failure(
+            code: "Category.HasActiveProducts",
+            description: "The category has active products therefore cannot be deleted"
+        );
     }
 }
