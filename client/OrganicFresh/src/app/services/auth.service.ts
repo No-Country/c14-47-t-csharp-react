@@ -50,4 +50,9 @@ export class AuthService {
     localStorage.removeItem('credential');
     this.router.navigate(['index']);
   }
+
+  meAdmin():Observable<void>{
+    
+    return this.http.get<void>(this.apiUrl+'/me/admin');
+  }
 }
