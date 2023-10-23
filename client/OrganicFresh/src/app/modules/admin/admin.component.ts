@@ -10,6 +10,14 @@ import { AuthService } from 'src/app/services/auth.service';
 export class AdminComponent {
   constructor(private authService:AuthService, private router:Router){
 
+    this.authService.meAdmin().subscribe({
+      next:()=>{
+        this.router.navigate(['admin/products']);
+      },
+      error:()=>{
+        this.router.navigate(['index']);
+      }
+    });
 }
 
 logout():void{
