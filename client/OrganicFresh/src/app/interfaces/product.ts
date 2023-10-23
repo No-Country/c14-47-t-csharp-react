@@ -6,5 +6,6 @@ export interface Product{
   price: number,
   stock:number,
   weightUnit:string,
-  imageUrl:string
+  imageUrl:string,
+  active:boolean
 }

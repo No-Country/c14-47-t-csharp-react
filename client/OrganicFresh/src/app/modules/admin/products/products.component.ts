@@ -17,7 +17,9 @@ export class ProductsComponent {
   }
 
   getAll():void{
-    this.productService.getAll().subscribe( {next:(res) => {this.listProducts =  res.products}  } );
+    this.productService.getAll().subscribe( {next:(res) => {
+      this.listProducts =  res.products.filter(p => p.active === true);
+    }} );
   }
 
   listProducts:Product[] = [];

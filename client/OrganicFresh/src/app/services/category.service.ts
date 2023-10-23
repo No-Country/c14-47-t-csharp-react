@@ -18,14 +18,14 @@ export class CategoryService {
     return this.http.get<Category[]>(this.apiUrl);
   }
 
-  create(category:Category):Observable<Category>{
+  create(formData:FormData):Observable<Category>{
 
-    return this.http.post<Category>(this.apiUrl, category);
+    return this.http.post<Category>(this.apiUrl, formData);
   }
 
-  update(category:Category):Observable<Category>{
+  update(id:number, formData:FormData):Observable<Category>{
     
-    return this.http.put<Category>(this.apiUrl+'/'+category.id, category);
+    return this.http.put<Category>(this.apiUrl+'/'+id, formData);
   }
 
   delete(id:number):Observable<void>{

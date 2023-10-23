@@ -28,4 +28,8 @@ export class ProductService {
     return this.http.put<Product>(this.apiUrl+'/'+id, formData);
   }
 
+  delete(id:number):Observable<void>{
+    return this.http.delete<void>(this.apiUrl+'/'+id);
+  }
+
 }
