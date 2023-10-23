@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,8 +15,8 @@ export class AdminComponent {
       next:()=>{
         this.router.navigate(['admin/products']);
       },
-      error:()=>{
-        this.router.navigate(['index']);
+      error:(err:HttpErrorResponse)=>{
+        if(err.status !== 401) this.router.navigate(['index']);
       }
     });
 }
