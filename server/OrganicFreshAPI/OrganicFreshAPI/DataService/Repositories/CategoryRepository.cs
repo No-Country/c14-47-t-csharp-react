@@ -96,7 +96,12 @@ public class CategoryRepository : ICategoryRepository
         if (categoryToDelete is null)
             return ApiErrors.Category.InvalidCategory;
 
-        _context.Categories.Remove(categoryToDelete);
+        var hasActiveProducts = _context.Products.Where(p => p.CategoryId == categoryToDelete.Id).All(p => p.Active == false);
+
+        if (hasActiveProducts)
+            return ApiErrors.Category.HasActiveProducts;
+
+        categoryToDelete.Active = false;
         // Change this to update active field in products
         var saved = await _context.SaveChangesAsync();
 

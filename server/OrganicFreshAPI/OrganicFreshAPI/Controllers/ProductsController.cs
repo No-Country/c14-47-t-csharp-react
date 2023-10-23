@@ -94,6 +94,6 @@ public class ProductsController : ApiController
                 title: result.FirstError.Description
             );
 
-        return Ok(result.Value);
+        return NoContent();
     }
 }
