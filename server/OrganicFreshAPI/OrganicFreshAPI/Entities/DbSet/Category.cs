@@ -10,4 +10,5 @@ public class Category
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime ModifiedAt { get; set; } = DateTime.UtcNow;
     public DateTime DeletedAt { get; set; } = DateTime.UtcNow;
+    public ICollection<Product> Products { get; set; } = new List<Product>();
 }

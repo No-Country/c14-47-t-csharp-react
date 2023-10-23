@@ -1,9 +1,11 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using ErrorOr;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using OrganicFreshAPI.Common.Errors;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.DbSet;
 using OrganicFreshAPI.Entities.Dtos;
@@ -22,12 +24,12 @@ public class AuthenticationRepository : IAuthenticationRepository
         _configuration = configuration;
     }
 
-    public async Task<ResultDto<string>> Register(RegisterRequest request)
+    public async Task<ErrorOr<LoginResponse>> Register(RegisterRequest request)
     {
         var userByEmail = await _userManager.FindByEmailAsync(request.Email);
         if (userByEmail is not null)
         {
-            return new ResultDto<string> { IsSuccess = false, Message = "User already exists" };
+            return ApiErrors.Authentication.UserAlreadyExists;
         }
 
 
@@ -44,25 +46,19 @@ public class AuthenticationRepository : IAuthenticationRepository
 
         if (!result.Succeeded)
         {
-            return new ResultDto<string>
-            {
-                IsSuccess = false,
-                Message =
-            $"Something went wrong {GetErrorsText(result.Errors)}"
-            };
-        }
-
+            return CommonErrors.DbSaveError;
+        };
 
         return await Login(new LoginRequest(request.Email, request.Password));
     }
 
-    public async Task<ResultDto<string>> Login(LoginRequest request)
+    public async Task<ErrorOr<LoginResponse>> Login(LoginRequest request)
     {
         var user = await _userManager.FindByEmailAsync(request.Email);
 
         if (user is null || !await _userManager.CheckPasswordAsync(user, request.Password))
         {
-            return new ResultDto<string> { IsSuccess = false, Message = "Password or Email is incorrect" };
+            return ApiErrors.Authentication.InvalidCredentials;
         }
 
         var authClaims = new List<Claim>
@@ -80,22 +76,22 @@ public class AuthenticationRepository : IAuthenticationRepository
 
         var token = GetToken(authClaims);
 
-        return new ResultDto<string> { IsSuccess = true, Message = "Login successful", Response = new JwtSecurityTokenHandler().WriteToken(token), isAdmin = isAdmin };
+        return new LoginResponse(new JwtSecurityTokenHandler().WriteToken(token), isAdmin);
     }
 
-    public async Task<ResultDto<UserDetailsResponse>> UserDetails(IHttpContextAccessor contextAccessor)
+    public async Task<ErrorOr<UserDetailsResponse>> UserDetails(IHttpContextAccessor contextAccessor)
     {
         var user = contextAccessor.HttpContext.User;
         var userId = user.FindFirst("Id")?.Value;
-        User userInfo = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
-        var response = new UserDetailsResponse(userInfo.Name, userInfo.CreatedAt, userInfo.ModifiedAt, userInfo.DeletedAt, userInfo.Id, userInfo.Email);
-        return new ResultDto<UserDetailsResponse> { IsSuccess = true, Response = response };
-    }
-
-
-    public bool VerifyJwt(string userId)
-    {
-        throw new NotImplementedException();
+        if (userId is null)
+        {
+            return ApiErrors.Authentication.UserNotFoundInRequest;
+        }
+        else
+        {
+            User userInfo = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            return new UserDetailsResponse(userInfo.Name, userInfo.CreatedAt, userInfo.ModifiedAt, userInfo.DeletedAt, userInfo.Id, userInfo.Email);
+        }
     }
 
     private JwtSecurityToken GetToken(IEnumerable<Claim> authClaims)

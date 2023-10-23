@@ -26,7 +26,7 @@ public class ImageService : IImageService
             var uploadParams = new ImageUploadParams
             {
                 File = new FileDescription(file.FileName, stream),
-                Transformation = new Transformation().Width(1000).Height(1000).Crop("fill")
+                Transformation = new Transformation()
             };
             uploadResult = await _cloudinary.UploadAsync(uploadParams);
         }

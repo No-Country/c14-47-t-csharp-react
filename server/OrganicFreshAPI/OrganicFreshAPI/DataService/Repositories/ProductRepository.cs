@@ -1,4 +1,7 @@
+using AutoMapper;
+using ErrorOr;
 using Microsoft.EntityFrameworkCore;
+using OrganicFreshAPI.Common.Errors;
 using OrganicFreshAPI.DataService.Data;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.DbSet;
@@ -12,44 +15,32 @@ namespace OrganicFreshAPI.DataService.Repositories;
 public class ProductRepository : IProductRepository
 {
     private readonly MyDbContext _context;
+    private readonly IMapper _mapper;
     private readonly IImageService _imageService;
 
-    public ProductRepository(MyDbContext context, IImageService imageService)
+    public ProductRepository(MyDbContext context, IImageService imageService, IMapper mapper)
     {
         _context = context;
         _imageService = imageService;
+        _mapper = mapper;
     }
 
-    public async Task<ResultDto<CreateProductResponse>> CreateProduct(CreateProductRequest request)
+    public async Task<ErrorOr<GetProductResponse>> CreateProduct(CreateProductRequest request)
     {
         CloudinaryDotNet.Actions.ImageUploadResult resultImage = null;
-
-        if (request.Name is null || request.CategoryId <= 0)
-            return new ResultDto<CreateProductResponse>()
-            {
-                IsSuccess = false,
-                Message = "Invalid Name or CategoryId"
-            };
 
         var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == request.CategoryId);
         if (category is null)
         {
-            return new ResultDto<CreateProductResponse>
-            {
-                IsSuccess = false,
-                Message = "category not found"
-            };
+            return ApiErrors.Product.InvalidCategory;
         }
 
         if (request.Image != null)
         {
             resultImage = await _imageService.AddImageAsync(request.Image);
+
             if (resultImage.Error != null)
-                return new ResultDto<CreateProductResponse>()
-                {
-                    IsSuccess = false,
-                    Message = $"Something went wrong while uploading the image {resultImage.Error.Message}",
-                };
+                return CommonErrors.ImageUploadError;
         }
 
         Product newProduct = new Product
@@ -62,48 +53,43 @@ public class ProductRepository : IProductRepository
             Stock = request.Stock ?? 0,
             ImageUrl = resultImage != null ? resultImage.Url.ToString() : "",
             PublicId = resultImage != null ? resultImage.PublicId : "",
+            Category = category
         };
 
         await _context.Products.AddAsync(newProduct);
         var saved = await _context.SaveChangesAsync();
-        return new ResultDto<CreateProductResponse>
-        {
-            IsSuccess = saved > 0,
-            Message = saved > 0 ? "Product created successfully" : "Something went wrong while creating the product",
-            Response = new CreateProductResponse(newProduct),
-        };
+
+        var response = _mapper.Map<GetProductResponse>(newProduct);
+        if (saved <= 0)
+            return CommonErrors.DbSaveError;
+
+        return response;
     }
 
-    public async Task<ResultDto<object>> DeleteProduct(int productId)
+    public async Task<ErrorOr<bool>> DeleteProduct(int productId)
     {
         var productToDelete = await _context.Products.FirstOrDefaultAsync(p => p.Id == productId);
         if (productToDelete is null)
-            return new ResultDto<object>
-            {
-                IsSuccess = false,
-                Message = "The product does not exists"
-            };
+            return ApiErrors.Product.InvalidProduct;
 
         productToDelete.Active = false;
 
         var saved = await _context.SaveChangesAsync();
-        return new ResultDto<object>
-        {
-            IsSuccess = saved > 0,
-            Message = saved > 0 ? "Deleted successfully" : "Something went wrong while deleting",
-        };
+
+        if (saved <= 0)
+            return CommonErrors.DbSaveError;
+
+        return true;
     }
 
-    public async Task<ResultDto<GetProductsResponse>> GetProducts()
+    public async Task<ErrorOr<GetProductsResponse>> GetProducts()
     {
-        return new ResultDto<GetProductsResponse>
-        {
-            IsSuccess = true,
-            Response = new GetProductsResponse(await _context.Products.ToListAsync())
-        };
+        var products = await _context.Products.Include(x => x.Category).ToListAsync();
+        var productResponses = _mapper.Map<List<GetProductResponse>>(products);
+        return new GetProductsResponse(productResponses);
     }
 
-    public async Task<ResultDto<UpdateProductResponse>> UpdateProduct(int productId, UpdateProductRequest request)
+    public async Task<ErrorOr<GetProductResponse>> UpdateProduct(int productId, UpdateProductRequest request)
     {
         CloudinaryDotNet.Actions.ImageUploadResult resultImage = null;
         CloudinaryDotNet.Actions.DeletionResult imageToDelete = null;
@@ -111,29 +97,12 @@ public class ProductRepository : IProductRepository
         var productToUpdate = await _context.Products.FirstOrDefaultAsync(p => p.Id == productId);
 
         if (productToUpdate is null)
-            return new ResultDto<UpdateProductResponse>
-            {
-                IsSuccess = false,
-                Message = "The product does not exists"
-            };
+            return ApiErrors.Product.InvalidProduct;
 
-        if (request.categoryId.HasValue && request.categoryId <= 0)
-        {
-            return new ResultDto<UpdateProductResponse>
-            {
-                IsSuccess = false,
-                Message = "Invalid category ID"
-            };
-        }
         var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == request.categoryId);
+
         if (request.categoryId.HasValue && category is null)
-        {
-            return new ResultDto<UpdateProductResponse>
-            {
-                IsSuccess = false,
-                Message = "category not found"
-            };
-        }
+            return ApiErrors.Product.InvalidCategory;
 
         productToUpdate.Name = request.name ?? productToUpdate.Name;
         productToUpdate.Active = request.active ?? true;
@@ -147,25 +116,22 @@ public class ProductRepository : IProductRepository
         {
             resultImage = await _imageService.AddImageAsync(request.image);
             imageToDelete = await _imageService.DeleteImageAsync(productToUpdate.PublicId);
-            if (resultImage.Error != null || imageToDelete.Error != null)
-            {
-                return new ResultDto<UpdateProductResponse>
-                {
-                    IsSuccess = false,
-                    Message = $"Something went wrong while updating the image {resultImage.Error.Message ?? imageToDelete.Error.Message}",
-                };
-            }
+            if (resultImage.Error != null)
+                return CommonErrors.ImageUploadError;
 
+            if (imageToDelete.Error != null)
+                return CommonErrors.ImageDeleteError;
             productToUpdate.ImageUrl = resultImage.Url.ToString();
             productToUpdate.PublicId = resultImage.PublicId;
         }
 
         var saved = await _context.SaveChangesAsync();
-        return new ResultDto<UpdateProductResponse>
-        {
-            IsSuccess = saved > 0,
-            Message = saved > 0 ? "Updated successfully" : "Something went wrong while updating",
-            Response = new UpdateProductResponse(productToUpdate)
-        };
+
+        if (saved <= 0)
+            return CommonErrors.DbSaveError;
+
+        var response = _mapper.Map<GetProductResponse>(productToUpdate);
+
+        return response;
     }
 }

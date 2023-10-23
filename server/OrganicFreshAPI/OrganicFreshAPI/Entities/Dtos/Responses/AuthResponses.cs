@@ -1,11 +1,13 @@
 namespace OrganicFreshAPI.Entities.Dtos.Responses;
 
 public record RegisterResponse(
-    string jwt
+    string jwt,
+    bool isAdmin
 );
 
 public record LoginResponse(
-    string jwt
+    string jwt,
+    bool isAdmin
 );
 
 public record UserDetailsResponse(
