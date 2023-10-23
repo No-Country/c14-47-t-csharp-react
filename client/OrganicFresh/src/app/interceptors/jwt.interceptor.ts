@@ -3,12 +3,14 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, finalize, take } from 'rxjs';
+import { Observable, catchError, finalize, take, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { Credential } from '../interfaces/credential';
 import { SpinnerService } from '../services/spinner.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -38,7 +40,14 @@ export class JwtInterceptor implements HttpInterceptor {
       
     }
 
-    return next.handle(request).pipe(finalize(()=>{
+    return next.handle(request).pipe(catchError((err:HttpErrorResponse)=>{
+
+      if(err.status === 401){
+        this.authService.logout('/index/login');
+      }
+      
+      return throwError(()=>err);
+    }),finalize(()=>{
       this.spinnerService.ocultarSpinner();
     }));
   }
