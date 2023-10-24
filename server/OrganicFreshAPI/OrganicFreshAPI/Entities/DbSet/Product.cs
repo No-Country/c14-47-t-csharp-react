@@ -12,6 +12,7 @@ public class Product
     public decimal Stock { get; set; } = 0;
     public string ImageUrl { get; set; } = string.Empty;
     public string PublicId { get; set; } = string.Empty;
+    public ICollection<CheckoutDetails> CheckoutsDetails { get; set; } = new List<CheckoutDetails>();
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime ModifiedAt { get; set; } = DateTime.UtcNow;
     public DateTime DeletedAt { get; set; } = DateTime.UtcNow;
