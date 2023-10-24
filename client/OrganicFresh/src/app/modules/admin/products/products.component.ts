@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Product } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
@@ -11,9 +11,18 @@ import { CreateUpdateProductComponent } from './create-update-product/create-upd
 })
 export class ProductsComponent {
 
-  constructor( private productService:ProductService, private matDialog:MatDialog){
+  isLargeScreen:boolean;
 
+  constructor( private productService:ProductService, private matDialog:MatDialog){
+    this.isLargeScreen= true;
     this.getAll();
+
+  }
+
+
+  @HostListener ('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.isLargeScreen = window.innerWidth >= 768; //
   }
 
   getAll():void{

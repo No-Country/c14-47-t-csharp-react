@@ -10,18 +10,30 @@
   <tbody>
     <tr *ngFor="let product of listProducts">
       <td >{{ product.name }}</td>
-    <td>{{product.categoryId}}</td>
-    <td>{{product.price | currency}}/{{product.weightUnit}}</td>
-    <td><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none" class="logo-edit" (click)="update(product)">
-      <g clip-path="url(#clip0_439_5349)">
-      <path d="M21.8895 4.50675L24.3187 2.07606C24.8251 1.56965 25.512 1.28516 26.2281 1.28516C26.9443 1.28516 27.6312 1.56965 28.1376 2.07606C28.644 2.58247 28.9285 3.26931 28.9285 3.98548C28.9285 4.70165 28.644 5.38848 28.1376 5.89489L12.8464 21.186C12.0851 21.9469 11.1463 22.5061 10.1148 22.8132L6.24841 23.9652L7.40039 20.0989C7.70751 19.0673 8.26674 18.1285 9.02757 17.3672L21.8895 4.50675ZM21.8895 4.50675L25.6882 8.30542M23.5282 18.2053V25.0452C23.5282 25.9045 23.1868 26.7286 22.5792 27.3362C21.9716 27.9438 21.1475 28.2852 20.2882 28.2852H5.16842C4.30913 28.2852 3.48504 27.9438 2.87743 27.3362C2.26982 26.7286 1.92847 25.9045 1.92847 25.0452V9.9254C1.92847 9.06611 2.26982 8.24201 2.87743 7.6344C3.48504 7.02679 4.30913 6.68544 5.16842 6.68544H12.0083" stroke="#1E9F23" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </g>
-      <defs>
-      <clipPath id="clip0_439_5349">
-      <rect width="30" height="30" fill="white"/>
-      </clipPath>
-      </defs>
-      </svg></td>
+      <td>{{product.categoryId}}</td>
+      <td>{{product.price | currency}}/{{product.weightUnit}}</td>
+      <td *ngIf="!isLargeScreen" ><svg xmlns="http://www.w3.org/2000/svg"
+        width="30" height="30" viewBox="0 0 30 30" fill="none" class="logo-edit" (click)="update(product)">
+        <g clip-path="url(#clip0_439_5349)">
+        <path d="M21.8895 4.50675L24.3187 2.07606C24.8251 1.56965 25.512 1.28516 26.2281 1.28516C26.9443 1.28516 27.6312
+          1.56965 28.1376 2.07606C28.644 2.58247 28.9285 3.26931 28.9285 3.98548C28.9285 4.70165 28.644 5.38848 28.1376
+          5.89489L12.8464 21.186C12.0851 21.9469 11.1463 22.5061 10.1148 22.8132L6.24841 23.9652L7.40039 20.0989C7.70751
+          19.0673 8.26674 18.1285 9.02757 17.3672L21.8895 4.50675ZM21.8895 4.50675L25.6882 8.30542M23.5282 18.2053V25.0452C23.5282
+          25.9045 23.1868 26.7286 22.5792 27.3362C21.9716 27.9438 21.1475 28.2852 20.2882 28.2852H5.16842C4.30913 28.2852 3.48504
+          27.9438 2.87743 27.3362C2.26982 26.7286 1.92847 25.9045 1.92847 25.0452V9.9254C1.92847 9.06611 2.26982 8.24201 2.87743
+          7.6344C3.48504 7.02679 4.30913 6.68544 5.16842 6.68544H12.0083"
+          stroke="#1E9F23" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <defs>
+        <clipPath id="clip0_439_5349">
+        <rect width="30" height="30" fill="white"/>
+        </clipPath>
+        </defs>
+        </svg>
+      </td>
+      <td class="edit-button-column" *ngIf="isLargeScreen" >
+        <button (click)="update(product)" class=" button-edit">Edit</button>
+      </td>
     </tr>
 
 
@@ -33,7 +45,7 @@
 
   </table>
 
-  <button class="button-primary text-700" (click)="newProduct()">New Product</button>
+  <button class="new-product-button button-primary text-700" (click)="newProduct()">New Product</button>
 
 </div>
 

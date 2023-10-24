@@ -11,9 +11,10 @@ table{
 
 th{
   text-align: start;
+  color: #148E0A;
 }
 
-button{
+.new-product-button{
   width: 312px;
   margin-top: 50px;
 }
@@ -21,3 +22,21 @@ button{
 .logo-edit{
   cursor: pointer;
 }
+.button-edit{
+  background-color: white;
+  border-color: #148E0A;
+  border-width: 3px;
+  border-radius: 4px;
+  color: #148E0A;
+  cursor: pointer;
+  font-size: 16px;
+  height: 38px;
+  width: 101px;
+
+
+
+
+
+}
+
+
