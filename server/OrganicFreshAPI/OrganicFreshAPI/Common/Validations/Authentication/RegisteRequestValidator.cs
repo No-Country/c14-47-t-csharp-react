@@ -12,7 +12,7 @@ public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
         RuleFor(x => x.Password)
             .NotEmpty()
             .Matches(Consts.PasswordRegex)
-            .WithMessage("La contraseña tiene que tener una longitud mínima de 5 caracteres y contener al menos 1 mayúscula y 1 minúscula.");
+            .WithMessage("La contraseña tiene que tener una longitud mínima de 8 caracteres y contener al menos 1 mayúscula y 1 minúscula.");
 
         RuleFor(x => x.Password)
             .Length(8, 50);
