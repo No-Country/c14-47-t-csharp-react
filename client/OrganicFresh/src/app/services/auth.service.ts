@@ -45,9 +45,14 @@ export class AuthService {
     })); 
   }
 
-  logout():void{
+  logout(route:string = 'index'):void{
     this.credential.next(null);
     localStorage.removeItem('credential');
-    this.router.navigate(['index']);
+    this.router.navigate([route]);
+  }
+
+  meAdmin():Observable<void>{
+    
+    return this.http.get<void>(this.apiUrl+'/me/admin');
   }
 }

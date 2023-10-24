@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -10,6 +11,14 @@ import { AuthService } from 'src/app/services/auth.service';
 export class AdminComponent {
   constructor(private authService:AuthService, private router:Router){
 
+    this.authService.meAdmin().subscribe({
+      next:()=>{
+        this.router.navigate(['admin/products']);
+      },
+      error:(err:HttpErrorResponse)=>{
+        if(err.status !== 401) this.router.navigate(['index']);
+      }
+    });
 }
 
 logout():void{
