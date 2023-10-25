@@ -1,10 +1,7 @@
-using CloudinaryDotNet;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OrganicFreshAPI.Common.Errors;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.Dtos.Requests;
-using OrganicFreshAPI.Helpers;
 
 namespace OrganicFreshAPI.Controllers;
 
@@ -96,6 +93,12 @@ public class CategoriesController : ApiController
         var result = await _categoryRepository.DeleteCategory(categoryId);
 
         if (result.IsError && result.FirstError == ApiErrors.Category.InvalidProduct)
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                title: result.FirstError.Description
+            );
+
+        if (result.IsError && result.FirstError == ApiErrors.Category.HasActiveProducts)
             return Problem(
                 statusCode: StatusCodes.Status400BadRequest,
                 title: result.FirstError.Description
