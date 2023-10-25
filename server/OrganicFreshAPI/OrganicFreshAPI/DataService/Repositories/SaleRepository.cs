@@ -1,27 +1,32 @@
 using System.Runtime.CompilerServices;
+using AutoMapper;
 using ErrorOr;
 using Microsoft.EntityFrameworkCore;
 using OrganicFreshAPI.Common.Errors;
 using OrganicFreshAPI.DataService.Data;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.DbSet;
+using OrganicFreshAPI.Entities.Dtos.Responses;
 
 namespace OrganicFreshAPI.DataService.Repositories;
 
 public class SaleRepository : ISaleRepository
 {
     private readonly MyDbContext _context;
-
-    public SaleRepository(MyDbContext context)
+    private readonly IMapper _mapper;
+    public SaleRepository(MyDbContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     public async Task<ErrorOr<Sale>> CreateSale(string userId)
     {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
         var newSale = new Sale
         {
             UserId = userId,
+            User = user
         };
 
         await _context.Sales.AddAsync(newSale);
@@ -40,10 +45,13 @@ public class SaleRepository : ISaleRepository
 
         var checkoutDetails = new CheckoutDetails
         {
-            SaleId = saleId,
+            SaleId = sale.Id,
             Sale = sale,
             ProductId = productId,
-            Product = product
+            ProductName = product.Name,
+            Product = product,
+            Quantity = quantity,
+            Total = product.Price * quantity
         };
 
         sale.CheckoutsDetails.Add(checkoutDetails);
@@ -55,4 +63,59 @@ public class SaleRepository : ISaleRepository
 
         return true;
     }
+
+    public async Task<ErrorOr<List<SaleAndCheckoutDetails>>> GetSalesFromUser(string userId)
+    {
+        var sales = await _context.Sales
+    .Where(s => s.UserId == userId)
+    .Select(s => new SaleAndCheckoutDetails
+    {
+        SaleId = s.Id,
+        CreatedAt = s.CreatedAt,
+        ModifiedAt = s.ModifiedAt,
+        DeletedAt = s.DeletedAt,
+        CheckoutDetails = s.CheckoutsDetails
+            .Select(ct => new CheckoutDetails
+            {
+                ProductId = ct.ProductId,
+                SaleId = ct.SaleId,
+                Quantity = ct.Quantity,
+                Total = ct.Total,
+                ProductName = ct.Product.Name
+            })
+            .ToList()
+    })
+    .ToListAsync();
+
+        return sales;
+    }
+
+    public async Task<ErrorOr<List<SaleAndCheckoutDetailsAdmin>>> GetAllSales()
+    {
+        var sales = await _context.Sales
+    .Select(s => new SaleAndCheckoutDetailsAdmin
+    {
+        SaleId = s.Id,
+        CreatedAt = s.CreatedAt,
+        UserId = s.UserId,
+        UserName = s.User.Name,
+        UserEmail = s.User.Email,
+        ModifiedAt = s.ModifiedAt,
+        DeletedAt = s.DeletedAt,
+        CheckoutDetails = s.CheckoutsDetails
+            .Select(ct => new CheckoutDetails
+            {
+                ProductId = ct.ProductId,
+                SaleId = ct.SaleId,
+                Quantity = ct.Quantity,
+                Total = ct.Total,
+                ProductName = ct.Product.Name
+            })
+            .ToList()
+    })
+    .ToListAsync();
+
+        return sales;
+    }
+
 }
