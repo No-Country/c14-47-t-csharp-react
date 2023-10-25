@@ -3,6 +3,7 @@ namespace OrganicFreshAPI.Entities.DbSet;
 public class CheckoutDetails
 {
     public int ProductId { get; set; }
+    public string ProductName { get; set; }
     public Product Product { get; set; }
     public int SaleId { get; set; }
     public Sale Sale { get; set; }
