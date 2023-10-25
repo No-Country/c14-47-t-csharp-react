@@ -11,7 +11,7 @@ public class CreateProductRequest
     public bool? Active = true;
     public IFormFile? Image { get; set; }
     public string? WeightUnit { get; set; }
-    public int? Stock { get; set; }
+    public decimal? Stock { get; set; }
 }
 
 

@@ -9,5 +9,5 @@ public interface IAuthenticationRepository
 {
     Task<ErrorOr<LoginResponse>> Register(RegisterRequest request);
     Task<ErrorOr<LoginResponse>> Login(LoginRequest request);
-    Task<ErrorOr<UserDetailsResponse>> UserDetails(IHttpContextAccessor contextAccessor);
+    Task<ErrorOr<UserDetailsResponse>> UserDetails();
 }

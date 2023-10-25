@@ -63,6 +63,7 @@ public class CategoryRepository : ICategoryRepository
             return ApiErrors.Category.InvalidCategory;
 
         categoryToUpdate.Name = request.name == null ? categoryToUpdate.Name : request.name;
+        categoryToUpdate.Active = request.active ?? categoryToUpdate.Active;
 
         if (request.image != null)
         {
@@ -98,11 +99,11 @@ public class CategoryRepository : ICategoryRepository
 
         var hasActiveProducts = _context.Products.Where(p => p.CategoryId == categoryToDelete.Id).All(p => p.Active == false);
 
-        if (hasActiveProducts)
+        if (!hasActiveProducts)
             return ApiErrors.Category.HasActiveProducts;
 
         categoryToDelete.Active = false;
-        // Change this to update active field in products
+
         var saved = await _context.SaveChangesAsync();
 
         if (saved <= 0)

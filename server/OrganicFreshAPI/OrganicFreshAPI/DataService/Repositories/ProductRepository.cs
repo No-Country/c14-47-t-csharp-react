@@ -1,3 +1,4 @@
+using System.Data.SqlTypes;
 using AutoMapper;
 using ErrorOr;
 using Microsoft.EntityFrameworkCore;
@@ -82,6 +83,15 @@ public class ProductRepository : IProductRepository
         return true;
     }
 
+    public async Task<ErrorOr<Product>> GetProductById(int productId)
+    {
+        var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == productId);
+        if (product is null)
+            return ApiErrors.Product.InvalidProduct;
+
+        return product;
+    }
+
     public async Task<ErrorOr<GetProductsResponse>> GetProducts()
     {
         var products = await _context.Products.Include(x => x.Category).ToListAsync();
@@ -133,5 +143,22 @@ public class ProductRepository : IProductRepository
         var response = _mapper.Map<GetProductResponse>(productToUpdate);
 
         return response;
+    }
+
+    public async Task<ErrorOr<bool>> UpdateProductStock(int productId, decimal quantity)
+    {
+        var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == productId);
+        if (product is null)
+            return ApiErrors.Product.InvalidProduct;
+        product.Stock += quantity;
+        if (product.Stock < 0)
+            return ApiErrors.Product.NotEnoughStock;
+
+        var saved = await _context.SaveChangesAsync();
+
+        if (saved <= 0)
+            return CommonErrors.DbSaveError;
+
+        return true;
     }
 }

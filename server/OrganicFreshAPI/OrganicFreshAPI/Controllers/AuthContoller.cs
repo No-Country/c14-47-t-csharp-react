@@ -59,9 +59,9 @@ public class AuthController : ApiController
 
     [Authorize(Policy = "StandardRights")]
     [HttpGet("me")]
-    public async Task<IActionResult> Me(IHttpContextAccessor contextAccessor)
+    public async Task<IActionResult> Me()
     {
-        var result = await _authRepository.UserDetails(contextAccessor);
+        var result = await _authRepository.UserDetails();
         if (result.IsError && result.FirstError == ApiErrors.Authentication.UserNotFoundInRequest)
         {
             return Problem(
@@ -74,9 +74,9 @@ public class AuthController : ApiController
 
     [Authorize(Policy = "ElevatedRights")]
     [HttpGet("me/admin")]
-    public async Task<IActionResult> MeAdmin(IHttpContextAccessor contextAccessor)
+    public async Task<IActionResult> MeAdmin()
     {
-        var result = await _authRepository.UserDetails(contextAccessor);
+        var result = await _authRepository.UserDetails();
         if (result.IsError && result.FirstError == ApiErrors.Authentication.UserNotFoundInRequest)
         {
             return Problem(

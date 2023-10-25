@@ -17,11 +17,14 @@ namespace OrganicFreshAPI.DataService.Repositories;
 public class AuthenticationRepository : IAuthenticationRepository
 {
     private readonly UserManager<User> _userManager;
+    private readonly IHttpContextAccessor _ctxAccessor;
+
     private readonly IConfiguration _configuration;
-    public AuthenticationRepository(UserManager<User> userManager, IConfiguration configuration)
+    public AuthenticationRepository(UserManager<User> userManager, IConfiguration configuration, IHttpContextAccessor ctxAccessor)
     {
         _userManager = userManager;
         _configuration = configuration;
+        _ctxAccessor = ctxAccessor;
     }
 
     public async Task<ErrorOr<LoginResponse>> Register(RegisterRequest request)
@@ -79,9 +82,10 @@ public class AuthenticationRepository : IAuthenticationRepository
         return new LoginResponse(new JwtSecurityTokenHandler().WriteToken(token), isAdmin);
     }
 
-    public async Task<ErrorOr<UserDetailsResponse>> UserDetails(IHttpContextAccessor contextAccessor)
+    public async Task<ErrorOr<UserDetailsResponse>> UserDetails()
     {
-        var user = contextAccessor.HttpContext.User;
+        var user = _ctxAccessor.HttpContext.User;
+
         var userId = user.FindFirst("Id")?.Value;
         if (userId is null)
         {

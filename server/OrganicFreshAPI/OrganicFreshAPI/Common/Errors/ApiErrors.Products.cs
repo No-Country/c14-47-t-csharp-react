@@ -15,5 +15,10 @@ public static partial class ApiErrors
             code: "Product.InvalidProductID",
             description: "The product does not exists"
         );
+
+        public static Error NotEnoughStock = Error.Validation(
+            code: "Product.NotEnoughStock",
+            description: "Not enough stock to fulfill the requested order"
+        );
     }
 }
