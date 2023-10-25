@@ -7,5 +7,6 @@ public record CreateCategoryRequest(
 
 public record UpdateCategoryRequest(
     string? name,
-    IFormFile? image
+    IFormFile? image,
+    bool? active
 );
