@@ -7,6 +7,8 @@ public class MyDbContext : IdentityDbContext<User>
 {
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<Sale> Sales { get; set; }
+    public DbSet<CheckoutDetails> CheckoutsDetails { get; set; }
     public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
     {
     }
@@ -14,6 +16,19 @@ public class MyDbContext : IdentityDbContext<User>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<CheckoutDetails>()
+        .HasKey(pd => new { pd.ProductId, pd.SaleId });
+
+        modelBuilder.Entity<CheckoutDetails>()
+        .HasOne(pd => pd.Product)
+        .WithMany(p => p.CheckoutsDetails)
+        .HasForeignKey(pd => pd.ProductId);
+
+        modelBuilder.Entity<CheckoutDetails>()
+            .HasOne(pd => pd.Sale)
+            .WithMany(s => s.CheckoutsDetails)
+            .HasForeignKey(pd => pd.SaleId);
 
         modelBuilder.Entity<Product>(entity =>
         {
