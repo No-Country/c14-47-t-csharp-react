@@ -2,7 +2,7 @@ using ErrorOr;
 
 namespace OrganicFreshAPI.Common.Errors;
 
-public static partial class CommonErrors
+public partial class CommonErrors
 {
     public static Error DbSaveError = Error.Unexpected(
         code: "Common.DbSaveError",
@@ -17,5 +17,10 @@ public static partial class CommonErrors
     public static Error ImageDeleteError = Error.Unexpected(
         code: "Common.ImageDeleteError",
         description: "Unexpected error while deleting the image"
+    );
+
+    public static Error UnexpectedError = Error.Unexpected(
+        code: "Common.UnexpectedError",
+        description: "Unexpected error"
     );
 }
