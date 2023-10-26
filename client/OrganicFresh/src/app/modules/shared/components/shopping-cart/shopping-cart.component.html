@@ -1,0 +1,81 @@
+<div class="wrapper" (click)="close()">
+
+</div>
+<div class="container" *ngIf="cart$|async as shoppingCart">
+    <div class="container-items">
+
+    
+    <section class="container-title">
+        <h2 class="title">Shopping Cart</h2>
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none" class="close" (click)="close()">
+            <path d="M11.6967 1.69588L1.09013 12.3025M11.6967 12.3025L1.09013 1.69588" stroke="#083C04" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </section>
+    <section *ngFor="let item of shoppingCart.items" class="card-item">
+        <div class="card-content">
+            <div class="container-left">
+                <img [src]="item.product.imageUrl" >
+            </div>
+
+            <div class="container-right">
+                <div class="container-top">
+                    <div class="container-text">
+                        <p class="name">{{item.product.name | titlecase}}</p>
+                        <p class="price">{{item.product.price|currency}}/{{item.product.weightUnit | lowercase}}</p>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="23" viewBox="0 0 20 23" fill="none">
+                        <path d="M12.8102 8.42343L12.4553 17.654M7.54469 17.654L7.18983 8.42343M17.4131 5.13121C17.7639 5.18454 18.1126 5.24095 18.4613 5.30146M17.4131 5.13121L16.3178 19.3698C16.2731 19.9495 16.0112 20.491 15.5845 20.8859C15.1578 21.2809 14.5977 21.5002 14.0163 21.5H5.98371C5.40228 21.5002 4.84222 21.2809 4.41552 20.8859C3.98882 20.491 3.72693 19.9495 3.68223 19.3698L2.58687 5.13121M17.4131 5.13121C16.2295 4.95225 15.0396 4.81644 13.8461 4.72404M2.58687 5.13121C2.23611 5.18351 1.8874 5.23992 1.5387 5.30043M2.58687 5.13121C3.77057 4.95226 4.96038 4.81644 6.15396 4.72404M13.8461 4.72404V3.78458C13.8461 2.57435 12.9128 1.56515 11.7025 1.5272C10.5678 1.49093 9.43221 1.49093 8.29749 1.5272C7.08727 1.56515 6.15396 2.57538 6.15396 3.78458V4.72404M13.8461 4.72404C11.2858 4.52617 8.71417 4.52617 6.15396 4.72404" stroke="#EB2323" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="container-bottom">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none" (click)="subtractQuantity(item.product.id!)" 
+                    class="button-quantity" *ngIf="item.quantity>1; else buttonSubtractDisabled">
+                    <rect width="33" height="33" rx="16.5" fill="#148E0A"/>
+                    <path d="M24.75 16.5H8.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <ng-template #buttonSubtractDisabled>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none" class="button-quantity-disabled">
+                        <rect width="33" height="33" rx="16.5" fill="#148E0A"/>
+                        <path d="M24.75 16.5H8.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </ng-template>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none" (click)="addQuantity(item.product.id!)" class="button-quantity"
+                    *ngIf="item.quantity< item.product.stock; else buttonAddDisabled">
+                        <rect width="33" height="33" rx="16.5" fill="#148E0A"/>
+                        <path d="M16.5 8.25V24.75M24.75 16.5H8.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+
+                     <ng-template #buttonAddDisabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none" class="button-quantity-disabled">
+                        <rect width="33" height="33" rx="16.5" fill="#148E0A"/>
+                        <path d="M16.5 8.25V24.75M24.75 16.5H8.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                     </ng-template> 
+                      
+                    <input class="quantity" type="number" readonly [value]="item.quantity">
+                    <p class="weight-unit">{{item.product.weightUnit | lowercase}}</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="container-subtotal">
+            <p class="subtotal">Subtotal</p>
+            <p class="subtotal">{{item.subtotal | currency}}</p>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="240" height="2" viewBox="0 0 240 2" fill="none" class="line-small">
+            <path opacity="0.5" d="M1 1H239" stroke="#B3B3B3" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="359" height="2" viewBox="0 0 359 2" fill="none" class="line-large">
+            <path opacity="0.5" d="M1 1H358" stroke="#B3B3B3" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+    </section>
+    </div>
+    <div class="container-total-button">
+        <div class="container-subtotal">
+            <p class="subtotal">Total</p>
+            <p class="subtotal">{{shoppingCart.total | currency}}</p>
+        </div>
+        <button class="button-primary text-700"  [disabled]="shoppingCart.items.length<1" >Proceed to checkout</button>
+    </div>
+</div>
