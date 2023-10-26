@@ -13,13 +13,11 @@ namespace OrganicFreshAPI.Controllers;
 [Route("[controller]")]
 public class CheckoutController : ApiController
 {
-    private readonly MyDbContext _context;
     private readonly IConfiguration _configuration;
     private readonly ICheckoutRepository _checkoutRepository;
 
-    public CheckoutController(MyDbContext context, IConfiguration configuration, ICheckoutRepository checkoutRepository)
+    public CheckoutController(IConfiguration configuration, ICheckoutRepository checkoutRepository)
     {
-        _context = context;
         _configuration = configuration;
         StripeConfiguration.ApiKey = _configuration["StripeSettings:SecretKey"];
         _checkoutRepository = checkoutRepository;

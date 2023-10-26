@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OrganicFreshAPI.Common.Errors;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
@@ -23,7 +24,7 @@ public class CategoriesController : ApiController
         return Ok(result.Value);
     }
 
-    // [Authorize(Policy = "ElevatedRights")]
+    [Authorize(Policy = "ElevatedRights")]
     [HttpPost]
     public async Task<IActionResult> CreateCategory([FromForm] CreateCategoryRequest request)
     {
@@ -58,7 +59,7 @@ public class CategoriesController : ApiController
         return Ok(result.Value);
     }
 
-    // [Authorize(Policy = "ElevatedRights")]
+    [Authorize(Policy = "ElevatedRights")]
     [HttpPut("{categoryId}")]
     public async Task<IActionResult> UpdateCategory([FromRoute] int categoryId, [FromForm] UpdateCategoryRequest request)
     {
@@ -86,7 +87,7 @@ public class CategoriesController : ApiController
     }
 
 
-    // [Authorize(Policy = "ElevatedRights")]
+    [Authorize(Policy = "ElevatedRights")]
     [HttpDelete("{categoryId}")]
     public async Task<IActionResult> DeleteCategory([FromRoute] int categoryId)
     {
