@@ -10,10 +10,12 @@ namespace OrganicFreshAPI.Controllers;
 public class AuthController : ApiController
 {
     private readonly IAuthenticationRepository _authRepository;
+    private readonly ISaleRepository _saleRepository;
 
-    public AuthController(IAuthenticationRepository authRepository)
+    public AuthController(IAuthenticationRepository authRepository, ISaleRepository saleRepository)
     {
         _authRepository = authRepository;
+        _saleRepository = saleRepository;
     }
 
     [AllowAnonymous]
@@ -84,6 +86,15 @@ public class AuthController : ApiController
                 title: result.FirstError.Description
             );
         }
+        return Ok(result.Value);
+    }
+
+    [Authorize(Policy = "ElevatedRights")]
+    [HttpGet("/admin/sales")]
+    public async Task<IActionResult> GetSales()
+    {
+        var result = await _saleRepository.GetAllSales();
+
         return Ok(result.Value);
     }
 }

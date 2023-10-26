@@ -18,13 +18,15 @@ public class AuthenticationRepository : IAuthenticationRepository
 {
     private readonly UserManager<User> _userManager;
     private readonly IHttpContextAccessor _ctxAccessor;
+    private readonly ISaleRepository _saleRepository;
 
     private readonly IConfiguration _configuration;
-    public AuthenticationRepository(UserManager<User> userManager, IConfiguration configuration, IHttpContextAccessor ctxAccessor)
+    public AuthenticationRepository(UserManager<User> userManager, IConfiguration configuration, IHttpContextAccessor ctxAccessor, ISaleRepository saleRepository)
     {
         _userManager = userManager;
         _configuration = configuration;
         _ctxAccessor = ctxAccessor;
+        _saleRepository = saleRepository;
     }
 
     public async Task<ErrorOr<LoginResponse>> Register(RegisterRequest request)
@@ -94,7 +96,18 @@ public class AuthenticationRepository : IAuthenticationRepository
         else
         {
             User userInfo = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
-            return new UserDetailsResponse(userInfo.Name, userInfo.CreatedAt, userInfo.ModifiedAt, userInfo.DeletedAt, userInfo.Id, userInfo.Email);
+            var sales = await _saleRepository.GetSalesFromUser(userId);
+            if (sales.IsError)
+                return CommonErrors.DbSaveError;
+
+            return new UserDetailsResponse(
+                userInfo.Name,
+                userInfo.CreatedAt,
+                userInfo.ModifiedAt,
+                userInfo.DeletedAt,
+                userInfo.Id,
+                userInfo.Email,
+                sales.Value);
         }
     }
 
