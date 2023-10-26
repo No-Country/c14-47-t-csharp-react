@@ -25,7 +25,7 @@ public class ProductsController : ApiController
         return Ok(result.Value);
     }
 
-    // [Authorize(Policy = "ElevatedRights")]
+    [Authorize(Policy = "ElevatedRights")]
     [HttpPost]
     public async Task<IActionResult> CreateProduct([FromForm] CreateProductRequest request)
     {
@@ -48,7 +48,7 @@ public class ProductsController : ApiController
         return Ok(result.Value);
     }
 
-    // [Authorize(Policy = "ElevatedRights")]
+    [Authorize(Policy = "ElevatedRights")]
     [HttpPut("{productId}")]
     public async Task<IActionResult> UpdateProduct([FromRoute] int productId, [FromForm] UpdateProductRequest request)
     {
@@ -82,7 +82,7 @@ public class ProductsController : ApiController
     }
 
 
-    // [Authorize(Policy = "ElevatedRights")]
+    [Authorize(Policy = "ElevatedRights")]
     [HttpDelete("{productId}")]
     public async Task<IActionResult> DeleteProduct([FromRoute] int productId)
     {
