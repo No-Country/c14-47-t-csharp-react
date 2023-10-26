@@ -8,13 +8,15 @@ import { AlertRegisterComponent } from './components/alert-register/alert-regist
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import { FooterComponent } from './components/footer/footer.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 
 
 
 @NgModule({
   declarations: [
     AlertRegisterComponent,
-    FooterComponent
+    FooterComponent,
+    ShoppingCartComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { FooterComponent } from './components/footer/footer.component';
     MatInputModule,
     MatDialogModule,
     MatIconModule,
-    FooterComponent
+    FooterComponent,
+    ShoppingCartComponent
   ]
 })
 export class SharedModule { }
