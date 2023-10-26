@@ -1,3 +1,5 @@
+using ErrorOr;
+
 namespace OrganicFreshAPI.Entities.Dtos.Responses;
 
 public record RegisterResponse(
@@ -16,5 +18,6 @@ public record UserDetailsResponse(
     DateTime modifiedAt,
     DateTime deletedAt,
     string id,
-    string email
+    string email,
+    List<SaleAndCheckoutDetails> sales
 );

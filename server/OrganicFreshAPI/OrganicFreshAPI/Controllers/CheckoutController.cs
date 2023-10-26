@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OrganicFreshAPI.Common.Errors;
 using OrganicFreshAPI.DataService.Data;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.Dtos.Requests;
@@ -29,6 +30,36 @@ public class CheckoutController : ApiController
     public async Task<IActionResult> CreateCheckoutSession(List<CreateCheckoutRequest> request)
     {
         var checkoutResult = await _checkoutRepository.CreateCheckout(request);
+
+        if (checkoutResult.IsError && checkoutResult.FirstError == ApiErrors.Product.InvalidCategory)
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                title: checkoutResult.FirstError.Description
+            );
+
+        if (checkoutResult.IsError && checkoutResult.FirstError == ApiErrors.Product.NotEnoughStock)
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                title: checkoutResult.FirstError.Description
+            );
+
+        if (checkoutResult.IsError && checkoutResult.FirstError == ApiErrors.Authentication.UserNotFoundInRequest)
+            return Problem(
+                statusCode: StatusCodes.Status401Unauthorized,
+                title: checkoutResult.FirstError.Description
+            );
+
+        if (checkoutResult.IsError && checkoutResult.FirstError == CommonErrors.DbSaveError)
+            return Problem(
+                statusCode: StatusCodes.Status500InternalServerError,
+                title: checkoutResult.FirstError.Description
+            );
+
+        if (checkoutResult.IsError && checkoutResult.FirstError == CommonErrors.UnexpectedError)
+            return Problem(
+                statusCode: StatusCodes.Status500InternalServerError,
+                title: checkoutResult.FirstError.Description
+            );
 
         return Ok(checkoutResult.Value);
     }

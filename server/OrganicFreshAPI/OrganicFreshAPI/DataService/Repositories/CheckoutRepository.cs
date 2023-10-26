@@ -28,19 +28,26 @@ public class CheckoutRepository : ICheckoutRepository
         var lineItems = new List<SessionLineItemOptions>();
         if (userResult.IsError && userResult.FirstError == ApiErrors.Authentication.UserNotFoundInRequest)
             return ApiErrors.Authentication.UserNotFoundInRequest;
-
+        // Create sale
+        var saleResult = await _saleRepository.CreateSale(userResult.Value.id);
+        if (saleResult.IsError)
+            return CommonErrors.DbSaveError;
         foreach (var productCheckout in listOfProducts)
         {
             var product = await _productRepository.GetProductById(productCheckout.productId);
             if (product.IsError)
                 return ApiErrors.Product.InvalidProduct;
-            // Create sale
-            var saleResult = await _saleRepository.CreateSale(userResult.Value.id);
-            if (saleResult.IsError)
-                return CommonErrors.DbSaveError;
+
             // Create checkout details
-            await _saleRepository.CreateCheckoutDetails(saleResult.Value.Id, productCheckout.productId, productCheckout.quantity);
-            await _productRepository.UpdateProductStock(productCheckout.productId, -productCheckout.quantity);
+            Console.WriteLine(saleResult.Value.ToString());
+            var createCheckoutResult = await _saleRepository.CreateCheckoutDetails(saleResult.Value.Id, productCheckout.productId, productCheckout.quantity);
+            if (createCheckoutResult.IsError && createCheckoutResult.FirstError == CommonErrors.DbSaveError)
+                return CommonErrors.DbSaveError;
+
+            var updateProductStockResult = await _productRepository.UpdateProductStock(productCheckout.productId, -productCheckout.quantity);
+
+            if (updateProductStockResult.IsError)
+                return updateProductStockResult.FirstError;
 
             lineItems.Add(new SessionLineItemOptions
             {
@@ -67,8 +74,16 @@ public class CheckoutRepository : ICheckoutRepository
         };
 
         var service = new SessionService();
-        var session = service.Create(options);
+        try
+        {
+            var session = service.Create(options);
+            return new CreateCheckoutResponse(session.Url);
+        }
+        catch (Exception ex)
+        {
+            return CommonErrors.UnexpectedError;
+        }
 
-        return new CreateCheckoutResponse(session.Url);
+
     }
 }
