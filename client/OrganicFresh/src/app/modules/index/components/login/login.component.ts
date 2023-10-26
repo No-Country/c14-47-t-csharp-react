@@ -38,7 +38,7 @@ export class LoginComponent {
         }
         else{
 
-          this.dialog.open(AlertRegisterComponent, {data:{login:true, title:'Login Successful!', text:'Client', exito:true}});
+          this.router.navigate(['user']);
         }
       },
       error:()=>{
