@@ -166,6 +166,13 @@
     cursor: pointer;
 }
 
+.delete:hover{
+    cursor: pointer;
+    path{
+        stroke: var(--color-warn);
+    }
+}
+
 @media (min-width:768px) {
     .container{
         width: 400px;
@@ -180,7 +187,9 @@
         width: 94px;
         height: 91px;
     }
-
+    .container-top{
+        width: 100%;
+    }
     .container-right{
         width: 253px;
     }

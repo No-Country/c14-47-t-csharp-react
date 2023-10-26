@@ -30,6 +30,9 @@ export class ShoppingCartComponent {
     this.cartService.subtractQuantity(idProduct, quantity);
   }
 
+  deleteItem(item:CartItem):void{
+    this.cartService.removeItem(item);
+  }
 
 
 }
