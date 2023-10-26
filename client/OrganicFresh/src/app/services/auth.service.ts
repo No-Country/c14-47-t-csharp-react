@@ -55,6 +55,10 @@ export class AuthService {
 
   }
 
+  me():Observable<any>{
+    return this.http.get<any>(this.apiUrl+'/me')
+  }
+
   meAdmin():Observable<void>{
     
     return this.http.get<void>(this.apiUrl+'/me/admin');
