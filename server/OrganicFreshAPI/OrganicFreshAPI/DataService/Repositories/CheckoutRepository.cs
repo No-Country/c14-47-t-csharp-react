@@ -54,7 +54,7 @@ public class CheckoutRepository : ICheckoutRepository
                 PriceData = new SessionLineItemPriceDataOptions
                 {
                     Currency = "usd",
-                    UnitAmount = (long)product.Value.Price,
+                    UnitAmount = (long)product.Value.Price * 100,
                     ProductData = new SessionLineItemPriceDataProductDataOptions
                     {
                         Name = product.Value.Name,
@@ -69,8 +69,8 @@ public class CheckoutRepository : ICheckoutRepository
             PaymentMethodTypes = new List<string> { "card" },
             LineItems = lineItems,
             Mode = "payment",
-            SuccessUrl = "http://localhost:5020/success",
-            CancelUrl = "http://localhost:5020/cancel"
+            SuccessUrl = $"http://localhost:4200/user/success/{saleResult.Value.Id}",
+            CancelUrl = "http://localhost:5020/user/error"
         };
 
         var service = new SessionService();
