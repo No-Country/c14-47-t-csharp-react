@@ -1,7 +1,6 @@
 using ErrorOr;
 using OrganicFreshAPI.Common.Errors;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
-using OrganicFreshAPI.Entities.DbSet;
 using OrganicFreshAPI.Entities.Dtos.Requests;
 using OrganicFreshAPI.Entities.Dtos.Responses;
 using Stripe.Checkout;

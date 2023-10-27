@@ -8,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 using OrganicFreshAPI.Common.Errors;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.DbSet;
-using OrganicFreshAPI.Entities.Dtos;
 using OrganicFreshAPI.Entities.Dtos.Requests;
 using OrganicFreshAPI.Entities.Dtos.Responses;
 
