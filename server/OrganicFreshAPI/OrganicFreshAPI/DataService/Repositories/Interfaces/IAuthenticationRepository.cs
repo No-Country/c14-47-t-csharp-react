@@ -1,5 +1,4 @@
 using ErrorOr;
-using OrganicFreshAPI.Entities.Dtos;
 using OrganicFreshAPI.Entities.Dtos.Requests;
 using OrganicFreshAPI.Entities.Dtos.Responses;
 

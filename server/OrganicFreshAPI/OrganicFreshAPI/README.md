@@ -105,7 +105,27 @@ Response
   "modifiedAt": "DateTime",
   "deletedAt": "DateTime",
   "id": "Guid",
-  "email": "string"
+  "email": "string",
+  "sales": [
+    {
+    "saleId": int,
+    "userId": string,
+    "userName": string,
+    "userEmail": string,
+    "createdAt": DateTime,
+    "modifiedAt": DateTime,
+    "deletedAt": DateTime,
+    "checkoutDetails": [
+      {
+        "productId": int,
+        "productName": string,
+        "saleId": int,
+        "quantity": decimal,
+        "total": decimal
+      }
+    ]
+  }
+  ]
 }
 ```
 #### GET /auth/me/admin
@@ -121,6 +141,33 @@ Response
   "id": "Guid",
   "email": "string"
 }
+```
+
+### GET /admin/sales
+**Requires a valid admin token**
+
+Response
+```
+[
+  {
+    "saleId": int,
+    "userId": string,
+    "userName": string,
+    "userEmail": string,
+    "createdAt": DateTime,
+    "modifiedAt": DateTime,
+    "deletedAt": DateTime,
+    "checkoutDetails": [
+      {
+        "productId": int,
+        "productName": string,
+        "saleId": int,
+        "quantity": decimal,
+        "total": decimal
+      }
+    ]
+  }
+]
 ```
 
 ### Categories
@@ -161,6 +208,7 @@ Response
 ```
 
 #### POST /categories
+**Requires a valid admin token**
 Content-Type: multipart/form-data
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
@@ -183,6 +231,7 @@ Response
   }
 ```
 #### PUT /categories/{categoryId}
+**Requires a valid admin token**
 Content-Type: multipart/form-data
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
@@ -205,6 +254,7 @@ Response
   }
 ```
 #### DELETE /categories/{categoryId}
+**Requires a valid admin token**
 Response
 ```
 204 No Content
@@ -232,6 +282,7 @@ Response
 ```
 
 #### POST /products
+**Requires a valid admin token**
 Content-Type: multipart/form-data
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
@@ -262,6 +313,7 @@ Response
 ```
 
 #### PUT /products/{productId}
+**Requires a valid admin token**
 Content-Type: multipart/form-data
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
@@ -292,9 +344,16 @@ Response
 ```
 
 #### DELETE /products/{productId}
+**Requires a valid admin token**
 ```
 204 No Content
 ```
+
+### POST /checkout
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `productId` | `int` | **Required**.|
+| `quantity` | `decimal` | **Required**.|
 
 ### Errors
 In case of validation error, the response will be
