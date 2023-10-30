@@ -16,8 +16,8 @@ export class UserComponent {
   constructor(private cartService:CartService, private authService:AuthService, private router:Router){
     this.showShoppingCart$ = this.cartService.show;
     this.authService.me().subscribe({
-      next:(res)=>{
-        this.router.navigate(['user/orders']);
+      next:()=>{
+       this.authService.me().subscribe();
       },
       error:(err:HttpErrorResponse)=> {
         if(err.status !== 401) this.router.navigate(['index']);
