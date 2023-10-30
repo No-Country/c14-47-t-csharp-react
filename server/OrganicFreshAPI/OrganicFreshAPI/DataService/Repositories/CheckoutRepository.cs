@@ -1,7 +1,6 @@
 using ErrorOr;
 using OrganicFreshAPI.Common.Errors;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
-using OrganicFreshAPI.Entities.DbSet;
 using OrganicFreshAPI.Entities.Dtos.Requests;
 using OrganicFreshAPI.Entities.Dtos.Responses;
 using Stripe.Checkout;
@@ -13,12 +12,14 @@ public class CheckoutRepository : ICheckoutRepository
     private readonly IAuthenticationRepository _authRepository;
     private readonly IProductRepository _productRepository;
     private readonly ISaleRepository _saleRepository;
+    private readonly IConfiguration _configuration;
 
-    public CheckoutRepository(IAuthenticationRepository authRepository, IProductRepository productRepository, ISaleRepository saleRepository)
+    public CheckoutRepository(IAuthenticationRepository authRepository, IProductRepository productRepository, ISaleRepository saleRepository, IConfiguration configuration)
     {
         _authRepository = authRepository;
         _productRepository = productRepository;
         _saleRepository = saleRepository;
+        _configuration = configuration;
     }
 
     public async Task<ErrorOr<CreateCheckoutResponse>> CreateCheckout(List<CreateCheckoutRequest> listOfProducts)
@@ -69,8 +70,8 @@ public class CheckoutRepository : ICheckoutRepository
             PaymentMethodTypes = new List<string> { "card" },
             LineItems = lineItems,
             Mode = "payment",
-            SuccessUrl = $"http://localhost:4200/user/success/{saleResult.Value.Id}",
-            CancelUrl = "http://localhost:5020/user/error"
+            SuccessUrl = _configuration["StripeUrls:SuccessUrl"],
+            CancelUrl = _configuration["Stripe:CancelUrl"]
         };
 
         var service = new SessionService();

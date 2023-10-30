@@ -5,7 +5,6 @@ using OrganicFreshAPI.Common.Errors;
 using OrganicFreshAPI.DataService.Data;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.DbSet;
-using OrganicFreshAPI.Entities.Dtos;
 using OrganicFreshAPI.Entities.Dtos.Requests;
 using OrganicFreshAPI.Entities.Dtos.Responses;
 using OrganicFreshAPI.Helpers;
