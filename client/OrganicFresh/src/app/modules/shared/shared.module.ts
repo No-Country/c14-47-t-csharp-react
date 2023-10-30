@@ -9,6 +9,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import { FooterComponent } from './components/footer/footer.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { DetailOrderComponent } from './components/detail-order/detail-order.component';
 
 
 
@@ -16,7 +17,8 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
   declarations: [
     AlertRegisterComponent,
     FooterComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    DetailOrderComponent
   ],
   imports: [
     CommonModule,
