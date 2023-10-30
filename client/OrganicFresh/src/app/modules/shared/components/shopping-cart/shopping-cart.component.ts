@@ -33,6 +33,21 @@ export class ShoppingCartComponent {
   deleteItem(item:CartItem):void{
     this.cartService.removeItem(item);
   }
+  proceedToCheckout():void{
+    this.cart$.pipe(take(1)).subscribe({
+      next:(res)=>{
 
+        this.checkoutService.createCheckoutSession(res.items).subscribe({
+          next:(res)=>{
+            console.log(res);
+            window.open(res.checkoutUrl,'_self')
+          },
+          error:(err)=>{
+            console.log(err);
+          }
+        });
+      }
+    });
+  }
 
 }
