@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Sale } from 'src/app/interfaces/sale';
-import { AuthService } from 'src/app/services/auth.service';
+import { AdminService } from 'src/app/services/admin.service';
+import { DetailOrderComponent } from '../../shared/components/detail-order/detail-order.component';
 
 @Component({
   selector: 'app-sales',
@@ -11,9 +13,9 @@ export class SalesComponent {
 
 
   sales:Sale[]= [];
-  constructor(private authService:AuthService){
+  constructor(adminService:AdminService, private matDialog:MatDialog){
 
-    this.authService.salesAdmin().subscribe({
+    adminService.getSales().subscribe({
       next:(res)=>{
         this.sales = res;
         this.sales.forEach(sale =>{
@@ -26,6 +28,10 @@ export class SalesComponent {
       }
     });
 
+  }
+
+  showDetails(sale:Sale):void{
+    this.matDialog.open(DetailOrderComponent, {data:sale});
   }
   
 }

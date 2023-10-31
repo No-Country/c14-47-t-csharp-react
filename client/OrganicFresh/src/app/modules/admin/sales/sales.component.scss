@@ -8,44 +8,147 @@
 
 }
 
-table{
+.head, .body{
     width: 100%;
-    margin-top: 20px 0 10px;
 }
 
-th{
-    text-align: start;
-    color: var(--color-primary);
-    font-weight: 600;
-    font-size: 16px;
+.head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0 22px;
+    td{
+        color: var(--color-primary);
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+
 }
+
+.body{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 22px;
+    margin-bottom: 20px;
+
+    tr{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    td{
+        font-size: 16px;
+        color: var(--color-primary-dark);
+    }
+    
+    
+}
+
+.price, .order, .icon{
+    width: 15%;
+}
+
+.date{
+    width: 40%;
+}
+
+.name, .time{
+    display: none;
+}
+
 .title{
     color: var(--color-secondary);
     font-size: 16px;
     font-weight: 700;
 }
+mat-icon{
+    color: var(--color-primary);
+    cursor: pointer;
+}
+.icon{
+    text-align: end;
+}
+mat-icon:hover{
+    color: var(--color-secondary);
+}
 
-button{
-    margin-top: 300px;
+.button-view-details{
+    display: none;
+    text-align: end;
+}
+.button-details{
+    font-size: 16px;
+    color: var(--color-primary);
+    font-weight: 700;
+    padding: 6px 33px;
+    border: 2px solid var(--color-primary);
+    border-radius: 5px;
+    background-color: var(--color-white);
+    cursor: pointer;
+}
+.button-details:hover{
+    color: var(--color-secondary);
+    border-color: var(--color-secondary);
+}
+
+.button-return{
     width: 312px;
     align-self: center;
+    margin-bottom: 20px;
 }
 
-td{
-    font-size: 16px;
-    color: var(--color-primary-dark);
-}
+@media (min-width:768px) {
+    .title{
+        font-size: 20px;
+    }
+    .icon{
+        display: none;
+    }
+    .button-view-details{
+        display:flex;
+        width: 25%;
+        justify-content: flex-end;
+    }
+    .name{
+        display: flex;
+        width: 25%;
+    }
+    .body{
+        gap: 6px;
 
-.name{
-    display: none;
-}
+    }
 
+
+    .icon{
+        width: 25%;
+    }
+    .order, .date, .price{
+        width: 15%;
+    }
+    
+   
+}
 
 @media (min-width:1200px) {
     .container{
         width: 1080px;
-
+    }
+    .time{
+        display: flex;
+        width: 10%;
     }
 
-    .name{display: flex;}
+    .icon, .button-view-details{
+        width: 18%;
+    }
+    .order, .date, .price{
+        width: 10%;
+    }
+
+
 }
