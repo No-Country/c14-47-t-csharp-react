@@ -16,7 +16,7 @@
      
         </div>
     
-        <div class="container-input">
+        <div class="container-input category">
             <p class="text-primary-dark">
                Category
             </p>
@@ -28,7 +28,7 @@
       
          </div>
     
-         <div class="container-input">
+         <div class="container-input price">
             <p class="text-primary-dark">
                Price
             </p>
@@ -41,7 +41,7 @@
       
          </div>
          
-         <div class="container-input">
+         <div class="container-input stock">
             <p class="text-primary-dark">
                Available Stock
             </p>
@@ -89,10 +89,10 @@
 
     </form>
  
-    <button class="button-primary" *ngIf="!editProduct; else edit" [disabled]="form.invalid" (click)="create()" >Add new product</button>
+    <button class="button-primary button-add" *ngIf="!editProduct; else edit" [disabled]="form.invalid" (click)="create()" >Add new product</button>
     <ng-template #edit>
-       <button  (click)="delete()" class="button-grey" >Delete</button>
-       <button  class="button-primary" [disabled]="form.invalid" (click)="update()" >Save Changes</button>
+       <button  (click)="delete()" class="button-grey button-delete" >Delete</button>
+       <button  class="button-primary button-save" [disabled]="form.invalid" (click)="update()" >Save Changes</button>
  
     </ng-template>
  </div>
