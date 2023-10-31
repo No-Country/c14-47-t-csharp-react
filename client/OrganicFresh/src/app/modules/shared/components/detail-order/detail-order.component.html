@@ -33,13 +33,21 @@
         {{sale.createdAt | date : 'h:mm a'}}
        </p>
     </div>
+    <div *ngIf="sale.userName" class="container-text">
+        <p class="name-prop">
+            Client name
+        </p>
+       <p class="text-primary-dark">
+        {{sale.userName | titlecase}}
+       </p>
+    </div>
 
     <p class="products name-prop">
         Products
     </p>
 
     <div class="container-text" *ngFor="let detail of sale.checkoutDetails">
-        <p class="text-primary-dark">
+        <p class="text-primary-dark name-product-detail">
             {{detail.productName}} x {{detail.quantity}}
         </p>
        <p class="text-primary-dark">
