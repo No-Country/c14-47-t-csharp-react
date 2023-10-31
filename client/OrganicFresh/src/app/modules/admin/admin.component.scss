@@ -42,13 +42,16 @@ nav{
     position: absolute;
     right: 24px;
     background-color: #fff;
+    z-index: 999;
     li{
         margin: 8px 0 3px;
     }
 
 }
 
-
+svg{
+    outline: none;
+}
 
 
 .items-menu{

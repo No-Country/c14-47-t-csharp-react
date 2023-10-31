@@ -38,7 +38,7 @@ export class LoginComponent {
         }
         else{
 
-          this.router.navigate(['user']);
+          this.router.navigate(['index']);
         }
       },
       error:()=>{

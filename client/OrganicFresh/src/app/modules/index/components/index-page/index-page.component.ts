@@ -35,7 +35,7 @@ export class IndexPageComponent implements OnInit{
   listAllProducts:Product[]=[];
   listProducts:Product[] = [];
   listCategories:Category[] = [];
-  idSelectedCategory:number | null = null;
+  idSelectedCategory:number = -1;
   showShoppingCart$:Observable<boolean>;
 
   getCategories():void{
@@ -49,7 +49,7 @@ export class IndexPageComponent implements OnInit{
   getProducts():void{
     this.productService.getAll().subscribe({
       next:(res)=>{
-        this.listAllProducts = res.products.filter(p => p.active === true);
+        this.listAllProducts = res.products.filter(p => p.active === true && p.stock > 0);
 
         this.listProducts = this.listAllProducts;
       }
@@ -57,7 +57,12 @@ export class IndexPageComponent implements OnInit{
   }
 
   filter(idCategory:number):void{
+    
     this.idSelectedCategory = idCategory;
+    if(idCategory === -1){
+      this.listProducts = this.listAllProducts;
+      return;
+    }
     this.listProducts = this.listAllProducts.filter( product => product.categoryId === this.idSelectedCategory);
   }
 

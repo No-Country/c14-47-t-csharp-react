@@ -1,5 +1,5 @@
 .container{
-    padding: 24px;
+    padding: 24px 0;
     padding-bottom: 8px;
     width: 100%;
     display: flex;
@@ -32,5 +32,11 @@ button{
 @media (min-width:400px) {
     .container{
         width: 360px;
+    }
+}
+
+@media (min-width:768px) {
+    .title{
+        font-size: 20px;
     }
 }

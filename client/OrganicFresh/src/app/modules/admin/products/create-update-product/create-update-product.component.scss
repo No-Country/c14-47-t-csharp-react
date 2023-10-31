@@ -20,18 +20,23 @@ form{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
     button{
         margin: 0;
         width: 50px;
         height: 50px;
+        flex: 0 0 auto; /* Tamaño fijo */
         border-radius: 8px;
         border: none;
         cursor: pointer;
         background-color: var(--color-white);
+        border: 1.2px solid var(--color-primary);
+        color: var(--color-primary);
+        opacity: .3;
 
     }
     input{
-        width: 180px;
+        flex: 1;
     }
 }
 .container-title{
@@ -101,6 +106,14 @@ form{
     cursor: auto;
 }
 
+.button-delete, .button-add{
+    margin-top: 16px;
+}
+
+.button-save{
+    margin-top: 8px;
+}
+
 .delete-image{
     position: absolute;
     top: 12px;
@@ -132,13 +145,16 @@ form{
     margin-top: 8px;
 }
 
-button{
-    margin-top: 16px;
-}
+
 
 .unidad-seleccionada{
     background-color: var(--color-primary) !important;
-    color: #fff;
+    color: #fff !important;
+    opacity: 1 !important;
+}
+
+.category, .price, .stock{
+    margin: 0 0 8px;
 }
 
 @media (min-width:500px) {

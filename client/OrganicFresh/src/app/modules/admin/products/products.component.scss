@@ -7,17 +7,44 @@
 
 table{
   width: 100%;
+  margin-top: 20px;
 }
 
 th{
   text-align: start;
+  color: var(--color-primary);
+  font-weight: 600;
 }
+
 
 button{
   width: 312px;
-  margin-top: 50px;
+  margin: 20px 0;
 }
 
 .logo-edit{
   cursor: pointer;
+}
+.logo{
+  text-align: end;
+}
+.logo-edit:hover{
+  path{
+    stroke: var(--color-secondary);
+  }
+}
+
+.title{
+  font-size: 16px;
+}
+.stock{
+  display: none;
+}
+@media (min-width:768px) {
+  .title{
+    font-size: 20px;
+  }
+  .stock{
+    display: flex;
+  }
 }
