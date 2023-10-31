@@ -1,0 +1,26 @@
+<div class="container">
+    
+    <h2 class="title">Sales history</h2>
+    <section class="head">
+        <td class="order">Order</td>
+        <td class="date">Date</td>
+        <td class="name">Client</td>
+        <td class="time">Time</td>
+        <td class="price">Total</td>
+        <td class="icon"></td>
+        <td class="button-view-details"></td>
+    </section>
+    <section class="body">
+        <tr *ngFor="let sale of sales">
+            <td class="order">#{{sale.id}}</td>
+            <td class="date">{{sale.createdAt | date:'MM/dd/yyyy'}}</td>
+            <td class="name">{{sale.userName}}</td>
+            <td class="time">{{sale.createdAt | date : 'h:mm a'}}</td>
+            <td class="price">{{sale.total|currency}}</td>
+            <td class="icon"><mat-icon (click)="showDetails(sale)">visibility</mat-icon></td>
+            <td class="button-view-details"><button class="button-details" (click)="showDetails(sale)">View details</button></td>
+            
+        </tr>
+    </section>
+    <button class="button-primary text-700 button-return" routerLink="/admin/products">Return to Products</button>
+</div>
