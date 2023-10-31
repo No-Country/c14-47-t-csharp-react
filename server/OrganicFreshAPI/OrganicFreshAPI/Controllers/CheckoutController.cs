@@ -15,12 +15,14 @@ public class CheckoutController : ApiController
 {
     private readonly IConfiguration _configuration;
     private readonly ICheckoutRepository _checkoutRepository;
+    private readonly ISaleRepository _saleRepository;
 
-    public CheckoutController(IConfiguration configuration, ICheckoutRepository checkoutRepository)
+    public CheckoutController(IConfiguration configuration, ICheckoutRepository checkoutRepository, ISaleRepository saleRepository)
     {
         _configuration = configuration;
         StripeConfiguration.ApiKey = _configuration["StripeSettings:SecretKey"];
         _checkoutRepository = checkoutRepository;
+        _saleRepository = saleRepository;
     }
 
     [Authorize(Policy = "StandardRights")]
@@ -60,5 +62,49 @@ public class CheckoutController : ApiController
             );
 
         return Ok(checkoutResult.Value);
+    }
+
+
+    [HttpPost("webhook")]
+    public async Task<IActionResult> Index()
+    {
+        string? endpointSecret = _configuration["StripeSettings:WebhookSecret"];
+
+        var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+        try
+        {
+            Event stripeEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], endpointSecret);
+            var response = stripeEvent.Data.Object;
+
+            if (stripeEvent.Type == Events.CheckoutSessionCompleted)
+            {
+                Session session = (Session)response;
+
+                var saleResult = await _saleRepository.ConfirmPay(session.Id);
+
+                if (saleResult.IsError && saleResult.FirstError == ApiErrors.Sale.InvalidPaymentId)
+                    return Problem(
+                        statusCode: StatusCodes.Status500InternalServerError,
+                        title: saleResult.FirstError.Description
+                    );
+
+                return Ok();
+            }
+            if (stripeEvent.Type == Events.CheckoutSessionExpired)
+            {
+                Session session = (Session)response;
+                var saleResult = await _saleRepository.DeleteSale(session.Id);
+                if (saleResult.IsError && saleResult.FirstError == CommonErrors.DbSaveError)
+                    return Problem(
+                        statusCode: StatusCodes.Status500InternalServerError,
+                        title: saleResult.FirstError.Description
+                    );
+            }
+            return Ok();
+        }
+        catch (StripeException e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 }
