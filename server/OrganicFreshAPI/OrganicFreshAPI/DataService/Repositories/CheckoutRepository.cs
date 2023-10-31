@@ -41,7 +41,6 @@ public class CheckoutRepository : ICheckoutRepository
             var product = await _productRepository.GetProductById(productCheckout.productId);
             if (product.IsError)
                 return ApiErrors.Product.InvalidProduct;
-
             // Create checkout details
             var createCheckoutResult = await _saleRepository.CreateCheckoutDetails(saleResult.Value.Id, productCheckout.productId, productCheckout.quantity);
             if (createCheckoutResult.IsError && createCheckoutResult.FirstError == CommonErrors.DbSaveError)
@@ -57,7 +56,7 @@ public class CheckoutRepository : ICheckoutRepository
                 PriceData = new SessionLineItemPriceDataOptions
                 {
                     Currency = "usd",
-                    UnitAmount = (long)product.Value.Price * 100,
+                    UnitAmount = (long)(product.Value.Price * 100),
                     ProductData = new SessionLineItemPriceDataProductDataOptions
                     {
                         Name = product.Value.Name,
