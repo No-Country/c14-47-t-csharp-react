@@ -22,6 +22,7 @@
             <ul class="items-menu">
                 <li class="text-primary-link text-700" routerLink="/admin/products">Products</li>
                 <li class="text-primary-link text-700" routerLink="/admin/categories">Categories</li>
+                <li class="text-primary-link text-700" routerLink="/admin/sales">Sales</li>
                 <li class="text-primary-link text-700">Profile</li>
                 <li class="text-primary-link text-700" (click)="logout()">Sign out</li>
             </ul>
@@ -29,6 +30,7 @@
         <ul *ngIf="openMenu" class="menu-desplegable">
             <li class="text-primary-link text-700"(click)="redirectTo('admin/products')">Products</li>
             <li class="text-primary-link text-700" (click)="redirectTo('admin/categories')" >Categories</li>
+            <li class="text-primary-link text-700" (click)="redirectTo('admin/sales')" >Sales</li>
             <li class="text-primary-link text-700">Profile</li>
             <li class="text-primary-link text-700" (click)="logout()">Sign out</li>
         </ul>
