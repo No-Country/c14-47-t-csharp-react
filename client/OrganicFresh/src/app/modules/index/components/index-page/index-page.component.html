@@ -21,7 +21,7 @@
               </svg>
             <ul class="items-menu">
                 <li *ngIf="(credential$|async)?.isAdmin === true" routerLink="/admin" class="text-primary-link text-700">Dashboard</li>
-                <li *ngIf="(credential$|async)?.isAdmin === false" routerLink="/user" class="text-primary-link text-700">Orders</li>
+                <li *ngIf="(credential$|async)?.isAdmin === false" routerLink="/user/orders" class="text-primary-link text-700">Orders</li>
                 <li class="text-primary-link text-700" (click)="logout()" *ngIf="credential$|async;else login">Sign out</li>
                 <ng-template #login>
                     <li class="text-primary-link text-700" routerLink="/index/login" >Login</li>
@@ -37,11 +37,12 @@
         <h1 class="title">Store</h1>
         
         <section class="container-button">
+            <button class="button-category" (click)="filter(-1)"  [ngClass]="{'selected-category':idSelectedCategory === -1}" >All</button>
             <button class="button-category" *ngFor="let category of listCategories" (click)="filter(category.id!)" [disabled]="idSelectedCategory === category.id" [ngClass]="{'selected-category':idSelectedCategory === category.id}" >{{category.name|titlecase}}</button>
         </section>
 
         <section class="container-products">
-            <div class="card-product" *ngFor="let product of listProducts"(click)="addToCart(product)">
+            <div class="card-product" *ngFor="let product of listProducts">
                 <div class="card-image">
                     <img [src]="product.imageUrl">
                     <p class="name-product">{{product.name|titlecase}}</p>
@@ -49,8 +50,8 @@
                         <p>{{product.price |currency}}/{{product.weightUnit}}</p>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <p>Buy Now</p>
+                <div class="card-footer" (click)="addToCart(product)">
+                    <p>Add to cart</p>
                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" viewBox="0 0 21 19" fill="none">
                         <path d="M19.4943 1.91544e-08C19.6788 1.91544e-08 19.8558 0.0733032 19.9863 0.203784C20.1168 0.334265 20.1901 0.511235 20.1901 0.695762C20.1901 0.88029 20.1168 1.05726 19.9863 1.18774C19.8558 1.31822 19.6788 1.39152 19.4943 1.39152H18.2085C18.0508 1.39152 17.9135 1.49728 17.8727 1.64942L15.4997 10.5478C16.245 10.7419 16.9049 11.1779 17.3759 11.7872C17.847 12.3966 18.1026 13.145 18.1028 13.9152C18.1028 14.2993 17.7911 14.611 17.407 14.611H2.79601C2.61148 14.611 2.43451 14.5377 2.30404 14.4072C2.17355 14.2767 2.10025 14.0998 2.10025 13.9152C2.10025 13.7307 2.17355 13.5537 2.30404 13.4233C2.43451 13.2928 2.61148 13.2195 2.79601 13.2195H16.5925C16.4486 12.8124 16.182 12.46 15.8294 12.2108C15.4769 11.9616 15.0557 11.8278 14.624 11.828H4.21722C4.08688 11.828 3.95916 11.7913 3.84862 11.7223C3.73807 11.6532 3.64914 11.5545 3.59196 11.4374C2.53284 9.26393 1.61561 7.02415 0.846025 4.73211C0.815619 4.64144 0.804232 4.54547 0.812576 4.4502C0.820919 4.35493 0.848812 4.26241 0.894516 4.1784C0.940218 4.09439 1.00275 4.02071 1.0782 3.96195C1.15366 3.9032 1.24041 3.86062 1.33306 3.8369C6.22583 2.5893 11.2639 2.00366 16.3124 2.09564L16.5276 1.29133C16.6263 0.920948 16.8446 0.593553 17.1486 0.360032C17.4526 0.126511 17.8252 -5.68478e-05 18.2085 1.91544e-08H19.4943ZM18.1028 16.6983C18.1028 16.3292 17.9562 15.9753 17.6952 15.7143C17.4342 15.4534 17.0803 15.3068 16.7113 15.3068C16.3422 15.3068 15.9883 15.4534 15.7273 15.7143C15.4663 15.9753 15.3197 16.3292 15.3197 16.6983C15.3197 17.0673 15.4663 17.4213 15.7273 17.6822C15.9883 17.9432 16.3422 18.0898 16.7113 18.0898C17.0803 18.0898 17.4342 17.9432 17.6952 17.6822C17.9562 17.4213 18.1028 17.0673 18.1028 16.6983ZM6.27482 16.6983C6.27482 16.3292 6.12822 15.9753 5.86725 15.7143C5.60629 15.4534 5.25235 15.3068 4.8833 15.3068C4.51424 15.3068 4.16031 15.4534 3.89934 15.7143C3.63838 15.9753 3.49178 16.3292 3.49178 16.6983C3.49178 17.0673 3.63838 17.4213 3.89934 17.6822C4.16031 17.9432 4.51424 18.0898 4.8833 18.0898C5.25235 18.0898 5.60629 17.9432 5.86725 17.6822C6.12822 17.4213 6.27482 17.0673 6.27482 16.6983Z" fill="white"/>
                         </svg>
