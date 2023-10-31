@@ -1,0 +1,26 @@
+<div class="container">
+    
+    <h2 class="title">Order History</h2>
+    <table >
+        <thead>
+            <th>Order</th>
+            <th>Date</th>
+            <th>Price</th>
+            <th class="name">Client name</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let sale of sales">
+                <td>#{{sale.id}}</td>
+                <td>{{sale.createdAt | date:'mm/dd/yyyy'}}</td>
+                <td>{{sale.total|currency}}</td>
+                <td class="name">{{sale.userName}}</td>
+                <td><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.10811 14.3297C3.91174 8.9103 9.02326 5 15.0511 5C21.0754 5 26.1845 8.90667 27.9905 14.3212C28.136 14.76 28.136 15.2327 27.9905 15.6703C26.1881 21.0897 21.0754 25 15.0487 25C9.02447 25 3.91417 21.0933 2.10932 15.6788C1.96356 15.2409 1.96356 14.7676 2.10932 14.3297H2.10811ZM21.4136 15C21.4136 16.6877 20.7431 18.3064 19.5497 19.4998C18.3563 20.6932 16.7377 21.3636 15.0499 21.3636C13.3622 21.3636 11.7436 20.6932 10.5502 19.4998C9.35674 18.3064 8.68629 16.6877 8.68629 15C8.68629 13.3123 9.35674 11.6936 10.5502 10.5002C11.7436 9.30682 13.3622 8.63636 15.0499 8.63636C16.7377 8.63636 18.3563 9.30682 19.5497 10.5002C20.7431 11.6936 21.4136 13.3123 21.4136 15Z" fill="#148E0A"/>
+                  </svg></td>
+            </tr>
+           
+            
+        </tbody>
+    </table>
+    <button class="button-primary text-700" routerLink="/admin/products">Return to Products</button>
+</div>
