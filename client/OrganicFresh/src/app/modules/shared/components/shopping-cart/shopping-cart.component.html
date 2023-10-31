@@ -76,6 +76,6 @@
             <p class="subtotal">Total</p>
             <p class="subtotal">{{shoppingCart.total | currency}}</p>
         </div>
-        <button class="button-primary text-700"  [disabled]="shoppingCart.items.length<1" >Proceed to checkout</button>
+        <button class="button-primary text-700"  [disabled]="shoppingCart.items.length<1" (click)="proceedToCheckout()" >Proceed to checkout</button>
     </div>
 </div>
