@@ -1,5 +1,6 @@
 using ErrorOr;
 using OrganicFreshAPI.Common.Errors;
+using OrganicFreshAPI.DataService.Data;
 using OrganicFreshAPI.DataService.Repositories.Interfaces;
 using OrganicFreshAPI.Entities.Dtos.Requests;
 using OrganicFreshAPI.Entities.Dtos.Responses;
@@ -11,15 +12,17 @@ public class CheckoutRepository : ICheckoutRepository
 {
     private readonly IAuthenticationRepository _authRepository;
     private readonly IProductRepository _productRepository;
+    private readonly MyDbContext _context;
     private readonly ISaleRepository _saleRepository;
     private readonly IConfiguration _configuration;
 
-    public CheckoutRepository(IAuthenticationRepository authRepository, IProductRepository productRepository, ISaleRepository saleRepository, IConfiguration configuration)
+    public CheckoutRepository(IAuthenticationRepository authRepository, IProductRepository productRepository, ISaleRepository saleRepository, IConfiguration configuration, MyDbContext context)
     {
         _authRepository = authRepository;
         _productRepository = productRepository;
         _saleRepository = saleRepository;
         _configuration = configuration;
+        _context = context;
     }
 
     public async Task<ErrorOr<CreateCheckoutResponse>> CreateCheckout(List<CreateCheckoutRequest> listOfProducts)
@@ -38,9 +41,7 @@ public class CheckoutRepository : ICheckoutRepository
             var product = await _productRepository.GetProductById(productCheckout.productId);
             if (product.IsError)
                 return ApiErrors.Product.InvalidProduct;
-
             // Create checkout details
-            Console.WriteLine(saleResult.Value.ToString());
             var createCheckoutResult = await _saleRepository.CreateCheckoutDetails(saleResult.Value.Id, productCheckout.productId, productCheckout.quantity);
             if (createCheckoutResult.IsError && createCheckoutResult.FirstError == CommonErrors.DbSaveError)
                 return CommonErrors.DbSaveError;
@@ -55,7 +56,7 @@ public class CheckoutRepository : ICheckoutRepository
                 PriceData = new SessionLineItemPriceDataOptions
                 {
                     Currency = "usd",
-                    UnitAmount = (long)product.Value.Price * 100,
+                    UnitAmount = (long)(product.Value.Price * 100),
                     ProductData = new SessionLineItemPriceDataProductDataOptions
                     {
                         Name = product.Value.Name,
@@ -78,10 +79,13 @@ public class CheckoutRepository : ICheckoutRepository
         try
         {
             var session = service.Create(options);
+            saleResult.Value.PaymentId = session.Id;
+            await _context.SaveChangesAsync();
             return new CreateCheckoutResponse(session.Url);
         }
         catch (Exception ex)
         {
+            Console.WriteLine(ex.Message);
             return CommonErrors.UnexpectedError;
         }
 

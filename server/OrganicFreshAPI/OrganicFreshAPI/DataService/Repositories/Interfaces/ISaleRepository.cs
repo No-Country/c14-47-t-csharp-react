@@ -11,4 +11,6 @@ public interface ISaleRepository
     Task<ErrorOr<List<SaleAndCheckoutDetails>>> GetSalesFromUser(
         string userId);
     Task<ErrorOr<List<SaleAndCheckoutDetailsAdmin>>> GetAllSales();
+    Task<ErrorOr<bool>> DeleteSale(string paymentId);
+    Task<ErrorOr<SaleAndCheckoutDetails>> ConfirmPay(string paymentId);
 }

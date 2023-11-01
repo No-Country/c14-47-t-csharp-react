@@ -65,7 +65,7 @@ public class SaleRepository : ISaleRepository
 
     public async Task<ErrorOr<List<SaleAndCheckoutDetails>>> GetSalesFromUser(string userId)
     {
-        var sales = await _context.Sales
+        var sales = await _context.Sales.Where(s => s.ConfirmedPayment == true)
     .Where(s => s.UserId == userId)
     .Select(s => new SaleAndCheckoutDetails
     {
@@ -73,6 +73,7 @@ public class SaleRepository : ISaleRepository
         CreatedAt = s.CreatedAt,
         ModifiedAt = s.ModifiedAt,
         DeletedAt = s.DeletedAt,
+        ConfirmedPayment = s.ConfirmedPayment,
         CheckoutDetails = s.CheckoutsDetails
             .Select(ct => new CheckoutDetails
             {
@@ -80,7 +81,7 @@ public class SaleRepository : ISaleRepository
                 SaleId = ct.SaleId,
                 Quantity = ct.Quantity,
                 Total = ct.Total,
-                ProductName = ct.Product.Name
+                ProductName = ct.Product.Name,
             })
             .ToList()
     })
@@ -91,7 +92,7 @@ public class SaleRepository : ISaleRepository
 
     public async Task<ErrorOr<List<SaleAndCheckoutDetailsAdmin>>> GetAllSales()
     {
-        var sales = await _context.Sales
+        var sales = await _context.Sales.Where(s => s.ConfirmedPayment == true)
     .Select(s => new SaleAndCheckoutDetailsAdmin
     {
         SaleId = s.Id,
@@ -99,6 +100,7 @@ public class SaleRepository : ISaleRepository
         UserId = s.UserId,
         UserName = s.User.Name,
         UserEmail = s.User.Email,
+        ConfirmedPayment = s.ConfirmedPayment,
         ModifiedAt = s.ModifiedAt,
         DeletedAt = s.DeletedAt,
         CheckoutDetails = s.CheckoutsDetails
@@ -117,4 +119,51 @@ public class SaleRepository : ISaleRepository
         return sales;
     }
 
+    public async Task<ErrorOr<bool>> DeleteSale(string paymentId)
+    {
+        var saleToDelete = await _context.Sales.FirstOrDefaultAsync(s => s.PaymentId == paymentId);
+        if (saleToDelete is null)
+            return ApiErrors.Sale.InvalidPaymentId;
+
+        _context.Sales.Remove(saleToDelete);
+
+        var saved = await _context.SaveChangesAsync();
+
+        if (saved <= 0)
+            return CommonErrors.DbSaveError;
+
+        return true;
+    }
+
+    public async Task<ErrorOr<SaleAndCheckoutDetails>> ConfirmPay(string paymentId)
+    {
+        var saleToUpdate = await _context.Sales.FirstOrDefaultAsync(s => s.PaymentId == paymentId);
+
+        if (saleToUpdate is null)
+            return ApiErrors.Sale.InvalidPaymentId;
+
+        saleToUpdate.ConfirmedPayment = true;
+
+        var saved = await _context.SaveChangesAsync();
+
+        if (saved <= 0)
+            return CommonErrors.DbSaveError;
+
+        return new SaleAndCheckoutDetails
+        {
+            SaleId = saleToUpdate.Id,
+            CreatedAt = saleToUpdate.CreatedAt,
+            ModifiedAt = saleToUpdate.ModifiedAt,
+            DeletedAt = saleToUpdate.DeletedAt,
+            CheckoutDetails = saleToUpdate.CheckoutsDetails
+                   .Select(ct => new CheckoutDetails
+                   {
+                       ProductId = ct.ProductId,
+                       SaleId = ct.SaleId,
+                       Quantity = ct.Quantity,
+                       Total = ct.Total,
+                       ProductName = ct.Product.Name
+                   }).ToList()
+        };
+    }
 }

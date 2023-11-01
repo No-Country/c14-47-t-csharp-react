@@ -21,6 +21,7 @@ public record SaleAndCheckoutDetails
     public DateTime CreatedAt { get; set; }
     public DateTime ModifiedAt { get; set; }
     public DateTime DeletedAt { get; set; }
+    public bool ConfirmedPayment { get; set; }
     public List<CheckoutDetails> CheckoutDetails { get; set; }
 }
 
@@ -31,6 +32,7 @@ public record SaleAndCheckoutDetailsAdmin
     public string UserId { get; set; }
     public string UserName { get; set; }
     public string UserEmail { get; set; }
+    public bool ConfirmedPayment { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime ModifiedAt { get; set; }
     public DateTime DeletedAt { get; set; }
