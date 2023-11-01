@@ -13,7 +13,7 @@ public class Product
     public string ImageUrl { get; set; } = string.Empty;
     public string PublicId { get; set; } = string.Empty;
     public ICollection<CheckoutDetails> CheckoutsDetails { get; set; } = new List<CheckoutDetails>();
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public DateTime ModifiedAt { get; set; } = DateTime.UtcNow;
-    public DateTime DeletedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(-3);
+    public DateTime ModifiedAt { get; set; } = DateTime.UtcNow.AddHours(-3);
+    public DateTime DeletedAt { get; set; } = DateTime.UtcNow.AddHours(-3);
 }
