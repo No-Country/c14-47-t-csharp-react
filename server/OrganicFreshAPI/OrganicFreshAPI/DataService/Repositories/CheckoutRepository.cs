@@ -71,8 +71,8 @@ public class CheckoutRepository : ICheckoutRepository
             PaymentMethodTypes = new List<string> { "card" },
             LineItems = lineItems,
             Mode = "payment",
-            SuccessUrl = _configuration["StripeUrls:SuccessUrl"],
-            CancelUrl = _configuration["Stripe:CancelUrl"]
+            SuccessUrl = _configuration["StripeUrls:SuccessUrl"]+ saleResult.Value.Id,
+            CancelUrl = _configuration["StripeUrls:CancelUrl"]
         };
 
         var service = new SessionService();
