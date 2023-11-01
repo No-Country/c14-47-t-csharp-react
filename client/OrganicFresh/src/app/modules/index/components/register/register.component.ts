@@ -71,7 +71,7 @@ export class RegisterComponent {
       return { digit: true }; // Error si no hay números
     }
   
-    if (value.length < 6) {
+    if (value.length < 8) {
       return { minlength: true }; // Error si la longitud es menor a 8 caracteres
     }
   

@@ -52,8 +52,9 @@
                         <path d="M16.5 8.25V24.75M24.75 16.5H8.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                      </ng-template> 
-                      
-                    <input class="quantity" type="number" readonly [value]="item.quantity">
+                      <div class="quantity">
+                        <p>{{item.quantity}}</p>
+                      </div>
                     <p class="weight-unit">{{item.product.weightUnit | lowercase}}</p>
 
                 </div>

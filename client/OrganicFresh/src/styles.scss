@@ -28,7 +28,9 @@ li{
     cursor: pointer;
     
 }
-
+*:hover{
+    transition: all 300ms ease-out;
+}
 .button-primary:hover{
 
     background-color: var(--color-secondary) !important;

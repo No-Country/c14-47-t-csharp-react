@@ -20,7 +20,6 @@ export class OrdersComponent implements OnInit{
   ngOnInit(): void {
     this.user$.subscribe({
       next:(res)=>{
-        console.log(res);
         res?.sales.forEach(sale => {
           sale.total = 0;
           sale.id = sale.checkoutDetails[0].saleId;

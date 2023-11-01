@@ -39,11 +39,9 @@ export class ShoppingCartComponent {
 
         this.checkoutService.createCheckoutSession(res.items).subscribe({
           next:(res)=>{
-            console.log(res);
             window.open(res.checkoutUrl,'_self')
           },
           error:(err)=>{
-            console.log(err);
           }
         });
       }

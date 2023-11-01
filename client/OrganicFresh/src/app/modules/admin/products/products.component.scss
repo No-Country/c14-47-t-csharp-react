@@ -31,6 +31,7 @@ button{
 .logo-edit:hover{
   path{
     stroke: var(--color-secondary);
+    transition: all ease-out 300ms;
   }
 }
 

@@ -66,11 +66,13 @@ button{
    .icon-house{
         path{
             fill: #FF6B00;
+            transition: all ease-out 300ms;
         }
    }
    .icon-back{
     path{
         stroke: #FF6B00;
+        transition: all ease-out 300ms;
 
     }
    }

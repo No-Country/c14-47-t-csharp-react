@@ -37,6 +37,7 @@ nav{
 .item-cart:hover{
     cursor: pointer;
     path{
+        transition: all ease-out 300ms;
        fill: var(--color-secondary);
     }
 }
@@ -104,6 +105,19 @@ app-footer{
         background-color: var(--color-secondary);
         opacity: 1;
     }
+
+    .card-image::before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.00) 30.83%);
+        
+    }
+   
+        
 }
 
 
@@ -116,8 +130,12 @@ app-footer{
         width: 100%;
         height: 100%;
         object-fit: cover;
+      
+      
     }
 }
+
+
 
 .name-product{
     position: absolute;
@@ -192,7 +210,9 @@ app-footer{
     .container{
         padding: 0 32px;
     }
-   
+    .container-button{
+        padding-bottom: 12px;
+    }
     .container-products{
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;

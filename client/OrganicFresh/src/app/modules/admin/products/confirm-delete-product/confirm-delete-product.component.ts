@@ -21,7 +21,6 @@ export class ConfirmDeleteProductComponent {
         this.dialogRef.close(true);
       },
       error:(err)=>{
-        console.log(err);
       }
     });
   }
