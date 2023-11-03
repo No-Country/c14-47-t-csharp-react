@@ -3,24 +3,25 @@
 
 ## Vistas
 
+https://www.youtube.com/watch?v=TVPZuYT0Fz8
 ## Equipo
 ### Frontend
-| <img src="" width=80>|
-|:-:|
-| ****|
-| <a href="https://github.com/modestsp"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/sebasperichon/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+| <img src="https://ca.slack-edge.com/T02KS88FB0E-U05UQBLNMAM-fcbbb4b85816-512" width=80>| <img src="https://ca.slack-edge.com/T02KS88FB0E-U05N10MCA67-ga363e7e212c-512" width=80> 
+|:-:|:-:|
+| **Rodrigo Arguello**| **Alejandro Belmar**|  
+| <a href="https://github.com/rodriarguello"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/rodrigo-arguello-402073240"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://github.com/Jano6elmar"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/alejandro-belmar-chavez/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/><a> |
 
 ### Backend
-| <img src="" width=80>|
+| <img src="https://ca.slack-edge.com/T02KS88FB0E-U05R92YD5PC-4ecd668edbab-512" width=80>|
 |:-:|
 | **Sebastián Perichón**|
 | <a href="https://github.com/modestsp"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/sebasperichon/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
 
 ### UX/UI
-| <img src="" width=80>|
+| <img src="https://ca.slack-edge.com/T02KS88FB0E-U05UC2SNHK5-97f3c3450240-512" width=80>|
 |:-:|
-| ****|
-| <a href="https://github.com/modestsp"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/sebasperichon/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+| **Felipe Ruiz**|
+| <a href="https://github.com/coderpax"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/paxmultimedia"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
 
 ## Tech Stack
 ### Frontend
