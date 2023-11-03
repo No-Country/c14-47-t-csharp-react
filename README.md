@@ -5,11 +5,7 @@
 
 ### Video promocional
 
-
-
-[![Watch the video](https://img.youtube.com/vi/TVPZuYT0Fz8/hqdefault.jpg)](https://youtu.be/TVPZuYT0Fz8)
-
-
+[![Watch the video](https://img.youtube.com/vi/_BmGsaejZqc/hqdefault.jpg)](https://youtu.be/_BmGsaejZqc)
 
 ## Vistas
 
