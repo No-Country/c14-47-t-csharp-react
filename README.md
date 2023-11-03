@@ -2,11 +2,20 @@
 ## Descripción
 **Nueva plataforma web OrganicFresh para ventas de frutas y verduras por internet**
 <hr/>
-(https://youtu.be/TVPZuYT0Fz8 "Demo")
+
+### Video promocional
+
+[<img src="http://i3.ytimg.com/vi/TVPZuYT0Fz8/hqdefault.jpg" width="600" height="300"
+/>](https://youtu.be/TVPZuYT0Fz8)
+
 ## Vistas
-<img src="https://res.cloudinary.com/dgxnrpcwy/image/upload/v1699037087/OG-nest_d31bty.png">
-<img src="https://res.cloudinary.com/dgxnrpcwy/image/upload/v1699037077/OG-medium_kvimmf.png">
-<img src="https://res.cloudinary.com/dgxnrpcwy/image/upload/v1699036974/OG-mobile_cjkgkd.png">
+
+<img src="https://res.cloudinary.com/dgxnrpcwy/image/upload/v1699037077/OG-medium_kvimmf.png" width=768 height=1024>
+<hr/>
+<img src="https://res.cloudinary.com/dgxnrpcwy/image/upload/v1699037087/OG-nest_d31bty.png" width=360 height=740>
+<hr/>
+<img src="https://res.cloudinary.com/dgxnrpcwy/image/upload/v1699036974/OG-mobile_cjkgkd.png" width=1280 height=800>
+<hr/>
 
 ## Equipo
 ### Frontend
