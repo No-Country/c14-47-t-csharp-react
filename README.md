@@ -5,13 +5,11 @@
 
 ### Video promocional
 
-[<img src="http://i3.ytimg.com/vi/TVPZuYT0Fz8/hqdefault.jpg" width="600" height="300"
-/>](https://youtu.be/TVPZuYT0Fz8)
 
-[![Watch the video](https://img.youtube.com/vi/TVPZuYT0Fz8/hqdefault.jpg)](https://www.youtube.com/embed/TVPZuYT0Fz8)
 
-[<img src="https://img.youtube.com/vi/TVPZuYT0Fz8/hqdefault.jpg" width="600" height="300"
-/>](https://www.youtube.com/embed/TVPZuYT0Fz8)
+[![Watch the video](https://img.youtube.com/vi/TVPZuYT0Fz8/hqdefault.jpg)](https://youtu.be/TVPZuYT0Fz8)
+
+
 
 ## Vistas
 
