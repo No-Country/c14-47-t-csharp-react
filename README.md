@@ -8,6 +8,11 @@
 [<img src="http://i3.ytimg.com/vi/TVPZuYT0Fz8/hqdefault.jpg" width="600" height="300"
 />](https://youtu.be/TVPZuYT0Fz8)
 
+[![Watch the video](https://img.youtube.com/vi/TVPZuYT0Fz8/hqdefault.jpg)](https://www.youtube.com/embed/TVPZuYT0Fz8)
+
+[<img src="https://img.youtube.com/vi/TVPZuYT0Fz8/hqdefault.jpg" width="600" height="300"
+/>](https://www.youtube.com/embed/TVPZuYT0Fz8)
+
 ## Vistas
 
 <img src="https://res.cloudinary.com/dgxnrpcwy/image/upload/v1699037077/OG-medium_kvimmf.png" width=768 height=1024>
