@@ -1,9 +1,25 @@
 # c14-47-t-csharp-react
 ## Descripción
+**Nueva plataforma web OrganicFresh para ventas de frutas y verduras por internet**
+<hr/>
+
+### Video promocional
+
+
+
+[![Watch the video](https://img.youtube.com/vi/TVPZuYT0Fz8/hqdefault.jpg)](https://youtu.be/TVPZuYT0Fz8)
+
+
 
 ## Vistas
 
-https://www.youtube.com/watch?v=TVPZuYT0Fz8
+<img src="https://res.cloudinary.com/dgxnrpcwy/image/upload/v1699037077/OG-medium_kvimmf.png" width=768 height=1024>
+<hr/>
+<img src="https://res.cloudinary.com/dgxnrpcwy/image/upload/v1699037087/OG-nest_d31bty.png" width=360 height=740>
+<hr/>
+<img src="https://res.cloudinary.com/dgxnrpcwy/image/upload/v1699036974/OG-mobile_cjkgkd.png" width=1280 height=800>
+<hr/>
+
 ## Equipo
 ### Frontend
 | <img src="https://ca.slack-edge.com/T02KS88FB0E-U05UQBLNMAM-fcbbb4b85816-512" width=80>| <img src="https://ca.slack-edge.com/T02KS88FB0E-U05N10MCA67-ga363e7e212c-512" width=80> 
@@ -37,5 +53,4 @@ https://www.youtube.com/watch?v=TVPZuYT0Fz8
 ### UX/UI
 ![Figma](https://res.cloudinary.com/danjwp1pg/image/upload/v1694564806/Figma_izf7ta.svg)
 ![Trello](https://res.cloudinary.com/danjwp1pg/image/upload/v1694564806/Trello_uqbiqn.svg)
-
 
