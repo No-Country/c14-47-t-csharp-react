@@ -5,7 +5,11 @@
 
 ### Video promocional
 
-[![Watch the video](https://img.youtube.com/vi/_BmGsaejZqc/hqdefault.jpg)](https://youtu.be/_BmGsaejZqc)
+
+
+[![Watch the video](https://img.youtube.com/vi/TVPZuYT0Fz8/hqdefault.jpg)](https://youtu.be/TVPZuYT0Fz8)
+
+
 
 ## Vistas
 
@@ -49,4 +53,3 @@
 ### UX/UI
 ![Figma](https://res.cloudinary.com/danjwp1pg/image/upload/v1694564806/Figma_izf7ta.svg)
 ![Trello](https://res.cloudinary.com/danjwp1pg/image/upload/v1694564806/Trello_uqbiqn.svg)
-
