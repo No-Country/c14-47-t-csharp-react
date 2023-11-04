@@ -1,0 +1,51 @@
+.container-categories{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+table{
+  width: 100%;
+  margin-top: 20px;
+}
+
+th{
+  text-align: start;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+
+button{
+  width: 312px;
+  margin: 20px 0;
+}
+
+.logo-edit{
+  cursor: pointer;
+}
+.logo{
+  text-align: end;
+}
+.logo-edit:hover{
+  path{
+    stroke: var(--color-secondary);
+    transition: all ease-out 300ms;
+  }
+}
+
+.title{
+  font-size: 16px;
+}
+.stock{
+  display: none;
+}
+@media (min-width:768px) {
+  .title{
+    font-size: 20px;
+  }
+  .stock{
+    display: flex;
+  }
+}

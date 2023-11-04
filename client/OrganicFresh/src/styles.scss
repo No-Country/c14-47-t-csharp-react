@@ -1,1 +1,136 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --color-primary: #148E0A; // Define una variable a nivel root
+    --color-primary-dark: #083C04;
+    --color-secondary: #FF6B00;
+    --color-white:#fff;
+    --color-disabled:#B3B3B3;
+    --color-warn:#EB2323;
+    
+  }
+html, body { height: 100%; }
+*,*::after,*::before{
+    box-sizing: border-box;
+}
+body,* { margin: 0; font-family: 'Open Sans', sans-serif; }
+li{
+    list-style: none;
+}
+.button-primary{
+    
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-size: 1rem;
+    width: 100%;
+    border: none;
+    padding: 14px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+*:hover{
+    transition: all 300ms ease-out;
+}
+.button-primary:hover{
+
+    background-color: var(--color-secondary) !important;
+    color: var(--color-white) !important;
+}
+
+.button-primary:disabled{
+    background-color: var(--color-disabled) !important;
+    color: var(--color-white) !important;
+}
+
+.input-primary{
+    border: solid 1.2px #1e9f234d;
+    border-radius: .5rem;
+    outline:none;
+    padding-left: 12px;
+    width: 100%;
+    height: 50px;
+}
+
+.input-primary:focus, .input-primary:hover{
+    border: solid 1.2px #1e9f23;
+    
+}
+
+.input-error{
+    border: solid 1.2px var(--color-warn);
+}
+
+.input-error:focus, .input-error:hover{
+    border: solid 1.2px var(--color-warn);
+}
+
+.text-primary{
+    color: var(--color-primary) ;
+}
+
+.text-secondary{
+    color: var(--color-secondary);
+}
+.text-primary-link{
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+.text-primary-link:hover{
+    color: var(--color-secondary);
+}
+
+.text-primary-dark{
+    color: var(--color-primary-dark) ;
+}
+
+.text-700{
+    font-weight: 700;
+}
+.text-error{
+    color: var(--color-warn);
+}
+mat-error{
+    font-size: 14px;
+    color: var(--color-warn) !important;
+}
+
+.mat-mdc-dialog-surface{
+
+    border-radius: 10px!important;
+    background-color: var(--color-white)!important;
+}
+.button-grey{
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid #B3B3B3;
+    background-color: #FFF;
+    color:#B3B3B3;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 12px 0;
+    font-size: 1rem;
+}
+
+.button-grey:hover{
+    border: 2px solid var(--color-secondary);
+    color:var(--color-secondary);
+}
+
+.button-warn{
+    width: 100%;
+    height: 50px!important;
+    border-radius: 5px;
+    background-color: var(--color-warn) ;
+    font-weight: 700;
+    padding: 14px 0;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--color-white);
+    border: none;
+}
+
+.button-warn:hover{
+    background-color: var(--color-secondary);
+}
+

@@ -53,4 +53,3 @@
 ### UX/UI
 ![Figma](https://res.cloudinary.com/danjwp1pg/image/upload/v1694564806/Figma_izf7ta.svg)
 ![Trello](https://res.cloudinary.com/danjwp1pg/image/upload/v1694564806/Trello_uqbiqn.svg)
-

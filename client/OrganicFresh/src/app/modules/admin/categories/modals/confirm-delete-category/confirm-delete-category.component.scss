@@ -1,0 +1,40 @@
+.container{
+    width: 80vw;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    svg{
+        margin-top: 2px;
+        cursor: pointer;
+    }
+    p{
+        width: 90%;
+    }
+
+}
+
+.text-alert{
+    margin: 8px 0 6px;
+}
+.button-back{
+    margin: 16px 0 8px;
+}
+
+p{
+    font-weight: 600;
+}
+
+@media (min-width:500px) {
+    .container{
+        width: 360px;
+    }
+}

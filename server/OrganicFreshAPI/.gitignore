@@ -18,7 +18,7 @@ Ecommerce.DataService/obj
 .vscode
 # Mono auto generated files
 mono_crash.*
-
+appSettings.*
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
